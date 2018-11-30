@@ -43,5 +43,13 @@ a {
   float: right;
 }
 
+.totalm {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.coursePresent .el-card__body {
+  padding: 0;
+}
 
 </style>
