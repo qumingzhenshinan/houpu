@@ -9,6 +9,7 @@ import CourseDetail from '@/views/course/detail'
 import PersonalCenter from '@/views/personalCenter/index'
 import ConfirmationOrder from '@/views/order/confirmationOrder'
 import PaymentOrder from '@/views/order/payment/index'
+import test from '@/views/test/test'
 
 Vue.use(Router)
 
@@ -16,7 +17,7 @@ export default new Router({
   routes: [
     // 首页
     {
-			path: '/',
+	  path: '/',
       name: 'home',
       component: Home
     },
@@ -62,5 +63,11 @@ export default new Router({
     	name: 'paymentOrder',
     	component: PaymentOrder
     },
+    // test 测试文件
+    {
+        path: '/test',
+        name: 'test',
+        component: test
+    }
   ]
 })
