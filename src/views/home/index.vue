@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Header></Header>
     <div class="totalw">
       <div class="block">
         <el-carousel height="300px">
@@ -12,6 +13,7 @@
       <Teacher></Teacher>
       <Student></Student>
       <Learning></Learning>
+      <Footer></Footer>
     </div>
   </div>
 </template>
@@ -43,6 +45,8 @@ import Student from './student.vue'
 import Teacher from './teacher.vue'
 import Course from './course.vue'
 import Learning from './learning'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
   name: 'home',
@@ -55,7 +59,9 @@ export default {
     Student,
     Teacher,
     Course,
-    Learning
+    Learning,
+    Header,
+    Footer
   },
   methods: {
     
