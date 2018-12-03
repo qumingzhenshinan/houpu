@@ -1,25 +1,31 @@
 <template>
   <div class="start">
     <div class="mima">
+      <img src="@/assets/img/code.png" class="rightImg" @click="gotext" alt="">
+      <div class="code">
+        扫码登录
+      </div>
       <div class="title">
-        注册
+        密码登录
       </div>
       <el-form class="form" :model="login" status-icon :rules="rulesLogin" ref="login">
         <el-form-item prop="name">
           <el-input prefix-icon="el-icon-mobile-phone" oninput="value=value.replace(/[^\d]/g,'')" placeholder="请输入手机号" v-model.number="login.name"></el-input>
         </el-form-item>
-        <el-form-item prop="code">
-          <el-input class="codes" v-model="login.code" placeholder="请输入验证码"></el-input>
-          <span class="scode" @click="createCode">{{verificationCode}}</span>
-        </el-form-item>
         <el-form-item prop="pass" class="pass">
           <el-input type="password" placeholder="请输入密码6-12位密码字母组合" v-model="login.pass"></el-input>
           <img src="@/assets/img/pass.png" alt="">
         </el-form-item>
+        <el-form-item prop="code">
+          <el-input class="codes" v-model="login.code" placeholder="请输入验证码"></el-input>
+          <span class="scode" @click="createCode">{{verificationCode}}</span>
+        </el-form-item>
       </el-form>
-      <el-button class="login" type="primary">注册</el-button>
+      <el-checkbox label="自动登录" name="type"></el-checkbox>
+      <el-button class="login" type="primary">登录</el-button>
       <div class="wmima">
-        <span @click="goL">登录</span> 
+        <span>忘记密码？</span>
+        <span @click="goR">注册</span> 
       </div>
     </div>
   </div>
@@ -37,7 +43,7 @@ export default {
           if (!Number.isInteger(value)) {
             callback(new Error('请输入数字值'));
           } else {
-            if (!(/^1[34578]\d{9}$/.test(value))) {
+            if (!(/^1[3465789]\d{9}$/.test(value))) {
               callback(new Error('手机号格式不正确'));
             } else {
               callback();
@@ -95,7 +101,7 @@ export default {
     }
   },
   methods: {
-    createCode:function () {    //通过随机数生成验证码
+    createCode() {    //通过随机数生成验证码
       var code = '';
       var codeLength = 4;     //验证码长度
       var random = new Array(0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R', 'S','T','U','V','W','X','Y','Z');
@@ -105,15 +111,17 @@ export default {
       }
       this.verificationCode = code
     },
-    goL() {
-      this.$emit('tologin')
+    gotext() {
+      this.$emit('tologins')
+    },
+    goR() {
+      this.$emit('toR')
     }
   },
   created() {
-    this.createCode()
   },
   mounted() {
-    
+    this.createCode()
   }
 }
 </script>
@@ -193,6 +201,10 @@ export default {
 }
 
 .wmima>span:first-child {
+  opacity: 0.4;
+}
+
+.wmima>span:nth-child(2) {
   float: right;
   cursor: pointer;
 }

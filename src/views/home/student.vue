@@ -6,8 +6,8 @@
       </div>
       <div class="banner">
         <div id="bannerT" class="bannerbox">
-          <img id="leftT" class="leftimg" src="@/assets/img/studentleft.png" alt="">
-          <img id="rightT" class="rightimg" src="@/assets/img/studentright.png" alt="">
+          <img id="leftT" @click="goleft" class="leftimg" src="@/assets/img/studentleft.png" alt="">
+          <img id="rightT" @click="goright" class="rightimg" src="@/assets/img/studentright.png" alt="">
           <div :style="{width: studentW}" class="bannerdiv">
             <div class="bannerBU" v-for="item in studentPresent">
               <img :src="base + item.pimgUrl" alt="">
@@ -77,6 +77,14 @@ export default {
       this.studentW = 255 * this.studentPresent.length + 'px'
     })
     this.base = Base
+  },
+  methods: {
+    goleft() {
+      document.getElementById('bannerT').scrollLeft -= 255
+    },
+    goright() {
+      document.getElementById('bannerT').scrollLeft += 255
+    }
   }
 }
 </script>

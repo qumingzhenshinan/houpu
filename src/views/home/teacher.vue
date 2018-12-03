@@ -4,8 +4,8 @@
       <div class="title">
         名师介绍
       </div>
-      <img id="leftimg" class="teacherLeft" src="@/assets/img/teacherleft.png" alt="">
-      <img id="rightimg" class="teacherRight" src="@/assets/img/teacherright.png" alt="">
+      <img id="leftimg" @click="goleft" class="teacherLeft" src="@/assets/img/teacherleft.png" alt="">
+      <img id="rightimg" @click="goright" class="teacherRight" src="@/assets/img/teacherright.png" alt="">
       <div class="banner totalm">
         <div id="bannerb" class="bannerbox">
           <div :style="{width: teacherW, height: teacherH + 'px'}">
@@ -58,7 +58,7 @@ export default {
       ],
       teacherW: 0,
       teacherH: 290,
-      base: ''
+      base: '',
     }
   },
   created() {
@@ -66,8 +66,15 @@ export default {
       this.teacherPresent = data.teacher
       this.teacherW = 312 * this.teacherPresent.length + 'px'
     })
-    
     this.base = Base
+  },
+  methods: {
+    goleft() {
+      document.getElementById('bannerb').scrollLeft -= 312
+    },
+    goright() {
+      document.getElementById('bannerb').scrollLeft += 312
+    }
   }
 }
 </script>

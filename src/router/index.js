@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/home/index'
-import Login from '@/views/start/login'
-import Register from '@/views/start/register'
+import Start from '@/views/start/index'
 import CourseList from '@/views/course/list'
 import CourseDetail from '@/views/course/detail'
 import PersonalCenter from '@/views/personalCenter/index'
@@ -17,21 +16,15 @@ export default new Router({
   routes: [
     // 首页
     {
-	  path: '/',
+	   path: '/',
       name: 'home',
       component: Home
     },
-    // 登录
+    // 登录注册页
     {
-    	path: '/login',
-    	name: 'login',
-    	component: Login
-    },
-    // 注册
-    {
-    	path: '/register',
-    	name: 'register',
-    	component: Register
+      path: '/start',
+      name: 'start',
+      component: Start
     },
     // 课程列表
     {

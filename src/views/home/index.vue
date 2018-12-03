@@ -19,28 +19,6 @@
 </template>
 
 <script>
-window.onload=function(){
-  // 首页教师展示
-  var bannerb = document.getElementById('bannerb');
-  var goleft = document.getElementById('leftimg');
-  var goright = document.getElementById('rightimg');
-  goleft.onclick=function(){
-    bannerb.scrollLeft=bannerb.scrollLeft-312
-  }
-  goright.onclick=function(){
-    bannerb.scrollLeft=bannerb.scrollLeft+312
-  }
-  // 首页学生展示
-  var bannerT = document.getElementById('bannerT');
-  var goleftT = document.getElementById('leftT');
-  var gorightT = document.getElementById('rightT');
-  goleftT.onclick=function(){
-    bannerT.scrollLeft=bannerT.scrollLeft-255
-  }
-  gorightT.onclick=function(){
-    bannerT.scrollLeft=bannerT.scrollLeft+255
-  }
-}
 import Student from './student.vue'
 import Teacher from './teacher.vue'
 import Course from './course.vue'
