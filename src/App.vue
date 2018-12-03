@@ -52,4 +52,34 @@ a {
   padding: 0;
 }
 
+.mima .el-input__inner {
+  padding-left: 35px;
+}
+
+.mima .el-form-item {
+  margin-bottom: 18px;
+}
+
+.retrieve .el-step__head.is-success {
+  color: #0099FF;
+  border-color: #0099FF;
+}
+
+.retrieve .el-step__head.is-process {
+  color: #c0c4cc;
+  border-color: #c0c4cc;
+}
+
+.retrieve .el-step__title.is-process {
+  color: #c0c4cc;
+}
+
+.retrieve .el-step__title.is-success {
+  color: #0099ff;
+}
+
+.step .el-input__inner {
+  padding-left: 35px;
+  border-radius: 50px;
+}
 </style>
