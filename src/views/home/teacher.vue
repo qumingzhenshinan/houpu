@@ -9,7 +9,7 @@
       <div class="banner totalm">
         <div id="bannerb" class="bannerbox">
           <div :style="{width: teacherW, height: teacherH + 'px'}">
-            <div class="bannerBU" v-for="item in teacherPresent">
+            <div class="bannerBU" @click="toDetail(item.tid)" v-for="item in teacherPresent">
               <img :src="base + item.timgUrl" alt="">
               <p> {{item.tname}} </p>
               <p class="bannerP" v-html="item.tintro">
@@ -74,6 +74,9 @@ export default {
     },
     goright() {
       document.getElementById('bannerb').scrollLeft += 312
+    },
+    toDetail(id) {
+      this.$router.push(`/detail/teacher/${id}`)
     }
   }
 }
@@ -152,6 +155,7 @@ export default {
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.08);
   box-sizing: border-box;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .bannerBU img {

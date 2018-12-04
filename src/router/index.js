@@ -12,6 +12,8 @@ import PaymentOrder from '@/views/order/payment/index'
 import test from '@/views/test/test'
 import PersonalCenterdetail from '@/views/personalCenter/personalCenterdetail'
 import MyCoupon from '@/views/personalCenter/myCoupon'
+import TeacherDeatail from '@/views/detail/teacher'
+import StudentDeatail from '@/views/detail/student'
 
 Vue.use(Router)
 
@@ -54,9 +56,9 @@ export default new Router({
     },
     //个人信息修改
     {
-          path: '/personalCenterdetail',
-          name: 'personalCenterdetail',
-          component: PersonalCenterdetail,
+      path: '/personalCenterdetail',
+      name: 'personalCenterdetail',
+      component: PersonalCenterdetail,
     },
     //我的优惠券
     {
@@ -76,11 +78,23 @@ export default new Router({
     	name: 'paymentOrder',
     	component: PaymentOrder
     },
+    // 老师详情页
+    {
+      path: '/detail/teacher/:id',
+      name: 'teacherDetail',
+      component: TeacherDeatail
+    },
+    // 学生详情页
+    {
+      path: 'detail/student',
+      name: 'studentDetail',
+      component: StudentDeatail
+    },
     // test 测试文件
     {
-        path: '/test',
-        name: 'test',
-        component: test
+      path: '/test',
+      name: 'test',
+      component: test
     }
   ]
 })
