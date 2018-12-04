@@ -1,84 +1,101 @@
 <template>
     <div class="totalw">
-        <div>
-            <el-row>
-                <div style="font-size:16px;color:#ccc;margin-bottom:2px;">当前条件 ></div>
-            </el-row>
-            <el-row>
-                <div class="mainheader">
-                    <el-col :span="1.5">
-                        <div class="mainclass">学科:</div>
-                    </el-col>
-                    <el-col :span="22">
-                        <div class="miansubject">
-                            <span><el-button size="small">语文</el-button></span>
-                            <span><el-button size="small">数学</el-button></span>
-                            <span><el-button size="small">英语</el-button></span>
-                            <span><el-button size="small">物理</el-button></span>
-                            <span><el-button size="small">化学</el-button></span>
-                            <span><el-button size="small">科学</el-button></span>
-                        </div>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <div class="mainclass">年级:</div>
-                    </el-col>
-                    <el-col :span="22">
-                        <div class="miansubject">
-                            <span><el-button size="small">一年级</el-button></span>
-                            <span><el-button size="small">二年级</el-button></span>
-                            <span><el-button size="small">三年级</el-button></span>
-                        </div>
-                    </el-col>
-                    <el-col :span="1.5">
-                        <div class="mainclass">类别:</div>
-                    </el-col>
-                    <el-col :span="22">
-                        <div class="miansubject">
-                            <span><el-button size="small">常规课</el-button></span>
-                            <span><el-button size="small">竞赛课</el-button></span>
-                        </div>
-                    </el-col>
-                </div>
-            </el-row>
-        </div>
-        <div class="line"></div>
-        <div class="mainlist">
-            <div class="mainlist-content" v-for="item in mianlistarry"  @click="courseDetails">
-                <el-row class="">
-                    <el-col :span="5">
-                        <div class="mainlist-img">
-                            <img :src="item.img" alt="">
-                        </div>
-                    </el-col>
-                    <el-col :span="18">
-                        <div class="mainlist-center">
-                            <span style="font-family: MicrosoftYaHei-Bold;font-size: 18px;color: #000000;">{{item.title}}</span>
-                            <span style="display: block;margin-top: 20px;">主讲老师:  {{item.teacher}}</span>
-                            <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 500px;margin-top: 31px;height: 38px;">{{item.describe}}</span>
-                            <span style="font-family: MicrosoftYaHei-Bold;font-size: 30px;color: #F5A623;text-align: right;display: block;position: relative;margin-top: -102px;">¥{{item.money}}</span>
-                            <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;text-align: right;display: block;margin-top: 6px;">原价￥{{item.oldmony}}</span>
-                        </div>    
-                    </el-col>
+        <Header></Header>
+        <div class="totalm">
+            <div>
+                <el-row>
+                    <div style="font-size:16px;color:#ccc;margin-bottom:2px;">当前条件 ></div>
+                </el-row>
+                <el-row>
+                    <div class="mainheader">
+                        <el-col :span="1.5">
+                            <div class="mainclass">学科:</div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="miansubject">
+                                <span><el-button size="small">语文</el-button></span>
+                                <span><el-button size="small">数学</el-button></span>
+                                <span><el-button size="small">英语</el-button></span>
+                                <span><el-button size="small">物理</el-button></span>
+                                <span><el-button size="small">化学</el-button></span>
+                                <span><el-button size="small">科学</el-button></span>
+                            </div>
+                        </el-col>
+                        <el-col :span="1.5">
+                            <div class="mainclass">年级:</div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="miansubject">
+                                <span><el-button size="small">一年级</el-button></span>
+                                <span><el-button size="small">二年级</el-button></span>
+                                <span><el-button size="small">三年级</el-button></span>
+                            </div>
+                        </el-col>
+                        <el-col :span="1.5">
+                            <div class="mainclass">类别:</div>
+                        </el-col>
+                        <el-col :span="22">
+                            <div class="miansubject">
+                                <span><el-button size="small">常规课</el-button></span>
+                                <span><el-button size="small">竞赛课</el-button></span>
+                            </div>
+                        </el-col>
+                    </div>
                 </el-row>
             </div>
+            <div class="line"></div>
+            <div class="mainlist">
+                <div class="mainlist-content" v-for="item in mianlistarry"  @click="courseDetails(item)">
+                    <el-row class="">
+                        <el-col :span="5">
+                            <div class="mainlist-img">
+                                <img :src="'http://www.houpuclass.com:8089' + item.gvimg" alt="">
+                            </div>
+                        </el-col>
+                        <el-col :span="18">
+                            <div class="mainlist-center">
+                                <span style="font-family: MicrosoftYaHei-Bold;font-size: 18px;color: #000000;">{{item.gname}}</span>
+                                <span style="display: block;margin-top: 20px;">主讲老师:  {{item.teacherName}}</span>
+                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-html="item.gintro"></span>
+                                <span style="font-family: MicrosoftYaHei-Bold;font-size: 30px;color: #F5A623;text-align: right;display: block;position: absolute;top:35px;right:20px;">¥{{item.gisVip}}</span>
+                                <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;text-align: right;display: block;position: absolute;top:75px;right:20px;">原价￥{{item.gmoney}}</span>
+                            </div>    
+                        </el-col>
+                    </el-row>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div style="text-align:center">
+                <el-pagination
+                    background
+                    :page-size="10"
+                    :current-page="currentPage"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    next-text="下一页"
+                    prev-text="上一页"
+                    layout="prev, pager, next"
+                    :total="total">
+                </el-pagination>
+            </div>
         </div>
-        <div class="line"></div>
-        <div style="text-align:center">
-            <el-pagination
-                background
-                next-text="下一页"
-                prev-text="上一页"
-                layout="prev, pager, next"
-                :total="1000">
-            </el-pagination>
-        </div>
+        <Footer></Footer>
     </div>
 </template>
 <script>
 import Vue from 'vue'
+import api from '@/api'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 export default {
+    components: {
+        Header,
+        Footer
+    },
     data(){
         return {
+            currentPage: 10,
+            total: 0,
             mianlistarry: [
                 {
                     img:require('../../assets/img/Bitmap.png'),
@@ -100,14 +117,21 @@ export default {
         }
     },
     created(){
-        // AllCourse().then(data => {
-        //         // console.log(data.generalvideos)
-        //         this.mianlistarry = data.generalvideos
-        // });
+        api.AllCourse().then(data => {
+                this.mianlistarry = data.generalvideos
+                this.total = this.mianlistarry.length
+        });
     },
     methods: {
         courseDetails(val){
-            this.$router.push({name:'detail'})
+            this.$router.push({name:'detail',params: {gid:val.gid}})
+        },
+        handleSizeChange(val) {
+        
+        },
+        //点击下一页和点击页码时执行
+        handleCurrentChange(val) {
+        
         },
     }
 }
@@ -153,7 +177,8 @@ export default {
  .mainlist-center {
      width: 100%;
      margin-left: 10px;
-     height: 180px;
+     min-height: 160px;
+     position: relative;
  }
  .mainlist-content {
      margin-bottom: 10px;

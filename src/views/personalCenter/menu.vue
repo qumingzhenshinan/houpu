@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row>
-            <el-col :span="24">
+            <el-col :span="24" style="margin-bottom:20px;">
                 <el-menu
                     style="border:0;"
                     default-active="1"
@@ -14,11 +14,11 @@
                         <i><img src="../../assets/img/优惠劵.jpg" alt=""></i>
                         <span slot="title">我的优惠卷</span>
                     </el-menu-item>
-                    <el-menu-item index="3" class="menuborser">
+                    <el-menu-item index="3" class="menuborser" @click="myorder">
                         <i><img src="../../assets/img/订单2.png" alt=""></i>
                         <span slot="title">我的订单</span>
                     </el-menu-item>
-                    <el-menu-item index="4" class="menuborser">
+                    <el-menu-item index="4" class="menuborser" @click="mytest">
                         <i><img src="../../assets/img/笔1.png" alt=""></i>
                         <span slot="title">我的小测试</span>
                     </el-menu-item>
@@ -36,7 +36,7 @@ import Vue from 'vue'
   export default {
       data(){
         return {
-           
+
         }
     },
     created(){
@@ -49,6 +49,12 @@ import Vue from 'vue'
         mycoupon(){
             this.$router.push({name:'myCoupon'})
         },
+        myorder(){
+            this.$router.push({name:'myOrder'})
+        },
+        mytest(){
+            this.$router.push({name:'myTest'})
+        }
     }
   }
 </script>

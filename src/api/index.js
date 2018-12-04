@@ -27,6 +27,10 @@ import {
 } from "@/api/modules/ZeroExperience"
 
 import {
+  Coursecatalogue
+} from "@/api/modules/Course"
+
+import {
   allOrder
 } from "@/api/modules/MyOrder"
 
@@ -41,5 +45,6 @@ export default {
   killEndTime,
   AllCourse,
   ZeroCourse,
-  allOrder
+  allOrder,
+  Coursecatalogue,
 }
