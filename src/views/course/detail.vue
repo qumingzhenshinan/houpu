@@ -11,7 +11,7 @@
                             @play="onPlayerPlay($event)"
                             @pause="onPlayerPause($event)">
                         </video-player> -->
-                        <img src="../../assets/视频播放.png" alt="" style="width: 400px;height: 223px;">
+                        <img src="../../assets/img/视频播放.png" alt="" style="width: 400px;height: 223px;">
                     </div>
                 </el-col>
                 <el-col :span="17">
@@ -31,16 +31,16 @@
                         <div style="height: 65px;">
                             <div style="position: relative;top: 12px;">
                                 <span>
-                                    <img src="../../assets/播放.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 12px;">
+                                    <img src="../../assets/img/播放.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 12px;">
                                 </span>
                                 <el-button size="small" style="background: #0099FF;text-indent: 22px;font-family: MicrosoftYaHei;font-size: 18px;color: #FFFFFF;">点击试看</el-button>
                                 <span>
-                                    <img src="../../assets/购物车.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 150px;">
+                                    <img src="../../assets/img/购物车.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 150px;">
                                 </span>
                                 <el-button size="small" style="text-indent: 22px;font-family: MicrosoftYaHei;font-size: 18px;color: #FFFFFF;background: #F5A623;margin-left:10px;">立即购买</el-button>
                                 <span style="margin-left:10px;">分享至：</span>
                                 <span>
-                                    <img src="../../assets/微信.png" alt="" style="width: 21px;height: 21px;;position: absolute;top: 9px;left: 350px;">
+                                    <img src="../../assets/img/微信.png" alt="" style="width: 21px;height: 21px;;position: absolute;top: 9px;left: 350px;">
                                 </span>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                     <span class="introduction-title">授课老师</span>
                                 </div>
                                 <div style="width:100%;height:100%;">
-                                    <img src="../../assets/头像1.png" alt="" style="width:45px;height:45px;position:absolute;top:60px;left:100px;">
+                                    <img src="../../assets/img/头像1.png" alt="" style="width:45px;height:45px;position:absolute;top:60px;left:100px;">
                                     <span style="color:red;font-size:12px;position:absolute;top:105px;left:110px;">田园</span>
                                 </div>
                             </el-col>
@@ -106,22 +106,22 @@
                             </div>
                             <div style="width:65%;margin-top:20px;">
                                 <div class="advantage-content">
-                                      <img src="../../assets/心.png" style="width:45px;height:45px;"> 
+                                      <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
                                       <p class="advantage-title">知识体系化，专业只为提升</p>
                                       <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                 </div>
                                 <div class="advantage-content" style="margin-left:30px;">
-                                      <img src="../../assets/心.png" style="width:45px;height:45px;"> 
+                                      <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
                                       <p class="advantage-title">知识体系化，专业只为提升</p>
                                       <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                 </div>
                                 <div class="advantage-content">
-                                      <img src="../../assets/心.png" style="width:45px;height:45px;"> 
+                                      <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
                                       <p class="advantage-title">知识体系化，专业只为提升</p>
                                       <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                 </div>
                                 <div class="advantage-content" style="margin-left:30px;">
-                                      <img src="../../assets/心.png" style="width:45px;height:45px;"> 
+                                      <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
                                       <p class="advantage-title">知识体系化，专业只为提升</p>
                                       <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                 </div>
@@ -134,7 +134,7 @@
                             <div>
                                 <span class="introduction-title">学科架构</span>
                             </div>
-                            <img src="../../assets/架构.png" alt="" style="width:60%;margin-top:20px;">
+                            <img src="../../assets/img/架构.png" alt="" style="width:60%;margin-top:20px;">
                         </el-col>
                     </el-row>
                 </el-tab-pane>
@@ -144,7 +144,7 @@
                             <div>                           
                                 <el-col :span="20">
                                     <span>
-                                        <img src="../../assets/头像1.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
+                                        <img src="../../assets/img/头像1.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
                                     </span>
                                     <span style="position:absolute;top:20px;left:60px;">李磊</span>
                                     <p style="font-size: 14px;color: #333333;text-align: left;line-height: 22px;width: 79%;min-height:30px;display: block;margin:-20px 0 20px 60px;">

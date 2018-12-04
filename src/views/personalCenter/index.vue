@@ -12,7 +12,7 @@
                 <el-row>
                     <el-col :span="24">
                         <div style="width:100%;height:100%;text-align:center;">
-                            <img src="../../assets/空白头像.jpg" alt="" style="widh:140px;height:140px;">
+                            <img src="../../assets/img/空白头像.jpg" alt="" style="widh:140px;height:140px;">
                             <p style="margin-top:20px;">昵称：李磊</p>
                             <p style="color:#ccc;font-size:12px;margin-top:10px;">年级：一年级</p>
                             <el-button type="primary" size="medium" style="width:100px;margin-top:20px;" @click="Setup">设置</el-button>

@@ -81,7 +81,7 @@ export default {
         return {
             mianlistarry: [
                 {
-                    img:require('../../assets/Bitmap.png'),
+                    img:require('../../assets/img/Bitmap.png'),
                     title:' 文学常识梳理班——聚力计划语文一',
                     teacher: '田园',
                     describe: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
@@ -89,7 +89,7 @@ export default {
                     oldmony: '100.00'
                 },
                 {   
-                    img:require('../../assets/Bitmap.png'),
+                    img:require('../../assets/img/Bitmap.png'),
                     title:' 文学常识梳理班——聚力计划语文一',
                     teacher: '田园',
                     describe: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',

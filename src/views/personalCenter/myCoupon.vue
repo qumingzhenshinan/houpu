@@ -12,7 +12,7 @@
                                 <div v-for="item in couponlist">
                                     <el-row style="border:1px solid #999;padding:15px;">
                                         <el-col :span="4">
-                                            <img src="../../assets/优惠券1.jpg" alt="" style="width:100%;height:100%">
+                                            <img src="../../assets/img/优惠券1.jpg" alt="" style="width:100%;height:100%">
                                         </el-col>
                                         <el-col :span="19" style="margin-left:20px">
                                             <p style="font-weight:600;">立减￥10元</p>
