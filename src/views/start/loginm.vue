@@ -24,7 +24,7 @@
       <el-checkbox label="自动登录" name="type"></el-checkbox>
       <el-button class="login" type="primary">登录</el-button>
       <div class="wmima">
-        <span>忘记密码？</span>
+        <span style="cursor:pointer;" @click="$router.push('/start/retrieve')">忘记密码？</span>
         <span @click="goR">注册</span> 
       </div>
     </div>
