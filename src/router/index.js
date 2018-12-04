@@ -86,7 +86,7 @@ export default new Router({
     },
     // 学生详情页
     {
-      path: 'detail/student',
+      path: '/detail/student/:id',
       name: 'studentDetail',
       component: StudentDeatail
     },

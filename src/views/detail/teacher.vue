@@ -30,7 +30,7 @@
 					<div v-for="item in course" class="trightbox">
 						<img :src="base + item.gvimg" alt="">
 						<p>{{item.gname}}</p>
-	          <p> {{item.gcreatTime.substr(0,16)}}  <span>￥{{item.gmoney}}</span> </p>
+						<p> {{item.gcreatTime.substr(0,16)}}  <span>￥{{item.gmoney}}</span> </p>
 					</div>
 				</div>
 			</div>
@@ -139,7 +139,7 @@ export default {
 
 .Tright {
 	float: left;
-	margin-left: 15px;
+	margin-left: 10px;
 	width: 900px;
 }
 
@@ -149,7 +149,7 @@ export default {
 	border-radius: 4px;
 	width: 210px;
 	height: 185px;
-	margin: 0 0 15px 10px;
+	margin: 0 0 20px 15px;
 	float: left;
 	color: rgba(0, 0, 0, 0.8);
 }

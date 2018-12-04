@@ -9,7 +9,7 @@
           <img id="leftT" @click="goleft" class="leftimg" src="@/assets/img/studentleft.png" alt="">
           <img id="rightT" @click="goright" class="rightimg" src="@/assets/img/studentright.png" alt="">
           <div :style="{width: studentW}" class="bannerdiv">
-            <div class="bannerBU" v-for="item in studentPresent">
+            <div class="bannerBU" @click="toDetail(item.pid)"  v-for="item in studentPresent">
               <img :src="base + item.pimgUrl" alt="">
               <p> {{item.pname}} </p>
               <p class="bannerP"> {{item.pintro}} </p>
@@ -84,6 +84,9 @@ export default {
     },
     goright() {
       document.getElementById('bannerT').scrollLeft += 255
+    },
+    toDetail(id) {
+      this.$router.push(`/detail/student/${id}`)
     }
   }
 }
@@ -149,6 +152,7 @@ export default {
   overflow: hidden;
   padding: 10px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .bannerBU img {

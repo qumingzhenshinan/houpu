@@ -13,7 +13,7 @@
 			</div>
 		</div>
 		<div class="headerTitleOut">
-			<ul>
+			<ul class="totalm">
 				<li class="allClass">
 					<p class="allClassP">全部分类</p>
 					<ul class="crouseType">
@@ -249,14 +249,13 @@ export default{
 	color: #fff;
 	font-family: MicrosoftYaHeiUI;
 	font-size: 18px;
-	width: 216px;
+	width: 196px;
 	height: 50px;
 	cursor:pointer;
 }
 .headerTitleOut .allClass{
 	width: 150px;
 	background-color: #0f68cb;
-	margin-left: 90px;
 	padding-left: 30px;
 	position: relative;
 	
@@ -301,6 +300,7 @@ export default{
 }
 .user span{
 	margin-left: 10px;
+	float: right;
 }
 .user img{
 	width: 30px;
@@ -308,7 +308,7 @@ export default{
 	margin-left: 3px;
 	position: absolute;
 	top: 10px;
-	left: 50px;
+	left: 120px;
 }
 .selectGrade{
     text-align: left;
