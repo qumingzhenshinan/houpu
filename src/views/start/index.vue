@@ -4,7 +4,7 @@
       <div class="totalm">
         <img style="margin: 10px 0;" src="@/assets/img/logo.png" alt="">
       </div>
-      <div class="main" v-show="false">
+      <div class="main">
         <div class="mainbox">
           <Loginm v-show="booleans.loginm" @tologins='gologins' @toR="goRegister"></Loginm>
           <Logins v-show="booleans.logins" @gologinm="gologinm"></Logins>

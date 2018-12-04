@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Home from '@/views/home/index'
 import Start from '@/views/start/index'
+import Retrieve from '@/views/start/retrieve'
 import CourseList from '@/views/course/list'
 import CourseDetail from '@/views/course/detail'
 import PersonalCenter from '@/views/personalCenter/index'
@@ -21,7 +22,7 @@ export default new Router({
   routes: [
     // 首页
     {
-	   path: '/',
+      path: '/',
       name: 'home',
       component: Home
     },
@@ -30,6 +31,11 @@ export default new Router({
       path: '/start',
       name: 'start',
       component: Start
+    },
+    {
+      path: '/start/retrieve',
+      name: 'retrieve',
+      component: Retrieve
     },
     // 课程列表
     {
