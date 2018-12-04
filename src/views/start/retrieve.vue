@@ -28,7 +28,7 @@
 						</p>
 					</div>
 					<!-- 步骤2 -->
-					<div class="step step2">
+					<div class="step step2" v-show="false">
 						<p>请登录您要找回的帐号</p>
 						<p>
 							<input type="text" name="" value="" placeholder="输入验证码">
@@ -36,6 +36,30 @@
 						</p>
 						<p>
 							<el-button class="p3btn" type="primary">下一步</el-button>
+						</p>
+					</div>
+					<div class="step step3" v-show="false">
+						<p>
+							<el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
+							  <el-form-item class="step3I" prop="mima">
+							    <el-input suffix-icon="el-icon-view" placeholder="新密码" type="password" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+							    <img src="@/assets/img/pass.png" alt="">
+							  </el-form-item>
+							  <el-form-item class="step3I" prop="rmima">
+							    <el-input suffix-icon="el-icon-view" placeholder="确认密码" type="password" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+							    <img src="@/assets/img/pass.png" alt="">
+							  </el-form-item>
+							</el-form>
+						</p>
+						<p>
+							<el-button class="p3btn" type="primary">下一步</el-button>
+						</p>
+					</div>
+					<div class="step step4">
+						<p>密码重置成功</p>
+						<p><span style="color:#09f">{{countDown}}秒</span>后自动跳转到登录，点击按钮直接跳转</p>
+						<p>
+							<el-button class="p3btn" type="primary">手动跳转</el-button>
 						</p>
 					</div>
 				</div>
@@ -66,17 +90,63 @@ export default {
           }
         }, 1000);
       }
-		}
+		};
+		var validatePass = (rule, value, callback) => {
+      var pattern = /^[\w]{6,12}$/;
+      if (!value) {
+        return callback(new Error('密码不能为空'));
+      }else {
+        setTimeout(() => {
+          if (!(pattern.test(value))) {
+            callback(new Error('密码格式不正确'));
+          } else {
+            callback();
+          }
+        }, 500);
+      }
+    };
+    var validatePass1 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.step3.mima) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
 		return {
+			countDown: 5,
 			phone: {
 				num: ''
+			},
+			step3: {
+				mima: '',
+				rmima: ''
 			},
 			phoneRules: {
 				num: [
 					{ validator: phone, trigger: 'blur' }
 				]
+			},
+			step3Rules: {
+				mima: [{ validator: validatePass, trigger: 'blur' }],
+				rmima: [{ validator: validatePass1, trigger: 'blur' }]
 			}
 		}
+	},
+	methods: {
+		countDowns() {
+			setInterval(() => {
+				if(this.countDown === 0) {
+					this.$router.push('/start')
+				}else {
+					this.countDown--
+				}
+			},1000)
+		}
+	},
+	created() {
+		this.countDowns()
 	}
 }
 </script>
@@ -128,6 +198,28 @@ export default {
 .step2 p:nth-child(2) span {
 	color: #0099ff;
 	cursor: pointer;
+}
+
+.step3I {
+  position: relative;
+}
+
+.step3I img {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  width: 13px;
+  opacity: 0.6;
+}
+
+.step4 p:nth-child(1) {
+	font-size: 23px;
+	color: #666;
+}
+
+.step4 p:nth-child(2) {
+	color: rgba(0, 0, 0, 0.3);
+	font-size: 14px;
 }
 
 .footer {

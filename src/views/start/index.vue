@@ -11,10 +11,6 @@
           <Register @tologin="gologin" v-show="booleans.register"></Register>
         </div>
       </div>
-      <div class="retrieve">
-        找回密码
-        <Retrieve></Retrieve>
-      </div>
       <footer class="footer">
         Copyright © 2018 厚朴教育 All Rights Reserved 京ICP备12028606号-22
       </footer>
@@ -26,7 +22,6 @@
 import Loginm from './loginm.vue'
 import Logins from './logins.vue'
 import Register from './register.vue'
-import Retrieve from './retrieve.vue'
 
 export default {
   name: 'start',
@@ -43,7 +38,6 @@ export default {
     Loginm,
     Logins,
     Register,
-    Retrieve
   },
   methods: {
     gologins() {
