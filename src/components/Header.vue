@@ -2,7 +2,7 @@
 	<div class="header">
 		<div class="top">
 			<div class="logo">
-				<img src="../assets/logo.png" alt="">
+				<img src="../assets/img/logo.png" alt="">
 			</div>
 			<div class="search">
 				<input type="text" name="" value="" placeholder="请输入课程名称或者教师姓名"><el-button type="primary" icon="el-icon-search"></el-button>

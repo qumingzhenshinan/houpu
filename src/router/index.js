@@ -10,6 +10,8 @@ import PersonalCenter from '@/views/personalCenter/index'
 import ConfirmationOrder from '@/views/order/confirmationOrder'
 import PaymentOrder from '@/views/order/payment/index'
 import test from '@/views/test/test'
+import PersonalCenterdetail from '@/views/personalCenter/personalCenterdetail'
+import MyCoupon from '@/views/personalCenter/myCoupon'
 
 Vue.use(Router)
 
@@ -46,9 +48,21 @@ export default new Router({
     },
     // 个人中心 
     {
-    	path: 'personalCenter',
+    	path: '/personalCenter',
     	name: 'personalCenter',
-    	component: PersonalCenter
+      component: PersonalCenter,
+    },
+    //个人信息修改
+    {
+          path: '/personalCenterdetail',
+          name: 'personalCenterdetail',
+          component: PersonalCenterdetail,
+    },
+    //我的优惠券
+    {
+      path: '/coupon',
+      name: 'myCoupon',
+      component: MyCoupon,
     },
     // 确认订单
     {
