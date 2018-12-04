@@ -11,7 +11,7 @@ const urls = {
 	killendtime: BASE + '/course/selectKillEndTime',//get限时促销
 	zerocourse: BASE + '/course/selectByMoney',//post0元体验列表
 	allorder: BASE + '/orders/selectAll', //get查询所有订单
-
+	coursecatalogue: BASE + '/videoChild/select', // 获取课程目录
 	// todos: 'http://www.houpuclass.com:8089/teacher/select'
 }
 
