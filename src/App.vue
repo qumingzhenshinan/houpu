@@ -82,4 +82,38 @@ a {
   padding-left: 35px;
   border-radius: 50px;
 }
+
+.quiztitle .el-input-group__append {
+  background-color: #fff;
+}
+/* 分页特殊处理 */
+.pagination .btn-prev{
+  width: 70px;
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+  padding: 0;
+  margin-right: 5px;
+}
+
+.pagination .btn-next {
+  width: 70px;
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.pagination .number {
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.pagination .el-pager li.active+li {
+  border: 1px solid #EEEEEE;
+}
+
+.pagination .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+  background: #fff;
+}
 </style>

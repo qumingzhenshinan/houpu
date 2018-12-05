@@ -146,7 +146,7 @@
 				</li>
 				<li class="headerHight"><p>0元课程 <span></span></p></li>
 				<li class="headerHight"><p>最新课程 <span></span></p></li>
-				<li class="headerHight"><p>小测验 <span></span></p></li>
+				<li class="headerHight"><p><router-link :to="{ path: '/quiz' }">小测验</router-link> <span></span></p></li>
 				<li class="headerHight"><p>我的课程 <span></span></p></li>
 				<li class="user"><img src="../assets/Header/userImg.png" alt=""><span>张三</span></li>
 			</ul>
@@ -234,11 +234,14 @@ export default{
 	display: none;
 	position: absolute;
 	bottom: 5px;
-	left: 100px;
+	left: 89px;
 	width: 20px;
 	height: 3px;
 	background: #FFFFFF;
 	border-radius: 3.5px;
+}
+.headerHight p a {
+	color: #fff;
 }
 .headerHight p:hover{
 }

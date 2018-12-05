@@ -17,6 +17,8 @@ import StudentDeatail from '@/views/detail/student'
 import MyOrder from '@/views/personalCenter/myOrder'
 import MyTest from '@/views/personalCenter/myTest'
 import ChangePassword from '@/views/personalCenter/changePassword'
+import Quiz from '@/views/quiz/index'
+import TestPaper from '@/views/quiz/testPaper'
 
 Vue.use(Router)
 
@@ -111,11 +113,24 @@ export default new Router({
       name: 'studentDetail',
       component: StudentDeatail
     },
+    // 小测验
+    {
+      path: '/quiz',
+      name: 'quiz',
+      component: Quiz
+    },
+    // 测验试卷
+    {
+      path: '/quiz/testPaper',
+      name: 'testPaper',
+      component: TestPaper
+    },
     // test 测试文件
     {
       path: '/test',
       name: 'test',
       component: test
-    }
+    },
+
   ]
 })
