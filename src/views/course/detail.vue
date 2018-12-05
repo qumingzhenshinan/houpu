@@ -138,24 +138,26 @@
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
                         <div class="comment">
-                            <el-row style="border-bottom: 1px solid #999;min-height:120px;" v-for="item in commentlist">
-                                <div>                           
-                                    <el-col :span="20">
-                                        <span>
-                                            <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
-                                        </span>
-                                        <span style="position:absolute;top:20px;left:60px;">李磊</span>
-                                        <p style="font-size: 14px;color: #333333;text-align: left;line-height: 22px;width: 79%;min-height:30px;display: block;margin:-20px 0 20px 60px;">
-                                            {{item.content}}
-                                        </p>
-                                    </el-col>
-                                    <el-col :span="4">
-                                        <div class="rate">
-                                            <el-rate v-model="item.score"></el-rate>
-                                        </div>
-                                    </el-col>
-                                </div>
-                            </el-row>
+                            <div v-for="item in commentlist">
+                                <el-row style="border-bottom: 1px solid #999;min-height:120px;">
+                                    <div>                           
+                                        <el-col :span="20">
+                                            <span>
+                                                <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
+                                            </span>
+                                            <span style="position:absolute;top:20px;left:60px;">李磊</span>
+                                            <p style="font-size: 14px;color: #333333;text-align: left;line-height: 22px;width: 79%;min-height:30px;display: block;margin:-20px 0 20px 60px;">
+                                                {{item.content}}
+                                            </p>
+                                        </el-col>
+                                        <el-col :span="4">
+                                            <div class="rate">
+                                                <el-rate v-model="item.score"></el-rate>
+                                            </div>
+                                        </el-col>
+                                    </div>
+                                </el-row>
+                            </div>
                         </div>
                         <div class="line"></div>
                         <div style="text-align:center;margin-top:20px;">
