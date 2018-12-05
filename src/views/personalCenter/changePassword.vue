@@ -12,18 +12,48 @@
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane label="修改密码" name="first">
                                     <div style="margin-top:50px;">
-                                        <el-steps :active="1" align-center finish-status="success">
+                                        <el-steps :active="activenum" align-center finish-status="success">
                                             <el-step title="验证账号"></el-step>
                                             <el-step title="修改密码"></el-step>
                                             <el-step title="修改成功"></el-step>
                                         </el-steps>
                                         <div class="userinformation">
-                                            <el-form :model="phone" status-icon :rules="phoneRules" ref="phone">
-                                                <el-form-item class="num" prop="num">
-                                                    <el-input placeholder="     手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" />
-                                                    <img src="@/assets/img/person.png" alt="">
-                                                </el-form-item>
-                                            </el-form>
+                                            <div v-show="phonestate">
+                                                <el-form :model="phone" status-icon :rules="phoneRules" ref="phone">
+                                                    <el-form-item class="num" prop="num">
+                                                        <el-input placeholder="     手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                        <img src="@/assets/img/person.png" alt="" class="phoneimg">
+                                                    </el-form-item>
+                                                </el-form>   
+                                                <el-form :model="password" status-icon :rules="passwordRules" ref="password"> 
+                                                    <el-form-item class="num" prop="verificationcode">
+                                                        <el-input placeholder="     验证码" type="text" v-model.number="password.verificationcode" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                        <span class="verificationcode"><span style="color:#ddd;">|&nbsp;</span> 获取验证码</span>
+                                                    </el-form-item>
+                                                </el-form>
+                                                <div>
+                                                    <el-button class="nextbtn" type="primary" @click="phonenext">下一步</el-button>
+                                                </div>
+                                            </div>
+                                            <div v-show="passwordstate">
+                                                <el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
+                                                    <el-form-item class="num" prop="mima">
+                                                        <el-input suffix-icon="el-icon-view" placeholder="      新密码" type="password" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <img src="@/assets/img/pass.png" alt="" class="passwordimg">
+                                                    </el-form-item>
+                                                    <el-form-item class="num" prop="rmima">
+                                                        <el-input suffix-icon="el-icon-view" placeholder="      确认密码" type="password" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <img src="@/assets/img/pass.png" alt="" class="passwordimg">
+                                                    </el-form-item>
+                                                </el-form>
+                                                <div>
+                                                    <el-button class="nextbtn" type="primary" @click="passwordnext">确定</el-button>
+                                                </div>
+                                            </div>
+                                            <div v-show="passwordsuccess">
+                                                <img src="@/assets/img/success.png" alt="">
+                                                <p class="passwordsuccess">密码重置成功</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </el-tab-pane>
@@ -46,21 +76,49 @@ export default {
 	data() {
 		var phone = (rule, value, callback) => {
 			if (value === '') {
-        callback(new Error('请输入手机号'));
-      } else{
-      	setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (!(/^1[3456789]\d{9}$/.test(value))) {
-              callback(new Error('手机号格式不正确'));
-            } else {
-              callback();
+                callback(new Error('请输入手机号'));
+            } else{
+                if (!Number.isInteger(value)) {
+                    callback(new Error('请输入数字值'));
+                } else {
+                    if (!(/^1[3456789]\d{9}$/.test(value))) {
+                    callback(new Error('手机号格式不正确'));
+                    } else {
+                    callback();
+                    }
+                }
             }
-          }
-        }, 1000);
-      }
-		}
+        }
+        var password = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入验证码'));
+            }else{
+                if (!Number.isInteger(value)) {
+                    callback(new Error('请输入数字值'));
+                }
+            }
+        }
+        var validatePass = (rule, value, callback) => {
+            var pattern = /^[\w]{6,12}$/;
+            if (!value) {
+                return callback(new Error('密码不能为空'));
+            }else {
+                if (!(pattern.test(value))) {
+                    callback(new Error('密码格式不正确'));
+                } else {
+                    callback();
+                }
+            }
+        }
+        var validatePass1 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请再次输入密码'));
+            } else if (value !== this.step3.mima) {
+                callback(new Error('两次输入密码不一致!'));
+            } else {
+                callback();
+            }
+        }
 		return {
 			phone: {
 				num: ''
@@ -70,9 +128,44 @@ export default {
 					{ validator: phone, trigger: 'blur' }
 				]
             },
+            password: {
+				verificationcode: ''
+			},
+			passwordRules: {
+				verificationcode: [
+					{ validator: password, trigger: 'blur' }
+				]
+            },
+            step3: {
+				mima: '',
+				rmima: ''
+            },
+            step3Rules: {
+				mima: [{ validator: validatePass, trigger: 'blur' }],
+				rmima: [{ validator: validatePass1, trigger: 'blur' }]
+			},
             activeName: 'first',
+            activenum: 1,
+            passwordstate:false,
+            phonestate:true,
+            passwordsuccess: false,
 		}
-	}
+    },
+    created(){
+
+    },
+    methods: {
+        phonenext(){
+            this.phonestate = false;
+            this.passwordstate = true;
+            this.activenum = 2
+        },
+        passwordnext(){
+            this.activenum = 3
+            this.passwordstate = false;
+            this.passwordsuccess= true
+        }
+    }
 }
 </script>
 <style scoped>
@@ -80,22 +173,47 @@ export default {
     margin-top:50px;
     width: 100%;
     height: 100%;
+    text-align: center;
 }
 .num {
   position: relative;
   width: 30%;
   text-align: center;
-  margin:0 auto;
+  margin:20px auto;
+  position: relative;
 }
  .num input {
      text-indent: 20px;
  }
-.num img {
+.phoneimg {
   position: absolute;
   top: 8px;
   left: 12px;
   width: 20px;
   opacity: 0.6;
 }
-
+.passwordimg {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 16px;
+  opacity: 0.6;
+}
+.verificationcode {
+    position: absolute;
+    top: 3px;
+    right: 9px;
+    color: #409EFF;
+    background: #fff;
+    height: 35px;
+    line-height: 35px;
+}
+.nextbtn {
+    width: 30%;
+	border-radius: 5px;
+}
+.passwordsuccess {
+    font-size: 30px;
+    color: gray;
+}
 </style>

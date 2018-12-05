@@ -7,7 +7,7 @@
       <div class="retrieve">
         找回密码
         <div style="padding:20px;box-sizing:border-box">
-					<el-steps :active="2" align-center finish-status="success">
+					<el-steps :active="1" align-center finish-status="success">
 					  <el-step title="输入账号"></el-step>
 					  <el-step title="账号验证"></el-step>
 					  <el-step title="重置密码"></el-step>

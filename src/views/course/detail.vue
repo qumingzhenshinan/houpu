@@ -6,43 +6,42 @@
                 <el-row>
                     <el-col :span="7">
                         <div class="video">
-                            <!-- <video-player class="video-player vjs-custom-skin"
+                            <video-player class="video-player vjs-custom-skin"
                                 ref="videoPlayer"
                                 :playsinline="true"
                                 :options="playerOptions"
                                 @play="onPlayerPlay($event)"
                                 @pause="onPlayerPause($event)">
-                            </video-player> -->
-                            <img src="../../assets/img/视频播放.png" alt="" style="width: 100%;height: 100%;">
+                            </video-player>
                         </div>
                     </el-col>
                     <el-col :span="17">
                         <div class="videoTitle">
                             <div>
-                                <span style="font-family: MicrosoftYaHei-Bold;font-size: 26px;color: #000000;font-weight:600">文学常识梳理班——聚力计划语文一</span>
+                                <span style="font-family: MicrosoftYaHei-Bold;font-size: 26px;color: #000000;font-weight:600">{{coursedetails.gname}}</span>
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 30px;color: #F5A623;display: block;position: relative;margin-top: 10px;">
-                                    ¥1680.00
+                                    ¥{{coursedetails.gisVip}}
                                 </span>
                                 <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;position:relative;display: block;left:150px;top:-30px;">
-                                    原价￥100.00
+                                    原价￥{{coursedetails.gmoney}}
                                 </span>
-                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;height: 38px;">
-                                    这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍
+                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;min-height: 38px;">
+                                    这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍
                                 </span>
                             </div>
                             <div style="height: 65px;">
                                 <div style="position: relative;top: 12px;">
                                     <span>
-                                        <img src="../../assets/img/播放.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 12px;">
+                                        <img src="@/assets/img/play.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 12px;">
                                     </span>
                                     <el-button size="small" style="background: #0099FF;text-indent: 22px;font-family: MicrosoftYaHei;font-size: 18px;color: #FFFFFF;">点击试看</el-button>
                                     <span>
-                                        <img src="../../assets/img/购物车.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 150px;">
+                                        <img src="@/assets/img/shop.png" alt="" style="width: 21px;height: 21px;position: absolute;top: 9px;left: 150px;">
                                     </span>
                                     <el-button size="small" style="text-indent: 22px;font-family: MicrosoftYaHei;font-size: 18px;color: #FFFFFF;background: #F5A623;margin-left:10px;">立即购买</el-button>
                                     <span style="margin-left:10px;">分享至：</span>
                                     <span>
-                                        <img src="../../assets/img/微信.png" alt="" style="width: 21px;height: 21px;;position: absolute;top: 9px;left: 350px;">
+                                        <img src="@/assets/img/WeChat.png" alt="" style="width: 21px;height: 21px;;position: absolute;top: 9px;left: 350px;">
                                     </span>
                                 </div>
                             </div>
@@ -57,8 +56,8 @@
                             <div class="chapterscontent">
                                 <p class="chapters">&emsp;<span style="width: 60px;height: 25px;text-align: center;color:#fff;line-height:25px;background-color: #0099FF;border-radius: 0 12.5px 12.5px 0;float: left;margin-top: 18px;position:absolute;top:-7px;left:0;">章节{{item.chaptersnum}}</span><span class="chaptertitle">{{item.title}}</span></p>
                             </div>
-                            <div class="chaptersList" v-for="itemd in item.chapters">
-                                <p class="downOn"><span>▷&emsp;第{{item.chaptersnum}}节：{{itemd}}</span><span class="chapterstime">{{item.date}}</span><el-button size="small" style="background: #0099FF;color: #fff;float:right;font-family:MicrosoftYaHei;font-size: 14px;margin-top:10px;">回放课程</el-button></p>
+                            <div class="chaptersList" v-for="itemd in cataloguearr">
+                                <p class="downOn"><span>▷&emsp;{{itemd.vcname}}</span><span class="chapterstime">{{item.date}}</span><el-button size="small" style="background: #0099FF;color: #fff;float:right;font-family:MicrosoftYaHei;font-size: 14px;margin-top:10px;">回放课程</el-button></p>
                             </div>
                         </div>
                     </el-tab-pane>
@@ -67,9 +66,9 @@
                             <el-col :span="24">
                                 <span class="introduction-title">适合学员</span>
                                 <div class="introduction-content">
-                                    <p>1、介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
-                                    <p>2、介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
-                                    <p>3、介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
+                                    <p>1、{{coursedetails.gclass}}</p>
+                                    <p>2、{{coursedetails.gclassify}}</p>
+                                    <p>3、{{coursedetails.gclassify2}}</p>
                                 </div>
                                 <div>
                                     <span class="introduction-title">培养目标</span>
@@ -88,8 +87,8 @@
                                         <span class="introduction-title">授课老师</span>
                                     </div>
                                     <div style="width:100%;height:100%;">
-                                        <img src="../../assets/img/头像1.png" alt="" style="width:45px;height:45px;position:absolute;top:60px;left:100px;">
-                                        <span style="color:red;font-size:12px;position:absolute;top:105px;left:110px;">田园</span>
+                                        <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;position:absolute;top:60px;left:100px;">
+                                        <span style="color:red;font-size:12px;position:absolute;top:105px;left:110px;">{{coursedetails.teacherName}}</span>
                                     </div>
                                 </el-col>
                                 <el-col :span="21">
@@ -105,22 +104,22 @@
                                 </div>
                                 <div style="width:65%;margin-top:20px;">
                                     <div class="advantage-content">
-                                        <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                     </div>
                                     <div class="advantage-content" style="margin-left:30px;">
-                                        <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                     </div>
                                     <div class="advantage-content">
-                                        <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                     </div>
                                     <div class="advantage-content" style="margin-left:30px;">
-                                        <img src="../../assets/img/心.png" style="width:45px;height:45px;"> 
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                     </div>
@@ -133,26 +132,26 @@
                                 <div>
                                     <span class="introduction-title">学科架构</span>
                                 </div>
-                                <img src="../../assets/img/架构.png" alt="" style="width:60%;margin-top:20px;">
+                                <img src="@/assets/img/jiagou.png" alt="" style="width:60%;margin-top:20px;">
                             </el-col>
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
                         <div class="comment">
-                            <el-row style="border-bottom: 1px solid #999;min-height:120px;">
+                            <el-row style="border-bottom: 1px solid #999;min-height:120px;" v-for="item in commentlist">
                                 <div>                           
                                     <el-col :span="20">
                                         <span>
-                                            <img src="../../assets/img/头像1.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
+                                            <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
                                         </span>
                                         <span style="position:absolute;top:20px;left:60px;">李磊</span>
                                         <p style="font-size: 14px;color: #333333;text-align: left;line-height: 22px;width: 79%;min-height:30px;display: block;margin:-20px 0 20px 60px;">
-                                            评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容评价内容
+                                            {{item.content}}
                                         </p>
                                     </el-col>
                                     <el-col :span="4">
                                         <div class="rate">
-                                            <el-rate v-model="value1"></el-rate>
+                                            <el-rate v-model="item.score"></el-rate>
                                         </div>
                                     </el-col>
                                 </div>
@@ -188,14 +187,38 @@ import api from '@/api'
 export default {
     components: {
         Header,
-        Footer
+        Footer,
+        videoPlayer
     },
     data(){
         return {
             activeName: 'first',
             value1:2,
-            total: 0,
+            total: 10,
             currentPage: 10,
+            playerOptions: {
+                //playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+                autoplay: false, //如果true,浏览器准备好时开始回放。
+                muted: false, // 默认情况下将会消除任何音频。
+                loop: false, // 导致视频一结束就重新开始。
+                preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+                language: 'zh-CN',
+                aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+                fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+                sources: [{
+                type: "video/mp4",
+                src: "" //你的m3u8地址（必填）
+                }],
+                poster: "", //你的封面地址
+                // width: document.documentElement.clientWidth,
+                notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+                 controlBar: {
+                  timeDivider: true,
+                  durationDisplay: true,
+                  remainingTimeDisplay: false,
+                  fullscreenToggle: true //全屏按钮
+                 }
+            },
             chaptersList: [
                 {
                     title:' 先秦诗歌与史传散文',
@@ -204,21 +227,41 @@ export default {
                     chaptersnum:'一',
                 },
                 {
-                    title:' 先秦诗歌与史传散文',
+                    title:' 先秦诗歌与史传散文1',
                     chapters:[' 先秦诗歌与史传散文',' 先秦诗歌与史传散文',' 先秦诗歌与史传散文'],
                     date: '8:20',
                     chaptersnum:'二',
                 },
 
             ],
+            commentlist: [],
+            cataloguearr: [],
+            coursedetails: {},
         }
     },
     created(){
+        this.playerOptions.poster = require('@/assets/img/video.png')
+        // for(let key in this.playerOptions.sources){
+             // this.playerOptions.sources[key].src=require('../../assets/Course/test.mp4')
+        // }
         var data = {
-            gid:this.$route.params.gid,
+            // gid:this.$route.params.gid,
+            gid:'c10b60d161a2401aa2e247acdfa6616c'
         }
+        // 获取章节
         api.Coursecatalogue(data).then(data =>{
-            this.cataloguearr = data.generalvideos
+            this.cataloguearr = data.videoChild
+            this.cataloguearr.forEach((item,index) => {
+                this.cataloguearr[index].vcname = item.vcname.replace(" ",":")
+            })
+        })
+        // 获取评论
+        api.Coursecomment(data).then(data =>{
+            this.commentlist = data.comments
+        })
+        // 获取课程详情
+        api.Coursedetails(data).then(data =>{
+            this.coursedetails = data
         })
     },
     methods: {
@@ -238,6 +281,26 @@ export default {
        handleClick(tab, event) {
             console.log(tab, event);
         },
+    },
+    watch: {
+        //更改视频源 videoUrl从弹出框组件传值
+        videoUrl: function (val) {
+            if (val !== '') {
+            this.$refs.videoPlayer.player.src(val)
+            }
+        },
+        //弹出框关闭后暂停 否则一直在播放 state从弹出框组件传值
+
+        state: function (val) {
+            if (val) {
+            this.$refs.videoPlayer.player.pause()
+            }
+        }
+    },
+    computed: {
+        player() {
+            return this.$refs.videoPlayer.player
+        }
     }
 }
 </script>
@@ -305,7 +368,7 @@ export default {
      width: 100%;
  }
 .rate {
-    margin: 20px 0 0 100px;
+    margin: 20px 0 0 70px;
 }
 .introduction-title {
     color: darkgreen;

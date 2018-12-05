@@ -10,7 +10,7 @@
                     <el-row>
                         <el-col :span="24">
                             <div style="width:100%;height:100%;text-align:center;">
-                                <img src="../../assets/img/空白头像.jpg" alt="" style="widh:140px;height:140px;">
+                                <img src="@/assets/img/Headportrait.png" alt="" style="widh:140px;height:140px;">
                                 <el-form label-width="450px" >
                                     <el-row>
                                         <el-col :span="14">

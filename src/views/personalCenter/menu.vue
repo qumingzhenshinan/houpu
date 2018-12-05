@@ -7,23 +7,23 @@
                     default-active="1"
                     class="el-menu-vertical-demo">
                     <el-menu-item index="1" class="menuborser" @click="personal">
-                        <i><img src="../../assets/img/名片.png" alt=""></i>
+                        <i><img src="@/assets/img/business.png" alt=""></i>
                         <span slot="title">个人资料</span>
                     </el-menu-item>
                     <el-menu-item index="2" class="menuborser" @click="mycoupon">
-                        <i><img src="../../assets/img/优惠劵.jpg" alt=""></i>
+                        <i><img src="@/assets/img/Coupon.png" alt=""></i>
                         <span slot="title">我的优惠卷</span>
                     </el-menu-item>
                     <el-menu-item index="3" class="menuborser" @click="myorder">
-                        <i><img src="../../assets/img/订单2.png" alt=""></i>
+                        <i><img src="@/assets/img/order.png" alt=""></i>
                         <span slot="title">我的订单</span>
                     </el-menu-item>
                     <el-menu-item index="4" class="menuborser" @click="mytest">
-                        <i><img src="../../assets/img/笔1.png" alt=""></i>
+                        <i><img src="@/assets/img/pen.png" alt=""></i>
                         <span slot="title">我的小测试</span>
                     </el-menu-item>
-                    <el-menu-item index="4" class="menuborser">
-                        <i><img src="../../assets/img/锁2.png" alt=""></i>
+                    <el-menu-item index="4" class="menuborser" @click="mypassword">
+                        <i><img src="@/assets/img/password.png" alt=""></i>
                         <span slot="title">修改密码</span>
                     </el-menu-item>
                 </el-menu>
@@ -54,6 +54,9 @@ import Vue from 'vue'
         },
         mytest(){
             this.$router.push({name:'myTest'})
+        },
+        mypassword(){
+            this.$router.push({name:'changePassword'})
         }
     }
   }

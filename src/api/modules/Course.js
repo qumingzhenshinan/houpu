@@ -7,3 +7,9 @@ export function AllCourse(params) {
 export function Coursecatalogue(params) {
     return fetch.post(URL.coursecatalogue,params)
 }
+export function Coursecomment(params) {
+    return fetch.post(URL.coursecomment,params)
+}
+export function Coursedetails(params) {
+    return fetch.post(URL.coursedetails,params)
+}

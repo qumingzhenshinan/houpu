@@ -31,8 +31,20 @@ import {
 } from "@/api/modules/Course"
 
 import {
+  Coursecomment
+} from "@/api/modules/Course"
+
+import {
+  Coursedetails
+} from "@/api/modules/Course"
+
+import {
   allOrder
 } from "@/api/modules/MyOrder"
+
+import {
+  Getmycoupon
+} from "@/api/modules/personal"
 
 export default {
   homeTeachers,
@@ -47,4 +59,7 @@ export default {
   ZeroCourse,
   allOrder,
   Coursecatalogue,
+  Coursecomment,
+  Coursedetails,
+  Getmycoupon,
 }

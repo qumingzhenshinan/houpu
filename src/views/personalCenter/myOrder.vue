@@ -15,7 +15,7 @@
                                         <p class="ordernum">订单编号：2016070899862148 <span style="margin-left:50px">2018-09-10</span><span style="margin-left:30px">17:25:00</span></p>
                                         <el-row class="ordercontent">
                                             <el-col :span="4">
-                                                <img src="../../assets/img/优惠券1.jpg" alt="" style="width:100%;height:100%">
+                                                <img src="@/assets/img/Coupon1.png" alt="" style="width:100%;height:100%">
                                             </el-col>
                                             <el-col :span="19" style="margin-left:20px">
                                                 <p style="font-weight:500;font-size:16px">初一数学强化练习班（创新班）（秋季）</p>
@@ -60,6 +60,7 @@
 </template>
 <script>
 import Vue from 'vue'
+import api from '@/api'
 import Menu from './menu.vue'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -76,7 +77,9 @@ import Footer from '@/components/Footer'
         }
     },
     created(){
+        api.allOrder().then(data => {
 
+        })
     },
     methods: {
         handleSizeChange(val) {

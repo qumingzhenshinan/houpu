@@ -14,7 +14,7 @@
                                     <div v-for="item in couponlist">
                                         <el-row style="border:1px solid #999;padding:15px;border-radius:5px">
                                             <el-col :span="4">
-                                                <img src="../../assets/img/优惠券1.jpg" alt="" style="width:100%;height:100%">
+                                                <img src="@/assets/img/Coupon1.png" alt="" style="width:100%;height:100%">
                                             </el-col>
                                             <el-col :span="19" style="margin-left:20px">
                                                 <p style="font-weight:600;">立减￥10元</p>
@@ -35,6 +35,7 @@
 </template>
 <script>
 import Vue from 'vue'
+import api from '@/api'
 import Menu from './menu.vue'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -50,6 +51,9 @@ import Footer from '@/components/Footer'
     },
     created(){
 
+        api.Getmycoupon({uid:'107eaf81f1074538a1a40f8d4cbb6269'}).then(data => {
+
+        })
     },
     methods: {
 
