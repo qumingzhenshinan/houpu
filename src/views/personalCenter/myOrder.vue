@@ -34,29 +34,29 @@
                         </el-col>
                     </el-row>
                 </el-aside>
-                <el-main>
+                <el-main style="margin-left:30px">
                     <el-row>
                         <el-col :span="24">
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane label="我的订单" name="first">
-                                    <div v-for="item in couponlist" style="margin-bottom:15px;">
-                                        <p class="ordernum">订单编号：2016070899862148 <span style="margin-left:50px">2018-09-10</span><span style="margin-left:30px">17:25:00</span></p>
+                                    <div v-for="item in couponlist.slice((currentPage-1)*Mpage,currentPage*Mpage)" style="margin-bottom:15px;">
+                                        <p class="ordernum">订单编号：{{item.orderNo}} <span style="margin-left:50px">{{item.ocreatTime | formatDate}}</span></p>
                                         <el-row class="ordercontent">
                                             <el-col :span="4">
                                                 <img src="@/assets/img/Coupon1.png" alt="" style="width:100%;height:100%">
                                             </el-col>
                                             <el-col :span="19" style="margin-left:20px">
-                                                <p style="font-weight:500;font-size:16px">初一数学强化练习班（创新班）（秋季）</p>
-                                                <div class="paymentmode">
-                                                    <p>实际支付69.00</p>
-                                                    <p>优惠券支付100.00</p>
-                                                </div>
-                                                <span class="ordermonery">￥199.00</span>
-                                                <!-- <el-button type="primary" class="orderbtn">付款</el-button> -->
+                                                <p style="font-weight:500;font-size:16px">{{item.payStyle}}</p>
+                                                <!-- <div class="paymentmode">
+                                                    <p>实际支付{{item.moneryvip}}</p>
+                                                    <p>优惠券支付{{item.monery}}</p>
+                                                </div> -->
+                                                <span class="ordermonery">￥{{item.omoney}}</span>
+                                                <el-button type="primary" class="orderbtn" v-if="item.oisPay == '0'">付款</el-button>
                                                 <!-- <el-button class="cancelorderbtn">取消订单</el-button> -->
                                                 
-                                                <p class="expired">已过期</p>
-                                                <!-- <p class="paidbtn">已付款</p> -->
+                                                <!-- <p class="expired">已过期</p> -->
+                                                <p class="paidbtn"  v-if="item.oisPay == '1'">已付款</p>
                                                 <!-- <p class="deliveryrefund">发货退款</p> -->
                                                 <!-- <el-button class="cancelorderbtn">评价</el-button> -->
                                             </el-col>
@@ -70,14 +70,16 @@
                     <div style="text-align:center">
                         <el-pagination
                             background
-                            :page-size="10"
+                            :page-size='Mpage'
                             :current-page="currentPage"
                             @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
+                            @current-change="currentChange"
+                            @prev-click="prevPage"
+                            @next-click="nextPage"
                             next-text="下一页"
                             prev-text="上一页"
                             layout="prev, pager, next"
-                            :total="total">
+                            :total="couponlist.length">
                         </el-pagination>
                     </div>
                 </el-main>
@@ -97,17 +99,36 @@ import Footer from '@/components/Footer'
         return {
            activeName: 'first',
            classstate:'3',
-           currentPage: 10,
-           total: 100,
+           Mpage: 5,
+		   currentPage: 1,
            couponlist:[{
-
-           }]
+               title:'初一数学强化练习班（创新班）（秋季）',
+               monery: '100.00',
+               moneryvip:'69.00',
+               zongmonery:'169.00'
+           },{
+               title:'初一语文强化练习班（创新班）（秋季）',
+               monery: '100.00',
+               moneryvip:'60.00',
+               zongmonery:'160.00'
+           },]
         }
     },
     created(){
         api.allOrder().then(data => {
-
+            this.couponlist = data.orders
         })
+    },
+    filters: {
+      formatDate(time) {
+        if (time) {
+            var dateee = new Date(time).toJSON();
+            var date = new Date(+new Date(dateee)+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'')  
+          return date;
+        } else {
+          return "";
+        }
+      }
     },
     methods: {
         personal(val){
@@ -139,6 +160,15 @@ import Footer from '@/components/Footer'
         },
         handleClick(tab, event) {
             console.log(tab, event);
+        },
+        currentChange(val){
+            this.currentPage = val
+        },
+        prevPage() {
+			this.currentPage--
+		},
+		nextPage() {
+			this.currentPage++
         },
     }
   }

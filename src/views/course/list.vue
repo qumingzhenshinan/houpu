@@ -13,12 +13,12 @@
                         </el-col>
                         <el-col :span="22">
                             <div class="miansubject">
-                                <span><el-button size="small">语文</el-button></span>
-                                <span><el-button size="small">数学</el-button></span>
-                                <span><el-button size="small">英语</el-button></span>
-                                <span><el-button size="small">物理</el-button></span>
-                                <span><el-button size="small">化学</el-button></span>
-                                <span><el-button size="small">科学</el-button></span>
+                                <span><el-button size="small" @click="subjecttype('Chinese')" :class="{active:active == 'Chinese'}">语文</el-button></span>
+                                <span><el-button size="small" @click="subjecttype('Mathematics')" :class="{active:active == 'Mathematics'}">数学</el-button></span>
+                                <span><el-button size="small" @click="subjecttype('English')" :class="{active:active == 'English'}">英语</el-button></span>
+                                <span><el-button size="small" @click="subjecttype('Physics')" :class="{active:active == 'Physics'}">物理</el-button></span>
+                                <span><el-button size="small" @click="subjecttype('Chemistry')" :class="{active:active == 'Chemistry'}">化学</el-button></span>
+                                <span><el-button size="small" @click="subjecttype('science')" :class="{active:active == 'science'}">科学</el-button></span>
                             </div>
                         </el-col>
                         <el-col :span="1.5">
@@ -26,9 +26,9 @@
                         </el-col>
                         <el-col :span="22">
                             <div class="miansubject">
-                                <span><el-button size="small">一年级</el-button></span>
-                                <span><el-button size="small">二年级</el-button></span>
-                                <span><el-button size="small">三年级</el-button></span>
+                                <span><el-button size="small" @click="subjectclass('firstgrade')" :class="{active:active1 == 'firstgrade'}">一年级</el-button></span>
+                                <span><el-button size="small" @click="subjectclass('secondgrade')" :class="{active:active1 == 'secondgrade'}">二年级</el-button></span>
+                                <span><el-button size="small" @click="subjectclass('threegrade')" :class="{active:active1 == 'threegrade'}">三年级</el-button></span>
                             </div>
                         </el-col>
                         <el-col :span="1.5">
@@ -36,8 +36,8 @@
                         </el-col>
                         <el-col :span="22">
                             <div class="miansubject">
-                                <span><el-button size="small">常规课</el-button></span>
-                                <span><el-button size="small">竞赛课</el-button></span>
+                                <span><el-button size="small"  @click="subjectstate('Regularcourse')" :class="{active:active2 == 'Regularcourse'}">常规课</el-button></span>
+                                <span><el-button size="small" @click="subjectstate('Competitioncourse')" :class="{active:active2 == 'Competitioncourse'}">竞赛课</el-button></span>
                             </div>
                         </el-col>
                     </div>
@@ -45,7 +45,7 @@
             </div>
             <div class="line"></div>
             <div class="mainlist">
-                <div class="mainlist-content" v-for="item in mianlistarry"  @click="courseDetails(item)">
+                <div class="mainlist-content" v-for="item in mianlistarry.slice((currentPage-1)*Mpage,currentPage*Mpage)"  @click="courseDetails(item)">
                     <el-row class="">
                         <el-col :span="5">
                             <div class="mainlist-img">
@@ -68,14 +68,16 @@
             <div style="text-align:center">
                 <el-pagination
                     background
-                    :page-size="10"
+                    :page-size='Mpage'
                     :current-page="currentPage"
                     @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
+                    @current-change="currentChange"
+                    @prev-click="prevPage"
+			        @next-click="nextPage"
                     next-text="下一页"
                     prev-text="上一页"
                     layout="prev, pager, next"
-                    :total="total">
+                    :total="mianlistarry.length">
                 </el-pagination>
             </div>
         </div>
@@ -94,8 +96,6 @@ export default {
     },
     data(){
         return {
-            currentPage: 10,
-            total: 0,
             mianlistarry: [
                 {
                     img:require('../../assets/img/Bitmap.png'),
@@ -113,13 +113,18 @@ export default {
                     money: '1600.00',
                     oldmony: '100.00'
                 },
-            ]
+            ],
+            subjectarry: [],
+            Mpage: 5,
+            currentPage: 1,
+            active: '',
+            active1: '',
+            active2: '',
         }
     },
     created(){
         api.AllCourse().then(data => {
                 this.mianlistarry = data.generalvideos
-                this.total = this.mianlistarry.length
         });
     },
     methods: {
@@ -131,8 +136,30 @@ export default {
         },
         //点击下一页和点击页码时执行
         handleCurrentChange(val) {
-        
+            
         },
+        currentChange(val){
+            this.currentPage = val
+        },
+        prevPage() {
+			this.currentPage--
+		},
+		nextPage() {
+			this.currentPage++
+        },
+        subjecttype(val) {
+            this.active = val
+            this.subjectarry[0] = val
+            // this.subjectarry.push(val)
+        },
+        subjectclass(val) {
+            this.subjectarry[1] = val
+            this.active1 = val
+        },
+        subjectstate(val){
+            this.subjectarry[2] = val
+             this.active2 = val
+        }
     }
 }
 </script>
@@ -191,6 +218,9 @@ export default {
  .mainlist-img  img{
      height: 100%;
      width: 100%;
+ }
+ .active {
+     color:#0099ff;
  }
 </style>
 

@@ -34,7 +34,7 @@
                         </el-col>
                     </el-row>
                 </el-aside>
-                <el-main>
+                <el-main style="margin-left:30px">
                     <el-row>
                         <el-col :span="24">
                             <el-tabs v-model="activeName" @tab-click="handleClick">

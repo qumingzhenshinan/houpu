@@ -34,13 +34,13 @@
                         </el-col>
                     </el-row>
                 </el-aside>
-                <el-main>
+                <el-main style="margin-left:30px">
                     <el-row>
                         <el-col :span="24">
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane label="我的小测试" name="first">
                                     <div style="margin-bottom:15px;">
-                                        <div class="textcontent" v-for="item in textlist">
+                                        <div class="textcontent" v-for="item in textlist.slice((currentPage-1)*Mpage,currentPage*Mpage)">
                                             <p class="texttitle">{{item.title}}</p>
                                             <p class="textSubject">科目：{{item.Subject}}</p>
                                             <p class="textfraction">分数：{{item.fraction}}</p>
@@ -56,14 +56,16 @@
                     <div style="text-align:center">
                         <el-pagination
                             background
-                            :page-size="10"
+                            :page-size='Mpage'
                             :current-page="currentPage"
                             @size-change="handleSizeChange"
-                            @current-change="handleCurrentChange"
+                            @current-change="currentChange"
+                            @prev-click="prevPage"
+                            @next-click="nextPage"
                             next-text="下一页"
                             prev-text="上一页"
                             layout="prev, pager, next"
-                            :total="total">
+                            :total="textlist.length">
                         </el-pagination>
                     </div>
                 </el-main>
@@ -82,8 +84,8 @@ import Footer from '@/components/Footer'
         return {
            activeName: 'first',
            classstate:'4',
-           currentPage: 10,
-           total: 100,
+           Mpage: 2,
+		   currentPage: 1,
            textlist:[
                 {
                     title:'一年级语文小测验一年级语文小测验一年级语文小测验',
@@ -158,6 +160,15 @@ import Footer from '@/components/Footer'
         handleClick(tab, event) {
             console.log(tab, event);
         },
+        currentChange(val){
+            this.currentPage = val
+        },
+        prevPage() {
+			this.currentPage--
+		},
+		nextPage() {
+			this.currentPage++
+		},
         
     }
   }

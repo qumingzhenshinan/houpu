@@ -148,7 +148,7 @@
 				<li class="headerHight"><p>最新课程 <span></span></p></li>
 				<li class="headerHight"><p><router-link :to="{ path: '/quiz' }">小测验</router-link> <span></span></p></li>
 				<li class="headerHight"><p>我的课程 <span></span></p></li>
-				<li class="user"><img src="../assets/Header/userImg.png" alt=""><span>张三</span></li>
+				<li class="user" @click="Personal"><img src="../assets/Header/userImg.png" alt=""><span>张三</span></li>
 			</ul>
 		</div>
 	</div>
@@ -160,6 +160,11 @@ export default{
 			aa:["123","123"]
 		}
 	},
+	methods: {
+		Personal(){
+			this.$router.push({name:'personalCenter'})
+		}
+	}
 }
 </script>
 <style scoped>
