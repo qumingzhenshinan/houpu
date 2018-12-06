@@ -103,6 +103,16 @@
                                     <span class="introduction-title">课程优势</span>
                                 </div>
                                 <div style="width:65%;margin-top:20px;">
+                                    <div class="advantage-content" v-for="item in introductionlist" style="margin-left:10px;">
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
+                                        <p class="advantage-title">{{item.title}}</p>
+                                        <p class="advantage-main">{{item.main}}</p>
+                                    </div>
+                                    <!-- <div class="advantage-content" style="margin-left:30px;">
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
+                                        <p class="advantage-title">知识体系化，专业只为提升</p>
+                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
+                                    </div>
                                     <div class="advantage-content">
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
@@ -112,17 +122,7 @@
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
-                                    <div class="advantage-content">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
-                                    <div class="advantage-content" style="margin-left:30px;">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </el-col>
                         </el-row>
@@ -237,6 +237,24 @@ export default {
                     chaptersnum:'二',
                 },
 
+            ],
+            introductionlist: [
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
             ],
             commentlist: [],
             cataloguearr: [],
