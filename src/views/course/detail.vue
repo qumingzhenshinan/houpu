@@ -264,6 +264,7 @@ export default {
         // 获取课程详情
         api.Coursedetails(data).then(data =>{
             this.coursedetails = data
+            // this.playerOptions.poster = data.gvimg
         })
     },
     methods: {
