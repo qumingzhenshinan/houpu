@@ -48,6 +48,12 @@ a {
   margin: 0 auto;
 }
 
+.clearfix:after {
+   content:""; 
+   display: block; 
+   clear:both; 
+}
+
 .coursePresent .el-card__body {
   padding: 0;
 }

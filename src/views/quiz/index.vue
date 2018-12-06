@@ -26,17 +26,7 @@
 			</div>
 			<div class="center">
 				<div class="pagination">
-					<el-pagination
-			      background
-			      prev-text="上一页"
-			      next-text="下一页"
-			      layout="prev, pager, next"
-			      :current-page="page"
-			      @current-change="currentChange"
-			      :page-size='Mpage'
-			      @prev-click="prevPage"
-			      @next-click="nextPage"
-			      :total="quizs.length">
+					<el-pagination background prev-text="上一页" next-text="下一页" layout="prev, pager, next" :current-page="page" @current-change="currentChange" :page-size='Mpage' @prev-click="prevPage" @next-click="nextPage" :total="quizs.length">
 			    </el-pagination>
 				</div>
 			</div>
@@ -159,5 +149,6 @@ export default {
 	color: #fff;
 	text-align: center;
 	line-height: 42px;
+	cursor: pointer;
 }
 </style>

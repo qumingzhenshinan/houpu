@@ -2,20 +2,68 @@
   <div class="testPaper">
     <div class="totalw">
       <Header></Header>
-      <header class="paperHead">
+      <header class="paperHead" id="headP">
         <div class="totalm">
           <span>{{$quiz.quiz.subject}}</span>
-          <span>交卷</span>
+          <span style="cursor: pointer">交卷</span>
           <span>试卷时长：{{$quiz.quiz.timeLenght}}</span>
           <p>{{$quiz.quiz.title}}</p>
         </div> 
       </header><!-- /header -->
+      <div class="totalm">
+        <section class="answer">
+          <div class="topic" v-for="(item,i) in topics">
+            <div style="margin-bottom: 20px;">
+              <span class="topic_type"> {{item.type}} </span>
+              <p class="topic_title"> {{item.title}} </p>
+            </div>
+            <div @click="selected(i,index)" class="topic_select" v-for="(data,index) in item.select">
+              <span :class="{blueS: data.B}"> {{zimu[index]}} </span>
+              <p>{{data.A.slice(1, data.A.length)}}</p>
+            </div>
+          </div>
+        </section>
+        <section class="titleNumber">
+          <div class="number" :class="{numbers: item.selected}" v-for="(item,index) in topics">
+            {{index+1}}
+          </div>
+        </section>
+      </div>
+      <div class="clearfix">
+        
+      </div>
       <Footer></Footer>
     </div>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>您还有未提交的试题，确认提交吗？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+window.onscroll= function(){
+  //变量t是滚动条滚动时，距离顶部的距离
+  var t = document.documentElement.scrollTop||document.body.scrollTop;
+  var headP = document.getElementById('headP')
+  if(headP) {
+    if(t >= 160) {
+      headP.style.position = "fixed"
+      headP.style.margin = 0 + 'px'
+      headP.style.top = 0 + 'px'
+    }else {
+      headP.style.position = "static"
+      headP.style.marginTop = 20 + 'px'
+      headP.style.marginBottom = 20 + 'px'
+    }
+  }
+}
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { mapActions, mapGetters} from 'vuex'
@@ -23,7 +71,187 @@ export default {
   name: 'testPaper',
   data () {
     return {
-      
+      dialogVisible: false,
+      zimu: ['A','B','C','D','E','F','G'],
+      topics: [
+        {
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },{
+          type: '单选题',
+          selected: false,
+          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
+          select: [
+            {
+              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
+              B: false
+            },
+            {
+              A: 'B植树种草绿化',
+              B: false
+            },
+            {
+              A: 'C看到的鱼是光折射形成的实像',
+              B: false
+            },
+            {
+              A: 'D在公路与住宅区之间设置屏障',
+              B: false
+            }
+          ]
+        },
+      ],
     }
   },
   components: {
@@ -34,10 +262,24 @@ export default {
     ...mapGetters(['$quiz'])
   },
   created() {
-    console.log(this.$quiz.quiz);
+    // console.log(this.$quiz.quiz);
   },
   methods: {
-    ...mapActions(['GetQuiz'])
+    ...mapActions(['GetQuiz']),
+    selected(i,int) {
+      this.topics[i].selected = true
+      this.topics[i].select.forEach(item => {
+        item.B = false
+      })
+      this.topics[i].select[int].B = true
+    },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    }
   }
 }
 </script>
@@ -45,7 +287,7 @@ export default {
 <style scoped>
 .paperHead {
   height: 64px;
-  width: 100%;
+  width: 1366px;
   background: #f5f9ff;
   margin: 20px 0;
 }
@@ -90,4 +332,97 @@ export default {
   font-size: 16px;
   border-radius: 4px;
 }
+
+.answer {
+  float: left;
+  width: 760px;
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+.topic {
+  border-bottom: 1px solid #E5EAF3;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.topic_type {
+  width: 60px;
+  height: 24px;
+  background: #E5EAF3;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  float: left;
+  margin-right: 10px;
+}
+
+.topic_title {
+  font-size: 16px;
+  color: #2D3339;
+}
+
+.topic_select {
+  width: 740px;
+  border: 1px solid #E5EAF3;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+  min-height: 36px;
+  display: table;
+}
+
+.topic_select:hover {
+  border: 1px solid #09f;
+}
+
+.topic_select span {
+  width: 38px;
+  background: #E6EEF0;
+  border-radius: 19px;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.topic_select p {
+  font-size: 14px;
+  min-height: 36px;
+  vertical-align: middle;
+  height: inherit;
+  width: 689px;
+  display: table-cell;
+  padding-left: 20px;
+}
+
+.titleNumber {
+  float: right;
+  width: 350px;
+  padding: 0 14px;
+}
+
+.titleNumber .number {
+  width: 28px;
+  height: 28px;
+  border-radius: 2px;
+  background: #E5EAF3;
+  color: #2D3339;
+  margin: 0 0 25px 15px;
+  float: left;
+  line-height: 28px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.numbers {
+  background: #09f !important;
+  color: #fff !important;
+}
+
+.blueS {
+  background: #09f !important;
+  color: #fff;
+}
+
 </style>
