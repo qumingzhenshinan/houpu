@@ -103,6 +103,16 @@
                                     <span class="introduction-title">课程优势</span>
                                 </div>
                                 <div style="width:65%;margin-top:20px;">
+                                    <div class="advantage-content" v-for="item in introductionlist" style="margin-left:10px;">
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
+                                        <p class="advantage-title">{{item.title}}</p>
+                                        <p class="advantage-main">{{item.main}}</p>
+                                    </div>
+                                    <!-- <div class="advantage-content" style="margin-left:30px;">
+                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
+                                        <p class="advantage-title">知识体系化，专业只为提升</p>
+                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
+                                    </div>
                                     <div class="advantage-content">
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
@@ -112,17 +122,7 @@
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
-                                    <div class="advantage-content">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
-                                    <div class="advantage-content" style="margin-left:30px;">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </el-col>
                         </el-row>
@@ -138,7 +138,7 @@
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
                         <div class="comment">
-                            <div v-for="item in commentlist">
+                            <div v-for="item in commentlist.slice((currentPage-1)*Mpage,currentPage*Mpage)">
                                 <el-row style="border-bottom: 1px solid #999;min-height:120px;">
                                     <div>                           
                                         <el-col :span="20">
@@ -163,14 +163,16 @@
                         <div style="text-align:center;margin-top:20px;">
                             <el-pagination
                                 background
-                                :page-size="10"
+                                :page-size='Mpage'
                                 :current-page="currentPage"
                                 @size-change="handleSizeChange"
-                                @current-change="handleCurrentChange"
+                                @current-change="currentChange"
+                                @prev-click="prevPage"
+                                @next-click="nextPage"
                                 next-text="下一页"
                                 prev-text="上一页"
                                 layout="prev, pager, next"
-                                :total="total">
+                                :total="commentlist.length">
                             </el-pagination>
                         </div>
                     </el-tab-pane>
@@ -196,8 +198,8 @@ export default {
         return {
             activeName: 'first',
             value1:2,
-            total: 10,
-            currentPage: 10,
+            Mpage: 5,
+			currentPage: 1,
             playerOptions: {
                 //playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
                 autoplay: false, //如果true,浏览器准备好时开始回放。
@@ -236,6 +238,24 @@ export default {
                 },
 
             ],
+            introductionlist: [
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+                {
+                    title:'知识体系化，专业只为提升',
+                    main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
+                },
+            ],
             commentlist: [],
             cataloguearr: [],
             coursedetails: {},
@@ -247,8 +267,8 @@ export default {
              // this.playerOptions.sources[key].src=require('../../assets/Course/test.mp4')
         // }
         var data = {
-            // gid:this.$route.params.gid,
-            gid:'c10b60d161a2401aa2e247acdfa6616c'
+            gid:this.$route.params.gid,
+            // gid:'c10b60d161a2401aa2e247acdfa6616c'
         }
         // 获取章节
         api.Coursecatalogue(data).then(data =>{
@@ -283,6 +303,15 @@ export default {
        handleClick(tab, event) {
             console.log(tab, event);
         },
+        currentChange(val){
+            this.currentPage = val
+        },
+        prevPage() {
+			this.currentPage--
+		},
+		nextPage() {
+			this.currentPage++
+		},
     },
     watch: {
         //更改视频源 videoUrl从弹出框组件传值

@@ -10,7 +10,6 @@ import PersonalCenter from '@/views/personalCenter/index'
 import ConfirmationOrder from '@/views/order/confirmationOrder'
 import PaymentOrder from '@/views/order/payment/index'
 import test from '@/views/test/test'
-import PersonalCenterdetail from '@/views/personalCenter/personalCenterdetail'
 import MyCoupon from '@/views/personalCenter/myCoupon'
 import TeacherDeatail from '@/views/detail/teacher'
 import StudentDeatail from '@/views/detail/student'
@@ -60,12 +59,6 @@ export default new Router({
     	path: '/personalCenter',
     	name: 'personalCenter',
       component: PersonalCenter,
-    },
-    //个人信息修改
-    {
-      path: '/personalCenterdetail',
-      name: 'personalCenterdetail',
-      component: PersonalCenterdetail,
     },
     //我的优惠券
     {

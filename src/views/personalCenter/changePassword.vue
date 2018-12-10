@@ -4,9 +4,37 @@
         <div class="totalm">
             <el-container style="margin-top:20px;">
                 <el-aside width="130px">
-                    <Menu></Menu>
+                    <el-row>
+                        <el-col :span="24" style="margin-bottom:20px;">
+                            <el-menu
+                                style="border:0;"
+                                default-active="1"
+                                class="el-menu-vertical-demo">
+                                <el-menu-item index="1" :class="{menuborser:true,active:classstate == '1'}" @click.native="personal">
+                                    <i><img src="@/assets/img/business.png" alt=""></i>
+                                    <span slot="title">个人资料</span>
+                                </el-menu-item>                   
+                                <el-menu-item index="2" :class="{menuborser:true,active:classstate == '2'}" @click.native="mycoupon">
+                                    <i><img src="@/assets/img/Coupon.png" alt=""></i>
+                                    <span slot="title">我的优惠卷</span>
+                                </el-menu-item>
+                                <el-menu-item index="3"  :class="{menuborser:true,active:classstate == '3'}" @click.native="myorder">
+                                    <i><img src="@/assets/img/order.png" alt=""></i>
+                                    <span slot="title">我的订单</span>
+                                </el-menu-item>
+                                <el-menu-item index="4"  :class="{menuborser:true,active:classstate == '4'}" @click.native="mytest">
+                                    <i><img src="@/assets/img/pen.png" alt=""></i>
+                                    <span slot="title">我的小测试</span>
+                                </el-menu-item>
+                                <el-menu-item index="5"  :class="{menuborser:true,active:classstate == '5'}" @click.native="mypassword">
+                                    <i><img src="@/assets/img/password.png" alt=""></i>
+                                    <span slot="title">修改密码</span>
+                                </el-menu-item>
+                            </el-menu>
+                        </el-col>
+                    </el-row>
                 </el-aside>
-                <el-main>
+                <el-main style="margin-left:30px">
                     <el-row>
                         <el-col :span="24">
                             <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -67,11 +95,10 @@
 	</div>
 </template>
 <script>
-import Menu from './menu.vue'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 export default {
-    components:{Menu,Header,Footer},
+    components:{Header,Footer},
 	name: 'retireves',
 	data() {
 		var phone = (rule, value, callback) => {
@@ -145,6 +172,7 @@ export default {
 				rmima: [{ validator: validatePass1, trigger: 'blur' }]
 			},
             activeName: 'first',
+            classstate:'5',
             activenum: 1,
             passwordstate:false,
             phonestate:true,
@@ -155,6 +183,26 @@ export default {
 
     },
     methods: {
+        personal(val){
+            this.classstate = '1'
+            this.$router.push({name:'personalCenter'})
+        },
+        mycoupon(val){
+            this.classstate = '2'
+            this.$router.push({name:'myCoupon'})
+        },
+        myorder(){
+            this.classstate = '3'
+            this.$router.push({name:'myOrder'})
+        },
+        mytest(){
+            this.classstate = '4'
+            this.$router.push({name:'myTest'})
+        },
+        mypassword(){
+            this.classstate = '5'
+            this.$router.push({name:'changePassword'})
+        },
         phonenext(){
             this.phonestate = false;
             this.passwordstate = true;
@@ -164,7 +212,10 @@ export default {
             this.activenum = 3
             this.passwordstate = false;
             this.passwordsuccess= true
-        }
+        },
+        handleClick(tab, event) {
+            console.log(tab, event);
+        },
     }
 }
 </script>
@@ -216,4 +267,12 @@ export default {
     font-size: 30px;
     color: gray;
 }
+.menuborser {
+       border-bottom:1px solid #ccc;
+       color: black;
+    }
+    .active {
+        background: #0099ff;
+        color: #fff;
+    }
 </style>
