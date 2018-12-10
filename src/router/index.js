@@ -20,6 +20,7 @@ import ChangePassword from '@/views/personalCenter/changePassword'
 import Quiz from '@/views/quiz/index'
 import TestPaper from '@/views/quiz/testPaper'
 import ResultPaper from '@/views/quiz/result'
+import TestResult from '@/views/quiz/testResult'
 
 Vue.use(Router)
 
@@ -126,10 +127,17 @@ export default new Router({
       name: 'testPaper',
       component: TestPaper
     },
+    // 测验结果
     {
       path: '/quiz/resultPaper',
       name: 'resultPaper',
       component: ResultPaper
+    },
+    // 错题结果
+    {
+      path: '/quiz/testResult',
+      name: 'testResult',
+      component: TestResult
     },
     // test 测试文件
     {

@@ -5,7 +5,7 @@
       <header class="paperHead" id="headP">
         <div class="totalm">
           <span>{{$quiz.quiz.subject}}</span>
-          <span style="cursor: pointer">交卷</span>
+          <span style="cursor: pointer" @click="handIn">交卷</span>
           <span>试卷时长：{{$quiz.quiz.timeLenght}}</span>
           <p>{{$quiz.quiz.title}}</p>
         </div> 
@@ -279,6 +279,19 @@ export default {
           done();
         })
         .catch(_ => {});
+    },
+    handIn() {
+      this.topics.forEach(item => {
+        var cout = 0
+        if(item.selected == true) {
+          cout++
+        }else if(cout == 8) {
+          this.$router.push('/quiz/resultPaper')
+        }else{
+          cout = cout
+        }
+
+      })
     }
   }
 }
