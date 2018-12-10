@@ -4,10 +4,10 @@
       <Header></Header>
       <header class="paperHead" id="headP">
         <div class="totalm">
-          <span>{{$quiz.quiz.subject}}</span>
+          <span>{{$quiz.quiz.etsubject}}</span>
           <span style="cursor: pointer" @click="handIn">交卷</span>
-          <span>试卷时长：{{$quiz.quiz.timeLenght}}</span>
-          <p>{{$quiz.quiz.title}}</p>
+          <span>试卷时长：{{$quiz.quiz.timeLength}}分钟</span>
+          <p>{{$quiz.quiz.etname}}</p>
         </div> 
       </header><!-- /header -->
       <div class="totalm">
@@ -67,6 +67,7 @@ window.onscroll= function(){
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { mapActions, mapGetters} from 'vuex'
+import api from '@/api'
 export default {
   name: 'testPaper',
   data () {
@@ -262,7 +263,10 @@ export default {
     ...mapGetters(['$quiz'])
   },
   created() {
-    // console.log(this.$quiz.quiz);
+    // api.findExamOnly({etid: this.$quiz.quiz.etid}).then(data => {
+    api.findExamOnly({etid: "1109c2e6311b4db18a012c42097e3f5b"}).then(data => {
+      console.log(data);
+    })
   },
   methods: {
     ...mapActions(['GetQuiz']),
@@ -289,6 +293,7 @@ export default {
           this.$router.push('/quiz/resultPaper')
         }else{
           cout = cout
+          this.dialogVisible = true
         }
 
       })

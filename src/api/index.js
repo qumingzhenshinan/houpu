@@ -46,6 +46,11 @@ import {
   Getmycoupon
 } from "@/api/modules/personal"
 
+import {
+  findExamAll,
+  findExamOnly
+} from "@/api/modules/exam"
+
 export default {
   homeTeachers,
   homeStudents,
@@ -62,4 +67,6 @@ export default {
   Coursecomment,
   Coursedetails,
   Getmycoupon,
+  findExamAll,
+  findExamOnly,
 }

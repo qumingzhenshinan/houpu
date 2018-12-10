@@ -15,6 +15,9 @@ const urls = {
 	coursecomment: BASE + '/comment/selectByGid', // post获取课程评论
 	coursedetails: BASE + '/course/selectById', // post获取课程详情
 	getmycoupon:  BASE + '/coupon/selectByUid', // post获取优惠卷
+	// 试卷 exam
+	findExamAll: BASE + '/exam/selectAll', // gett获取所有试卷
+	findExamOnly: BASE + '/questions/select' // post获取某一套试卷的所有题目
 	// todos: 'http://www.houpuclass.com:8089/teacher/select'
 }
 

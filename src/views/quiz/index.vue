@@ -10,17 +10,17 @@
 			<div class="quizmain">
 				<div class="quizBU" v-for="item in quizs.slice((page-1)*Mpage,page*Mpage)">
 					<div>
-						<span> {{item.subject}} </span>
-						<p> {{item.title}} </p>
+						<span> {{item.etsubject}} </span>
+						<p> {{item.etname}} </p>
 					</div>
 					<div class="start" @click="goPaper(item)">
 						开始测验>
 					</div>
 					<p>
-						试卷时长：{{item.timeLenght}}
+						试卷时长：{{item.timeLength}}
 					</p>
 					<p>
-						试卷介绍：{{item.intro}}
+						试卷介绍：{{item.content}}
 					</p>
 				</div>
 			</div>
@@ -38,6 +38,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { mapActions } from 'vuex'
+import api from "@/api"
 export default {
 	name: 'quiz',
 	data() {
@@ -72,13 +73,19 @@ export default {
 					intro: '试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍'
 				}
 			],
-			Mpage: 2,
+			Mpage: 5,
 			page: 1
 		}
 	},
 	components: {
 		Header,
 		Footer,
+	},
+	created() {
+		api.findExamAll().then(data => {
+			console.log(data);
+			this.quizs = data.exams
+		})
 	},
 	methods: {
 		...mapActions(['GetQuiz']),
@@ -122,6 +129,11 @@ export default {
 .quizBU>p {
 	height: 30px;
 	line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .quizBU>div>span {
