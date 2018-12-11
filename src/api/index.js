@@ -38,6 +38,11 @@ import {
   DetailUsername
 } from "@/api/modules/personal"
 
+import {
+  findExamAll,
+  findExamOnly
+} from "@/api/modules/exam"
+
 
 export default {
   homeTeachers,
@@ -56,4 +61,7 @@ export default {
   Coursedetails,
   Getmycoupon,
   DetailUsername,
+  findExamAll,
+  findExamOnly,
+
 }

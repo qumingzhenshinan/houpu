@@ -4,10 +4,10 @@
       <Header></Header>
       <header class="paperHead" id="headP">
         <div class="totalm">
-          <span>{{$quiz.quiz.subject}}</span>
-          <span style="cursor: pointer">交卷</span>
-          <span>试卷时长：{{$quiz.quiz.timeLenght}}</span>
-          <p>{{$quiz.quiz.title}}</p>
+          <span>{{$quiz.quiz.etsubject}}</span>
+          <span style="cursor: pointer" @click="handIn">交卷</span>
+          <span>试卷时长：{{$quiz.quiz.timeLength}}分钟{{seconds}}秒</span>
+          <p>{{$quiz.quiz.etname}}</p>
         </div> 
       </header><!-- /header -->
       <div class="totalm">
@@ -15,11 +15,11 @@
           <div class="topic" v-for="(item,i) in topics">
             <div style="margin-bottom: 20px;">
               <span class="topic_type"> {{item.type}} </span>
-              <p class="topic_title"> {{item.title}} </p>
+              <p class="topic_title"> {{item.name}} </p>
             </div>
-            <div @click="selected(i,index)" class="topic_select" v-for="(data,index) in item.select">
-              <span :class="{blueS: data.B}"> {{zimu[index]}} </span>
-              <p>{{data.A.slice(1, data.A.length)}}</p>
+            <div @click="selected(i,index)" class="topic_select" v-for="(data,index) in item.content">
+              <span :class="{blueS: data.statu}"> {{zimu[index]}} </span>
+              <p>{{data.name}}</p>
             </div>
           </div>
         </section>
@@ -67,10 +67,12 @@ window.onscroll= function(){
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { mapActions, mapGetters} from 'vuex'
+import api from '@/api'
 export default {
   name: 'testPaper',
   data () {
     return {
+      seconds: 60,
       dialogVisible: false,
       zimu: ['A','B','C','D','E','F','G'],
       topics: [
@@ -259,19 +261,37 @@ export default {
     Footer
   },
   computed: {
-    ...mapGetters(['$quiz'])
+    ...mapGetters(['$quiz']),
   },
   created() {
-    // console.log(this.$quiz.quiz);
+    // api.findExamOnly({etid: this.$quiz.quiz.etid}).then(data => {
+    api.findExamOnly({etid: "1109c2e6311b4db18a012c42097e3f5b"}).then(data => {
+      console.log(data.questions);
+      data.questions.forEach(item => {
+        item.content = item.content.split(";")
+        item.selected = false
+        var objs = []
+        item.content.forEach(data => {
+          var obj = {
+            name: data,
+            statu: false
+          }
+          objs.push(obj)
+        })
+        item.content = objs
+      })
+      this.topics = data.questions
+    })
+    this.countDown()
   },
   methods: {
     ...mapActions(['GetQuiz']),
     selected(i,int) {
       this.topics[i].selected = true
-      this.topics[i].select.forEach(item => {
-        item.B = false
+      this.topics[i].content.forEach(item => {
+        item.statu = false
       })
-      this.topics[i].select[int].B = true
+      this.topics[i].content[int].statu = true
     },
     handleClose(done) {
       this.$confirm('确认关闭？')
@@ -279,6 +299,34 @@ export default {
           done();
         })
         .catch(_ => {});
+    },
+    handIn() {
+      this.topics.forEach(item => {
+        var cout = 0
+        if(item.selected == true) {
+          cout++
+        }else if(cout == 8) {
+          this.$router.push('/quiz/resultPaper')
+        }else{
+          cout = cout
+          this.dialogVisible = true
+        }
+
+      })
+    },
+    countDown() {
+      --this.$quiz.quiz.timeLength
+      setInterval(() => {
+        if(this.seconds === 0) {
+          this.seconds = 60
+          this.$quiz.quiz.timeLength--
+        }else if(this.$quiz.quiz.timeLength === 0) {
+          alert('时间到了')
+          this.$router.push('/quiz/resultPaper')
+        }else {
+          this.seconds--
+        }
+      }, 1000);
     }
   }
 }

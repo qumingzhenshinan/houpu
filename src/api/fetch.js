@@ -19,7 +19,6 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
     response => {
-
         if (response.status !== 200) {
             const msg = `接口返回错误, status = ${response.status}`
             // bus.$emit('backendError', msg)
