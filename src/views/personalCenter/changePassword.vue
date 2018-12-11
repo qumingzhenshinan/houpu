@@ -95,6 +95,8 @@
 	</div>
 </template>
 <script>
+import api from '@/api'
+import Vue from 'vue'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 export default {
@@ -216,6 +218,7 @@ export default {
         handleClick(tab, event) {
             console.log(tab, event);
         },
+        
     }
 }
 </script>

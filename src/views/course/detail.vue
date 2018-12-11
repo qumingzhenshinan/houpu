@@ -145,7 +145,7 @@
                                             <span>
                                                 <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
                                             </span>
-                                            <span style="position:absolute;top:20px;left:60px;">李磊</span>
+                                            <span style="position:absolute;top:20px;left:60px;">{{item.username}}</span>
                                             <p style="font-size: 14px;color: #333333;text-align: left;line-height: 22px;width: 79%;min-height:30px;display: block;margin:-20px 0 20px 60px;">
                                                 {{item.content}}
                                             </p>
@@ -198,7 +198,7 @@ export default {
         return {
             activeName: 'first',
             value1:2,
-            Mpage: 5,
+            Mpage: 2,
 			currentPage: 1,
             playerOptions: {
                 //playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
@@ -256,7 +256,28 @@ export default {
                     main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
                 },
             ],
-            commentlist: [],
+            commentlist: [
+                {
+                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
+                    score: '4',
+                    username : '李磊'
+                },
+                 {
+                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
+                    score: '5',
+                    username : '田园'
+                },
+                 {
+                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
+                    score: '2',
+                    username : '郑爽'
+                },
+                {
+                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
+                    score: '1',
+                    username : '郭浩'
+                },
+            ],
             cataloguearr: [],
             coursedetails: {},
         }

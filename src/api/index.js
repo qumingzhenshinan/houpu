@@ -19,7 +19,10 @@ import {
 } from "@/api/modules/Promotion"
 
 import {
-  AllCourse
+  AllCourse,
+  Coursecatalogue,
+  Coursedetails,
+  Coursecomment,
 } from "@/api/modules/Course"
 
 import {
@@ -27,24 +30,14 @@ import {
 } from "@/api/modules/ZeroExperience"
 
 import {
-  Coursecatalogue
-} from "@/api/modules/Course"
-
-import {
-  Coursecomment
-} from "@/api/modules/Course"
-
-import {
-  Coursedetails
-} from "@/api/modules/Course"
-
-import {
   allOrder
 } from "@/api/modules/MyOrder"
 
 import {
-  Getmycoupon
+  Getmycoupon,
+  DetailUsername
 } from "@/api/modules/personal"
+
 
 export default {
   homeTeachers,
@@ -62,4 +55,5 @@ export default {
   Coursecomment,
   Coursedetails,
   Getmycoupon,
+  DetailUsername,
 }

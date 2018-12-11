@@ -56,7 +56,7 @@
                             <div class="mainlist-center">
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 18px;color: #000000;">{{item.gname}}</span>
                                 <span style="display: block;margin-top: 20px;">主讲老师:  {{item.teacherName}}</span>
-                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-html="item.gintro"></span>
+                                <div style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-html="item.gintro"></div>
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 30px;color: #F5A623;text-align: right;display: block;position: absolute;top:35px;right:20px;">¥{{item.gisVip}}</span>
                                 <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;text-align: right;display: block;position: absolute;top:75px;right:20px;">原价￥{{item.gmoney}}</span>
                             </div>    

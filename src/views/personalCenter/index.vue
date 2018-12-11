@@ -57,20 +57,20 @@
                                     <el-row>
                                         <el-col :span="14">
                                             <el-form-item label="昵称:" prop="username">
-                                                <el-input v-model="username" size="small" style="width:112%"/>
+                                                <el-input v-model="username" size="small" style="width:112%" @blur="getusername(username)"/>
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
-                                    <el-row>
+                                    <!-- <el-row>
                                         <el-col :span="14">
                                             <el-form-item label="年级:" prop="classname">
                                                 <el-input v-model="classname" size="small" style="width:112%"/>
                                             </el-form-item>
                                         </el-col>
-                                    </el-row>
+                                    </el-row> -->
                                 </el-form>
-                                <el-button type="primary" size="medium" style="width:100px;margin-top:20px;">完成</el-button>
-                                <el-button  size="medium" style="width:100px;margin-top:20px;" >取消</el-button>
+                                <el-button type="primary" size="medium" style="width:100px;margin-top:20px;" @click="Detailusername">完成</el-button>
+                                <el-button  size="medium" style="width:100px;margin-top:20px;" @click="cancelbtn">取消</el-button>
                             </div>
                         </el-col>
                     </el-row>
@@ -93,7 +93,9 @@ import Footer from '@/components/Footer'
            username:"李磊",
            classname:'一年级',
            setupstate: true,
-            classstate:'1',
+           classstate:'1',
+           usernameval: '',
+           user:""
         }
     },
     created(){
@@ -122,6 +124,21 @@ import Footer from '@/components/Footer'
         },
         Setup(){
             this.setupstate = false
+        },
+        getusername(val){
+            this.usernameval = val
+        },
+        cancelbtn() {
+            this.setupstate = true
+        },
+        Detailusername(){
+            var data = {
+                uid: '681f95051bbf4978b455688a285b483a',
+                // username: this.usernameval
+            }
+            api.DetailUsername(data).then(data => {
+                
+            })
         }
     }
   }
