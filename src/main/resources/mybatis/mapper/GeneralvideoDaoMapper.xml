@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.GeneralvideoDao">
+
+
+    <select id="queryAll"  resultType="com.jiuchou.houpu.entity.Generalvideo">
+        SELECT * from generalvideo
+    </select>
+
+    <select id="queryById" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gid=#{gid}
+    </select>
+
+    <select id="queryByKind" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gsbuject=#{gsbuject} and gclass=#{gclass} and gclassify=#{gclassify}
+    </select>
+
+    <select id="queryByGsbuject" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gsbuject=#{gsbuject}
+    </select>
+    <select id="queryByGclass" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gclass=#{gclass}
+    </select>
+    <select id="queryByGclassify" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gclassify=#{gclassify}
+    </select>
+    <select id="queryByGsbujectAndGclass" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gsbuject=#{gsbuject} and gclass=#{gclass}
+    </select>
+    <select id="queryByGclassAndGclassify" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gclass=#{gclass} and gclassify=#{gclassify}
+    </select>
+    <select id="queryByGsbujectAndGclassify" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gsbuject=#{gsbuject} and gclassify=#{gclassify}
+    </select>
+
+    <select id="queryByTeacherId" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select g.* from generalvideo g left join teacher t on g.teacherName=t.tname where t.tid=#{tid}
+    </select>
+
+    <select id="queryByCreatTime" resultType="com.jiuchou.houpu.entity.Generalvideo">
+       select g.* from (select * from generalvideo order by gcreatTime desc) g where g.gsbuject=#{gsbuject} and g.gclass=#{gclass} and g.gclassify=#{gclassify}
+    </select>
+
+    <select id="queryByMoney" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select h.* from (select * from generalvideo where gmoney='0') h where h.gsbuject=#{gsbuject} and h.gclass=#{gclass} and h.gclassify=#{gclassify}
+    </select>
+
+    <select id="queryByKillEndTime" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where killEndTime!='' and killEndTime >=#{date}
+    </select>
+
+    <select id="queryRecommend" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select g.* from generalvideo g join (select e.*,u.score from exam e left join userscore u on e.etid=u.etid where u.score &lt;60 and u.uid=#{uid} and u.etid=#{etid}) m on m.etsubject=g.gsbuject and m.etclass=g.gclass
+    </select>
+
+    <select id="queryByValue"  resultType="com.jiuchou.houpu.entity.Generalvideo">
+        SELECT * from generalvideo where gname like CONCAT('%',#{value},'%')
+    </select>
+</mapper>

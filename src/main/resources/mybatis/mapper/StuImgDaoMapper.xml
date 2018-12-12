@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.StuImgDao">
+    <select id="query" resultType="com.jiuchou.houpu.entity.StuImg">
+        SELECT s.* from stu_img s left join trophy t on s.tpid=t.pid where t.pid=#{pid}
+    </select>
+</mapper>

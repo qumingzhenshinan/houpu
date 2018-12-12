@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.TrophyDao">
+    <select id="query" resultType="com.jiuchou.houpu.entity.Trophy">
+        SELECT * from trophy
+    </select>
+
+    <select id="queryById" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Trophy">
+        select * from trophy where pid=#{pid}
+    </select>
+</mapper>

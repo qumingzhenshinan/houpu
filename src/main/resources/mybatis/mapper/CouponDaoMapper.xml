@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.CouponDao">
+
+    <select id="queryAll" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Coupon">
+        select c.* from coupon c left join user u on c.uid=u.uid where u.uid=#{uid} COLLATE utf8_general_ci
+    </select>
+
+    <insert id="add" parameterType="com.jiuchou.houpu.entity.Coupon">
+        insert into coupon(cname,ctype,validity,coupon_price,uid) values(?,?,?,?,?)
+    </insert>
+</mapper>

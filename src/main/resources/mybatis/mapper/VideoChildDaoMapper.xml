@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.VideoChildDao">
+
+    <select id="queryChildById" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.VideoChild">
+        SELECT v.* from video_child v LEFT JOIN generalvideo g on v.pid=g.gid where g.gid=#{gid} order by sort
+    </select>
+
+
+</mapper>

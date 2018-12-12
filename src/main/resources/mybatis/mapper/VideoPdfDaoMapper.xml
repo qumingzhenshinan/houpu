@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.VideoPdfDao">
+
+    <select id="queryPdfById" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.VideoPdf">
+        SELECT v.* from video_pdf v LEFT JOIN video_child c on v.vcid=c.vcid where c.vcid=#{vcid}
+    </select>
+
+
+</mapper>

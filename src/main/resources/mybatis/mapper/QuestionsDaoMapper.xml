@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.QuestionsDao">
+
+    <select id="queryAll" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Questions">
+        SELECT q.* from questions q join exam e on e.etid=q.etid where q.etid=#{etid}
+    </select>
+
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiuchou.houpu.dao.VideoTestDao">
+
+    <select id="query" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.VideoTest">
+        SELECT v.* from video_test v LEFT JOIN video_child c on v.vcid=c.vcid where c.vcid=#{vcid}
+    </select>
+
+
+</mapper>
