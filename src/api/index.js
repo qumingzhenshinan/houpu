@@ -23,6 +23,7 @@ import {
   Coursecatalogue,
   Coursedetails,
   Coursecomment,
+  findCourse
 } from "@/api/modules/Course"
 
 import {
@@ -42,6 +43,11 @@ import {
   findExamAll,
   findExamOnly
 } from "@/api/modules/exam"
+
+import {
+  getPhoneC,
+  reMCUser
+} from "@/api/modules/start"
 
 
 export default {
@@ -63,5 +69,8 @@ export default {
   DetailUsername,
   findExamAll,
   findExamOnly,
+  findCourse,
+  getPhoneC,
+  reMCUser
 
 }

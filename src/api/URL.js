@@ -4,6 +4,7 @@ const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员
 	teachers: BASE + '/teacher/select',// get获取老师列表
 	course: BASE + '/course/select',//get获取所有课程
+	findCourse: BASE + '/course/selectByKind', // post三级查询获取课程
 	loop:BASE + '/article/select',//get轮播图
 	findteacher: BASE + '/teacher/selectById',//post根据id获取老师详情
 	findstudent: BASE +'/trophy/selectById',//post根据id获取学生详情
@@ -18,8 +19,10 @@ const urls = {
 	detailusername:  BASE + '/user/update', // post修改用户昵称
 	// 试卷 exam
 	findExamAll: BASE + '/exam/selectAll', // gett获取所有试卷
-	findExamOnly: BASE + '/questions/select' // post获取某一套试卷的所有题目
-	// todos: 'http://www.houpuclass.com:8089/teacher/select'
+	findExamOnly: BASE + '/questions/select', // post获取某一套试卷的所有题目
+	// 注册
+	getPhoneC: BASE + '/message/ycode', // post根据手机号获取验证码
+	reMCUser: BASE + '/user/regist' // post密码手机号注册验证
 }
 
 export default urls

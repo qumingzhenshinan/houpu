@@ -17,6 +17,9 @@
 				<p><span>应付金额：</span><span v-if="couponIndex != null">￥{{199 - coupons[couponIndex].price}}</span></p>
 				<p><el-button size="medium" type="primary">去付款</el-button></p>
 			</div>
+			<div class="clearfix">
+				
+			</div>
 		</div>
 		<Footer></Footer>
 	</div>
@@ -71,7 +74,6 @@ export default {
 .confirms {
 	box-shadow: 0 0 6px 0 rgba(136,136,136,0.20);
 	border-radius: 8px;
-	height: 525px;
 	padding: 15px;
 	margin-bottom: 40px;
 	box-sizing: border-box;

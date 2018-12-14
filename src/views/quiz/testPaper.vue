@@ -316,11 +316,12 @@ export default {
     },
     countDown() {
       --this.$quiz.quiz.timeLength
-      setInterval(() => {
+      var timer = setInterval(() => {
         if(this.seconds === 0) {
           this.seconds = 60
           this.$quiz.quiz.timeLength--
         }else if(this.$quiz.quiz.timeLength === 0) {
+          clearInterval(timer)
           alert('时间到了')
           this.$router.push('/quiz/resultPaper')
         }else {

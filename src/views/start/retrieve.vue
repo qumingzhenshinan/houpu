@@ -7,13 +7,13 @@
       <div class="retrieve">
         找回密码
         <div style="padding:20px;box-sizing:border-box">
-					<el-steps :active="1" align-center finish-status="success">
+					<el-steps :active="active" align-center finish-status="success">
 					  <el-step title="输入账号"></el-step>
 					  <el-step title="账号验证"></el-step>
 					  <el-step title="重置密码"></el-step>
 					</el-steps>
 					<!-- 步骤1 -->
-					<div class="step" v-show="false">
+					<div class="step" v-if="active === 1">
 						<p>请登录您要找回的帐号</p>
 						<p>
 							<el-form :model="phone" status-icon :rules="phoneRules" ref="phone" class="demo-ruleForm">
@@ -24,21 +24,21 @@
 							</el-form>
 						</p>
 						<p>
-							<el-button class="p3btn" type="primary">下一步</el-button>
+							<el-button @click="active++" class="p3btn" type="primary">下一步</el-button>
 						</p>
 					</div>
 					<!-- 步骤2 -->
-					<div class="step step2" v-show="false">
+					<div class="step step2" v-if="active === 2">
 						<p>请登录您要找回的帐号</p>
 						<p>
 							<input type="text" name="" value="" placeholder="输入验证码">
 							<span>| 获取验证码</span>
 						</p>
 						<p>
-							<el-button class="p3btn" type="primary">下一步</el-button>
+							<el-button @click="active++" class="p3btn" type="primary">下一步</el-button>
 						</p>
 					</div>
-					<div class="step step3" v-show="false">
+					<div class="step step3" v-if="active === 3">
 						<p>
 							<el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
 							  <el-form-item class="step3I" prop="mima">
@@ -52,10 +52,10 @@
 							</el-form>
 						</p>
 						<p>
-							<el-button class="p3btn" type="primary">下一步</el-button>
+							<el-button @click="active++" class="p3btn" type="primary">下一步</el-button>
 						</p>
 					</div>
-					<div class="step step4">
+					<div class="step step4" v-if="active === 4">
 						<p>密码重置成功</p>
 						<p><span style="color:#09f">{{countDown}}秒</span>后自动跳转到登录，点击按钮直接跳转</p>
 						<p>
@@ -115,6 +115,7 @@ export default {
       }
     };
 		return {
+			active: 1,
 			countDown: 5,
 			phone: {
 				num: ''
@@ -136,9 +137,10 @@ export default {
 	},
 	methods: {
 		countDowns() {
-			setInterval(() => {
+			var timer = setInterval(() => {
 				if(this.countDown === 0) {
 					this.$router.push('/start')
+					clearInterval(timer)
 				}else {
 					this.countDown--
 				}

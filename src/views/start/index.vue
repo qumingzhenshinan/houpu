@@ -77,7 +77,6 @@ export default {
 
 .mainbox {
   width: 310px;
-  height: 330px;
   background-color: #fff;
   padding: 5px;
   position: absolute;
