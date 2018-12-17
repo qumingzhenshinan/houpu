@@ -4,3 +4,6 @@ import URL from "@/api/URL"
 export function ZeroCourse(params) {
     return fetch.post(URL.zerocourse,params)
 }
+export function NewCourse(params) {
+    return fetch.get(URL.newcourse,params)
+}

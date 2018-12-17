@@ -6,6 +6,8 @@ import Start from '@/views/start/index'
 import Retrieve from '@/views/start/retrieve'
 import CourseList from '@/views/course/list'
 import CourseDetail from '@/views/course/detail'
+import ZeroCourse from '@/views/course/zerocourse'
+import NewCourse from '@/views/course/newcourse'
 import PersonalCenter from '@/views/personalCenter/index'
 import ConfirmationOrder from '@/views/order/confirmationOrder'
 import PaymentOrder from '@/views/order/payment/index'
@@ -53,6 +55,18 @@ export default new Router({
     	path: '/courseDetail/:gid',
     	name: 'detail',
     	component: CourseDetail
+    },
+    // 0元课程
+    {
+      path: '/zeroCourse',
+    	name: 'zerocourse',
+    	component: ZeroCourse
+    },
+    // 最新课程
+    {
+      path: '/newCourse',
+    	name: 'newcourse',
+    	component: NewCourse
     },
     // 个人中心 
     {

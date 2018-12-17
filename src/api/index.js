@@ -23,10 +23,12 @@ import {
   Coursecatalogue,
   Coursedetails,
   Coursecomment,
+  SubjectQuery,
 } from "@/api/modules/Course"
 
 import {
-  ZeroCourse
+  ZeroCourse,
+  NewCourse
 } from "@/api/modules/ZeroExperience"
 
 import {
@@ -35,7 +37,11 @@ import {
 
 import {
   Getmycoupon,
-  DetailUsername
+  DetailUsername,
+  GetPhonenum,
+  ExamHistoy,
+  ChangePassword,
+  UpdataImg,
 } from "@/api/modules/personal"
 
 import {
@@ -63,5 +69,10 @@ export default {
   DetailUsername,
   findExamAll,
   findExamOnly,
-
+  SubjectQuery,
+  GetPhonenum,
+  NewCourse,
+  ExamHistoy,
+  ChangePassword,
+  UpdataImg,
 }

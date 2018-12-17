@@ -13,3 +13,6 @@ export function Coursecomment(params) {
 export function Coursedetails(params) {
     return fetch.post(URL.coursedetails,params)
 }
+export function SubjectQuery(params) {
+    return fetch.post(URL.subjectquery,params)
+}

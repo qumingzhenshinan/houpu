@@ -76,6 +76,7 @@
 </template>
 <script>
 import Vue from 'vue'
+import api from '@/api'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
   export default {
@@ -127,7 +128,9 @@ import Footer from '@/components/Footer'
         }
     },
     created(){
-
+        api.ExamHistoy({uid:'681f95051bbf4978b455688a285b483a'}).then(data => {
+            this.textlist = data
+        })
     },
     methods: {
         personal(val){

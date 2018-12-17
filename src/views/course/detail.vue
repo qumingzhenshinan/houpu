@@ -25,8 +25,11 @@
                                 <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;position:relative;display: block;left:150px;top:-30px;">
                                     原价￥{{coursedetails.gmoney}}
                                 </span>
-                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;min-height: 38px;">
+                                <!-- <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;min-height: 38px;">
                                     这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍
+                                </span> -->
+                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;height:100px;overflow:hidden" v-html="coursedetails.gintro">
+                                   
                                 </span>
                             </div>
                             <div style="height: 65px;">
@@ -230,13 +233,7 @@ export default {
                     date: '8:20',
                     chaptersnum:'一',
                 },
-                {
-                    title:' 先秦诗歌与史传散文1',
-                    chapters:[' 先秦诗歌与史传散文',' 先秦诗歌与史传散文',' 先秦诗歌与史传散文'],
-                    date: '8:20',
-                    chaptersnum:'二',
-                },
-
+                
             ],
             introductionlist: [
                 {
@@ -305,6 +302,7 @@ export default {
         // 获取课程详情
         api.Coursedetails(data).then(data =>{
             this.coursedetails = data
+            // this.playerOptions.poster = data.gvimg
         })
     },
     methods: {

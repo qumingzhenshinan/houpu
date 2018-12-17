@@ -53,11 +53,9 @@
                                                 </div> -->
                                                 <span class="ordermonery">￥{{item.omoney}}</span>
                                                 <el-button type="primary" class="orderbtn" v-if="item.oisPay == '0'">付款</el-button>
-                                                <!-- <el-button class="cancelorderbtn">取消订单</el-button> -->
-                                                
+                                                <!-- <el-button class="cancelorderbtn">取消订单</el-button> -->                                              
                                                 <!-- <p class="expired">已过期</p> -->
                                                 <p class="paidbtn"  v-if="item.oisPay == '1'">已付款</p>
-                                                <!-- <p class="deliveryrefund">发货退款</p> -->
                                                 <!-- <el-button class="cancelorderbtn">评价</el-button> -->
                                             </el-col>
                                         </el-row>
@@ -115,7 +113,7 @@ import Footer from '@/components/Footer'
         }
     },
     created(){
-        api.allOrder().then(data => {
+        api.allOrder({uid:'681f95051bbf4978b455688a285b483a'}).then(data => {
             this.couponlist = data.orders
         })
     },
