@@ -4,6 +4,7 @@ const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员
 	teachers: BASE + '/teacher/select',// get获取老师列表
 	course: BASE + '/course/select',//get获取所有课程
+	getrecommendedC: BASE + '/course/recommend', // post 获取推荐课程
 	findCourse: BASE + '/course/selectByKind', // post三级查询获取课程
 	loop:BASE + '/article/select',//get轮播图
 	findteacher: BASE + '/teacher/selectById',//post根据id获取老师详情
@@ -20,6 +21,7 @@ const urls = {
 	// 试卷 exam
 	findExamAll: BASE + '/exam/selectAll', // gett获取所有试卷
 	findExamOnly: BASE + '/questions/select', // post获取某一套试卷的所有题目
+	getAnswer: BASE + '/exam/selectAnswer', // post分数统计并添加错题
 	// 注册
 	getPhoneC: BASE + '/message/ycode', // post根据手机号获取验证码
 	reMCUser: BASE + '/user/regist', // post密码手机号注册验证

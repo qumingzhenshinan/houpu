@@ -31,6 +31,7 @@
 <script>
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import api from '@/api'
 export default {
   name: 'result',
   data () {
@@ -67,6 +68,15 @@ export default {
   components: {
     Header,
     Footer
+  },
+  created() {
+    api.getrecommendedC({
+      userid: '',
+      etid: ''
+    }).then(data => {
+      console.log(data);
+      // this.course = data
+    })
   }
 }
 </script>

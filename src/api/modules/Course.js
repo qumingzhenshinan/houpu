@@ -17,3 +17,7 @@ export function Coursedetails(params) {
 export function findCourse(params) {
 	return fetch.post(URL.findCourse, params)
 }
+
+export function getrecommendedC(params) {
+	return fetch.post(URL.getrecommendedC, params)
+}
