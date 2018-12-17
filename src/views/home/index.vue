@@ -4,8 +4,8 @@
     <div class="totalw">
       <div class="block">
         <el-carousel height="300px">
-          <el-carousel-item v-for="item in 4" :key="item">
-            <h3>{{ item }}</h3>
+          <el-carousel-item v-for="(item,index) in banners" :key="index">
+            <img style="width: 100%;height: 100%;" :src="base + item.atUrl" alt="">
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -25,12 +25,15 @@ import Course from './course.vue'
 import Learning from './learning'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import api from "@/api"
+import Base from '@/baseimg'
 
 export default {
   name: 'home',
   data () {
     return {
-      
+      banners: [],
+      base: ''
     }
   },
   components: {
@@ -45,6 +48,10 @@ export default {
     
   },
   created() {
+    this.base = Base
+    api.homeLoop().then(data => {
+      this.banners = data.articleImg
+    })
   }
 }
 </script>

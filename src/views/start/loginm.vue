@@ -20,9 +20,11 @@
           <el-input class="codes" v-model="login.code" placeholder="请输入验证码"></el-input>
           <span class="scode" @click="createCode">{{verificationCode}}</span>
         </el-form-item>
+        <el-form-item>
+          <el-checkbox label="自动登录" name="type"></el-checkbox>
+          <el-button @click="submitForm('login')" class="login" type="primary">登录</el-button>
+        </el-form-item>
       </el-form>
-      <el-checkbox label="自动登录" name="type"></el-checkbox>
-      <el-button class="login" type="primary">登录</el-button>
       <div class="wmima">
         <span style="cursor:pointer;" @click="$router.push('/start/retrieve')">忘记密码？</span>
         <span @click="goR">注册</span> 
@@ -32,6 +34,7 @@
 </template>
 
 <script>
+import api from "@/api"
 export default {
   name: 'start',
   data () {
@@ -49,7 +52,7 @@ export default {
               callback();
             }
           }
-        }, 1000);
+        }, 100);
       }
     };
     var pass = (rule, value, callback) => {
@@ -63,7 +66,7 @@ export default {
           } else {
             callback();
           }
-        }, 1000);
+        }, 100);
       }
     };
     var code = (rule, value, callback) => {
@@ -77,7 +80,7 @@ export default {
           } else {
             callback();
           }
-        }, 1000);
+        }, 100);
       }
     };
     return {
@@ -101,6 +104,20 @@ export default {
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          api.getlogin({
+            userName: '15201347467',
+            passWord: 's222s2s22s'
+          }).then(data => {
+            console.log(data);
+          })
+        } else {
+          return false;
+        }
+      });
+    },
     createCode() {    //通过随机数生成验证码
       var code = '';
       var codeLength = 4;     //验证码长度
@@ -191,7 +208,6 @@ export default {
 
 .login {
   width: 100%;
-  margin-top: 10px;
 }
 
 .wmima {

@@ -122,4 +122,14 @@ a {
 .pagination .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
   background: #fff;
 }
+
+.el-dialog__body {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.el-dialog--center .el-dialog__body {
+  text-align: center;
+}
 </style>

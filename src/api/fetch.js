@@ -31,7 +31,12 @@ service.interceptors.response.use(
             throw new Error(msg)
         } else {
             // bus.$emit('backLoadEnd')
-            return response.data.data
+            if(response.data.data) {
+              return response.data.data
+            }else {
+              return response.data
+            }
+            
         }
     })
 

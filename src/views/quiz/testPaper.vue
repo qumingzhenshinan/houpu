@@ -72,6 +72,8 @@ export default {
   name: 'testPaper',
   data () {
     return {
+      timer: '',
+      answers: [],
       seconds: 60,
       dialogVisible: false,
       zimu: ['A','B','C','D','E','F','G'],
@@ -98,161 +100,7 @@ export default {
               B: false
             }
           ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },{
-          type: '单选题',
-          selected: false,
-          title: '噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )',
-          select: [
-            {
-              A: 'A清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁',
-              B: false
-            },
-            {
-              A: 'B植树种草绿化',
-              B: false
-            },
-            {
-              A: 'C看到的鱼是光折射形成的实像',
-              B: false
-            },
-            {
-              A: 'D在公路与住宅区之间设置屏障',
-              B: false
-            }
-          ]
-        },
+        }
       ],
     }
   },
@@ -263,9 +111,19 @@ export default {
   computed: {
     ...mapGetters(['$quiz']),
   },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
   created() {
-    // api.findExamOnly({etid: this.$quiz.quiz.etid}).then(data => {
-    api.findExamOnly({etid: "1109c2e6311b4db18a012c42097e3f5b"}).then(data => {
+    api.getAnswer({
+            etid: this.$quiz.quiz.etid,
+            uid: 'a958d03cc43c44db83b0178b8a752fd6',
+            questionsMap: this.answers
+          }).then(data => {
+            console.log(data);
+          })
+    api.findExamOnly({etid: this.$quiz.quiz.etid}).then(data => {
+    // api.findExamOnly({etid: "1109c2e6311b4db18a012c42097e3f5b"}).then(data => {
       console.log(data.questions);
       data.questions.forEach(item => {
         item.content = item.content.split(";")
@@ -287,6 +145,28 @@ export default {
   methods: {
     ...mapActions(['GetQuiz']),
     selected(i,int) {
+      if(this.answers.length === 0) {
+        this.answers.push({
+          id: this.topics[i].id,
+          answer: this.zimu[int]
+        })
+      }else {
+        var count = 0
+        for(var j = 0; j < this.answers.length; j++ ) {
+          if(this.answers[j].id !== this.topics[i].id) {
+            count++
+          }else {
+            this.answers[j].answer = this.zimu[int]
+          }
+          if(count === this.answers.length) {
+            this.answers.push({
+              id: this.topics[i].id,
+              answer: this.zimu[int]
+            })
+          }
+        }        
+      }
+      console.log(this.answers);
       this.topics[i].selected = true
       this.topics[i].content.forEach(item => {
         item.statu = false
@@ -301,11 +181,19 @@ export default {
         .catch(_ => {});
     },
     handIn() {
+      var cout = 0
       this.topics.forEach(item => {
-        var cout = 0
         if(item.selected == true) {
           cout++
-        }else if(cout == 8) {
+        }
+        if(cout == this.topics.length) {
+          api.getAnswer({
+            etid: this.$quiz.quiz.etid,
+            uid: 'a958d03cc43c44db83b0178b8a752fd6',
+            questionsMap: this.answers
+          }).then(data => {
+            console.log(data);
+          })
           this.$router.push('/quiz/resultPaper')
         }else{
           cout = cout
@@ -316,11 +204,12 @@ export default {
     },
     countDown() {
       --this.$quiz.quiz.timeLength
-      setInterval(() => {
+      this.timer = setInterval(() => {
         if(this.seconds === 0) {
           this.seconds = 60
           this.$quiz.quiz.timeLength--
         }else if(this.$quiz.quiz.timeLength === 0) {
+          clearInterval(timer)
           alert('时间到了')
           this.$router.push('/quiz/resultPaper')
         }else {

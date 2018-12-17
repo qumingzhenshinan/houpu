@@ -7,59 +7,60 @@
       <div class="retrieve">
         找回密码
         <div style="padding:20px;box-sizing:border-box">
-					<el-steps :active="1" align-center finish-status="success">
+					<el-steps :active="active" align-center finish-status="success">
 					  <el-step title="输入账号"></el-step>
 					  <el-step title="账号验证"></el-step>
 					  <el-step title="重置密码"></el-step>
 					</el-steps>
 					<!-- 步骤1 -->
-					<div class="step" v-show="false">
+					<div class="step" v-if="active === 1">
 						<p>请登录您要找回的帐号</p>
-						<p>
-							<el-form :model="phone" status-icon :rules="phoneRules" ref="phone" class="demo-ruleForm">
-							  <el-form-item class="num" prop="num">
-							    <el-input placeholder="手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
-							    <img src="@/assets/img/person.png" alt="">
-							  </el-form-item>
-							</el-form>
-						</p>
-						<p>
-							<el-button class="p3btn" type="primary">下一步</el-button>
-						</p>
+						<el-form :model="phone" status-icon :rules="phoneRules" ref="phone" class="demo-ruleForm">
+						  <el-form-item class="num" prop="num">
+						    <el-input placeholder="手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+						    <img src="@/assets/img/person.png" alt="">
+						  </el-form-item>
+							<el-form-item>
+								<el-button @click="stepOne('phone')" class="p3btn" type="primary">下一步</el-button>
+							</el-form-item>
+						</el-form>
 					</div>
 					<!-- 步骤2 -->
-					<div class="step step2" v-show="false">
+					<div class="step step2" v-if="active === 2">
 						<p>请登录您要找回的帐号</p>
-						<p>
-							<input type="text" name="" value="" placeholder="输入验证码">
-							<span>| 获取验证码</span>
-						</p>
-						<p>
-							<el-button class="p3btn" type="primary">下一步</el-button>
-						</p>
+						<el-form :model="code" status-icon :rules="codeRules" ref="code" class="demo-ruleForm">
+						  <el-form-item class="num" prop="num">
+						    <el-input placeholder="输入验证码" type="text" v-model.number="code.num" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+						    <span @click="getCode">| 获取验证码</span>
+						  </el-form-item>
+							<el-form-item>
+								<el-button @click="stepTwo('code')" class="p3btn" type="primary">下一步</el-button>
+							</el-form-item>
+						</el-form>
 					</div>
-					<div class="step step3" v-show="false">
-						<p>
-							<el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
-							  <el-form-item class="step3I" prop="mima">
-							    <el-input suffix-icon="el-icon-view" placeholder="新密码" type="password" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
-							    <img src="@/assets/img/pass.png" alt="">
-							  </el-form-item>
-							  <el-form-item class="step3I" prop="rmima">
-							    <el-input suffix-icon="el-icon-view" placeholder="确认密码" type="password" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
-							    <img src="@/assets/img/pass.png" alt="">
-							  </el-form-item>
-							</el-form>
-						</p>
-						<p>
-							<el-button class="p3btn" type="primary">下一步</el-button>
-						</p>
+					<!-- 步骤3 -->
+					<div class="step step3" v-if="active === 3">
+						<el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
+						  <el-form-item class="step3I" prop="mima">
+						    <el-input id="mima"  placeholder="新密码" type="password" v-model="step3.mima" ></el-input>
+						    <img src="@/assets/img/pass.png" alt="">
+						    <i class="el-icon-view" @click="looking('mima')"></i>
+						  </el-form-item>
+						  <el-form-item class="step3I" prop="rmima">
+						    <el-input id="rmima" placeholder="确认密码" type="password" v-model="step3.rmima"></el-input>
+						    <img src="@/assets/img/pass.png" alt="">
+						    <i class="el-icon-view" @click="looking('rmima')"></i>
+						  </el-form-item>
+						  <el-form-item> 
+						  	<el-button @click="stepThree('step3')" class="p3btn" type="primary">下一步</el-button>
+						  </el-form-item>
+						</el-form>
 					</div>
-					<div class="step step4">
+					<div class="step step4" v-if="active === 4">
 						<p>密码重置成功</p>
 						<p><span style="color:#09f">{{countDown}}秒</span>后自动跳转到登录，点击按钮直接跳转</p>
 						<p>
-							<el-button class="p3btn" type="primary">手动跳转</el-button>
+							<el-button @click="gologin" class="p3btn" type="primary">手动跳转</el-button>
 						</p>
 					</div>
 				</div>
@@ -71,6 +72,8 @@
   </div>
 </template>
 <script>
+import api from "@/api"
+var codes = ''
 export default {
 	name: 'retireves',
 	data() {
@@ -90,6 +93,20 @@ export default {
           }
         }, 1000);
       }
+		};
+		var code = (rule, value, callback) => {
+			if (value === "") {
+				callback(new Error('请输入验证码'))
+			} else {
+				console.log(value,codes);
+				setTimeout(() => {
+          if (value == codes) {
+            callback()
+          } else {
+            callback(new Error('验证码输入错误'))
+          }
+        }, 100);
+			}
 		};
 		var validatePass = (rule, value, callback) => {
       var pattern = /^[\w]{6,12}$/;
@@ -115,8 +132,13 @@ export default {
       }
     };
 		return {
+			timer: null,
+			active: 1,
 			countDown: 5,
 			phone: {
+				num: ''
+			},
+			code: {
 				num: ''
 			},
 			step3: {
@@ -128,6 +150,9 @@ export default {
 					{ validator: phone, trigger: 'blur' }
 				]
 			},
+			codeRules: {
+				num: [{ validator: code, trigger: 'blur' }]
+			},
 			step3Rules: {
 				mima: [{ validator: validatePass, trigger: 'blur' }],
 				rmima: [{ validator: validatePass1, trigger: 'blur' }]
@@ -135,10 +160,58 @@ export default {
 		}
 	},
 	methods: {
+		getCode() {
+			// api.getPhoneC({tel: this.phone.num}).then(data => {
+			api.getPhoneC({tel: '15201347467'}).then(data => {
+				console.log(data);
+				codes = data
+			})
+		},
+		stepOne(formName) {
+			this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.active++
+        } else {
+          return false;
+        }
+      })
+		},
+		stepTwo(formName) {
+			this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.active++
+
+        } else {
+          return false;
+        }
+      })
+		},
+		stepThree(formName) {
+			this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.active++
+          this.countDowns()
+        } else {
+          return false;
+        }
+      })
+		},
+		looking(item) {
+			if(document.getElementById(item).type == 'password') {
+				document.getElementById(item).type = 'text'
+			}else {
+				document.getElementById(item).type = 'password'
+			}
+		},
+		gologin() {
+			clearInterval(this.timer)
+			this.$router.push('/start')
+		},
 		countDowns() {
-			setInterval(() => {
+			this.timer = setInterval(() => {
 				if(this.countDown === 0) {
 					this.$router.push('/start')
+					clearInterval(this.timer)
 				}else {
 					this.countDown--
 				}
@@ -146,7 +219,6 @@ export default {
 		}
 	},
 	created() {
-		this.countDowns()
 	}
 }
 </script>
@@ -157,6 +229,13 @@ export default {
 }
 
 .step p {
+	width: 280px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+
+
+.step .el-form-item {
 	width: 280px;
 	margin: 0 auto;
 	margin-bottom: 40px;
@@ -179,25 +258,16 @@ export default {
   opacity: 0.6;
 }
 
-.step2 p:nth-child(2) {
-	height: 40px;
-	border: 1px solid #dcdfe6;
-	line-height: 40px;
-	border-radius: 20px;
-	padding: 0 15px;
-	box-sizing: border-box;
-	font-size: 14px;
+.step2 .el-form-item {
+	position: relative;
 }
 
-.step2 p:nth-child(2) input {
-	outline: none;
-	border: none;
-	width: 150px;
-}
-
-.step2 p:nth-child(2) span {
+.step2 .el-form-item span {
 	color: #0099ff;
 	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 20px;
 }
 
 .step3I {
@@ -210,6 +280,13 @@ export default {
   left: 13px;
   width: 13px;
   opacity: 0.6;
+}
+
+.step3I i {
+	position: absolute;
+	top: 13px;
+	right: 20px;
+	color: #666;
 }
 
 .step4 p:nth-child(1) {

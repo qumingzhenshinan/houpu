@@ -12,12 +12,18 @@
           <el-input class="codes" v-model="login.code" placeholder="请输入验证码"></el-input>
           <span class="scode" @click="createCode">{{verificationCode}}</span>
         </el-form-item>
+        <el-form-item prop="phoneCode">
+          <el-input class="codes" v-model="login.phoneCode" placeholder="请输入手机验证码"></el-input>
+          <span class="scode1" @click="getphoneCode" disabled="false">{{getphone}}</span>
+        </el-form-item>
         <el-form-item prop="pass" class="pass">
           <el-input type="password" placeholder="请输入密码6-12位密码字母组合" v-model="login.pass"></el-input>
           <img src="@/assets/img/pass.png" alt="">
         </el-form-item>
+        <el-form-item>
+          <el-button class="login" type="primary" @click="submitForm('login')">注册</el-button>
+        </el-form-item>
       </el-form>
-      <el-button class="login" type="primary">注册</el-button>
       <div class="wmima">
         <span @click="goL">登录</span> 
       </div>
@@ -26,6 +32,9 @@
 </template>
 
 <script>
+import api from "@/api"
+var codes = false
+var phoneC = false
 export default {
   name: 'start',
   data () {
@@ -43,7 +52,7 @@ export default {
               callback();
             }
           }
-        }, 1000);
+        }, 100);
       }
     };
     var pass = (rule, value, callback) => {
@@ -57,7 +66,7 @@ export default {
           } else {
             callback();
           }
-        }, 1000);
+        }, 100);
       }
     };
     var code = (rule, value, callback) => {
@@ -69,16 +78,32 @@ export default {
           if (customerCode !== this.verificationCode) {
             callback(new Error('验证码输入错误'));
           } else {
+            codes = true
             callback();
           }
-        }, 1000);
+        }, 100);
+      }
+    };
+    var phoneCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('短信验证码不能为空'));
+      }else {
+        setTimeout(() => {
+          if (phoneC == value || phoneC === true) {
+            callback();
+            phoneC = true
+          }else {
+            callback(new Error("短信验证码输入错误"))
+          }
+        }, 100);
       }
     };
     return {
       login: {
         name: '',
         pass: '',
-        code: ''
+        code: '',
+        phoneCode: ''
       },
       rulesLogin: {
         name: [
@@ -89,12 +114,32 @@ export default {
         ],
         code: [
           { validator: code, trigger: 'blur' }
+        ],
+        phoneCode: [
+          { validator: phoneCode, trigger: 'blur' }
         ]
       },
-      verificationCode: ''
+      verificationCode: '',
+      countTime: 120,
+      getphone: '获取验证码',
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          api.reMCUser({
+            'phoneNo': this.login.name + "",
+            'validatacode': this.login.phoneCode + "",
+            'passWord': this.login.pass+""
+          }).then(data => {
+            console.log(data);
+          })
+        } else {
+          return false;
+        }
+      });
+    },
     createCode:function () {    //通过随机数生成验证码
       var code = '';
       var codeLength = 4;     //验证码长度
@@ -107,13 +152,38 @@ export default {
     },
     goL() {
       this.$emit('tologin')
+    },
+    getphoneCode() {
+      if(codes === true) {
+        api.getPhoneC({tel: this.login.name+""}).then(data => {
+          phoneC = data
+          var timer = setInterval(() => {
+            if(this.countTime > 0 && phoneC === data) {
+              this.countTime--
+              this.getphone = this.countTime + 's后重新发送'
+            }else if (this.countTime === 0 || phoneC === true) {
+              clearInterval(timer)
+              this.getphone = "重新获取"
+              this.countTime = 120
+            }
+          }, 1000)
+        })
+      }else {
+        alert("请输入验证码")
+      }
     }
   },
   created() {
+    api.reMCUser({
+      'phoneNo': '15201347467',
+      'passWord': "ss222222ss"
+    }).then(data => {
+      console.log(data);
+    })
     this.createCode()
   },
-  mounted() {
-    
+  computed: {
+
   }
 }
 </script>
@@ -203,6 +273,18 @@ export default {
   float: right;
   text-align: center;
   font-size: 30px;
+  cursor: pointer;
 }
 
+.scode1 {
+  height: 40px;
+  width: 120px;
+  float: right;
+  text-align: center;
+  cursor: pointer;
+}
+
+.scode1:hover {
+  color: #09f;
+}
 </style>

@@ -24,6 +24,8 @@ import {
   Coursedetails,
   Coursecomment,
   SubjectQuery,
+  findCourse,
+  getrecommendedC
 } from "@/api/modules/Course"
 
 import {
@@ -46,8 +48,15 @@ import {
 
 import {
   findExamAll,
-  findExamOnly
+  findExamOnly,
+  getAnswer
 } from "@/api/modules/exam"
+
+import {
+  getPhoneC,
+  reMCUser,
+  getlogin
+} from "@/api/modules/start"
 
 
 export default {
@@ -75,4 +84,10 @@ export default {
   ExamHistoy,
   ChangePassword,
   UpdataImg,
+  findCourse,
+  getPhoneC,
+  reMCUser,
+  getlogin,
+  getAnswer,
+  getrecommendedC
 }
