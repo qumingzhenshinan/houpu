@@ -8,3 +8,7 @@ export function getPhoneC(params) {
 export function reMCUser(params) {
 	return fetch.post(URL.reMCUser, params)
 }
+
+export function getlogin(params) {
+	return fetch.post(URL.getlogin, params)
+}

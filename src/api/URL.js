@@ -22,7 +22,8 @@ const urls = {
 	findExamOnly: BASE + '/questions/select', // post获取某一套试卷的所有题目
 	// 注册
 	getPhoneC: BASE + '/message/ycode', // post根据手机号获取验证码
-	reMCUser: BASE + '/user/regist' // post密码手机号注册验证
+	reMCUser: BASE + '/user/regist', // post密码手机号注册验证
+	getlogin: BASE + '/user/login' // post 登录
 }
 
 export default urls

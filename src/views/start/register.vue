@@ -52,7 +52,7 @@ export default {
               callback();
             }
           }
-        }, 1000);
+        }, 100);
       }
     };
     var pass = (rule, value, callback) => {
@@ -66,7 +66,7 @@ export default {
           } else {
             callback();
           }
-        }, 1000);
+        }, 100);
       }
     };
     var code = (rule, value, callback) => {
@@ -81,7 +81,7 @@ export default {
             codes = true
             callback();
           }
-        }, 1000);
+        }, 100);
       }
     };
     var phoneCode = (rule, value, callback) => {
@@ -95,7 +95,7 @@ export default {
           }else {
             callback(new Error("短信验证码输入错误"))
           }
-        }, 1000);
+        }, 100);
       }
     };
     return {
@@ -174,6 +174,12 @@ export default {
     }
   },
   created() {
+    api.reMCUser({
+      'phoneNo': '15201347467',
+      'passWord': "ss222222ss"
+    }).then(data => {
+      console.log(data);
+    })
     this.createCode()
   },
   computed: {

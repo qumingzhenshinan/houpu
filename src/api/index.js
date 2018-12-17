@@ -46,7 +46,8 @@ import {
 
 import {
   getPhoneC,
-  reMCUser
+  reMCUser,
+  getlogin
 } from "@/api/modules/start"
 
 
@@ -71,6 +72,7 @@ export default {
   findExamOnly,
   findCourse,
   getPhoneC,
-  reMCUser
+  reMCUser,
+  getlogin
 
 }
