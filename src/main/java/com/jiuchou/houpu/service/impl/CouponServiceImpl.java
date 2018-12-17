@@ -24,13 +24,7 @@ public class CouponServiceImpl implements CouponService {
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public RestFulBean<Coupon> selectAll(String uid) {
         List<Coupon> list = couponDao.queryAll(uid);
-        if (list != null && list.size() > 0) {
-            CouponData couponData = new CouponData();
-            couponData.setCoupons(list);
-           return RestFulUtil.getInstance().getResuFulBean(couponData, 200, "获取数据正常");
-        } else {
-           return RestFulUtil.getInstance().getResuFulBean(null, 201, "获取数据失败");
-        }
+        return getCouponRestFulBean(list);
     }
 
     @Override
@@ -48,6 +42,22 @@ public class CouponServiceImpl implements CouponService {
             return false;
         }
 
+    }
+
+    @Override
+    public RestFulBean<Coupon> selectByCtype(String uid, String ctype) {
+        List<Coupon> list = couponDao.queryByCtype(uid,ctype);
+        return getCouponRestFulBean(list);
+    }
+
+    private RestFulBean<Coupon> getCouponRestFulBean(List<Coupon> list) {
+        if (list != null && list.size() > 0) {
+            CouponData couponData = new CouponData();
+            couponData.setCoupons(list);
+            return RestFulUtil.getInstance().getResuFulBean(couponData, 200, "获取数据正常");
+        } else {
+            return RestFulUtil.getInstance().getResuFulBean(null, 201, "获取数据失败");
+        }
     }
 
 

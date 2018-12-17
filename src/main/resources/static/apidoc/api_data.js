@@ -22,34 +22,6 @@ define({ "api": [
     "type": "",
     "url": "",
     "version": "0.0.0",
-    "filename": "./doc/main.js",
-    "group": "I__houpu_doc_main_js",
-    "groupTitle": "I__houpu_doc_main_js",
-    "name": ""
-  },
-  {
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "varname1",
-            "description": "<p>No type.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "varname2",
-            "description": "<p>With type.</p>"
-          }
-        ]
-      }
-    },
-    "type": "",
-    "url": "",
-    "version": "0.0.0",
     "filename": "./src/main/resources/static/apidoc/main.js",
     "group": "I__houpu_src_main_resources_static_apidoc_main_js",
     "groupTitle": "I__houpu_src_main_resources_static_apidoc_main_js",
@@ -778,11 +750,31 @@ define({ "api": [
     "description": "<p>分数统计并添加错题</p>",
     "examples": [
       {
-        "title": "@apiParam {Exam}  前端返回对象",
-        "content": "@apiParam {Exam}  前端返回对象",
+        "title": "@apiParam {String}  etid   所属试卷id",
+        "content": "@apiParam {String}  etid   所属试卷id",
         "type": "json"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "questionsMap",
+            "description": "<p>试题集合</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -1249,8 +1241,8 @@ define({ "api": [
     "description": "<p>用户登录</p>",
     "examples": [
       {
-        "title": "@apiParam {String} userName   用户名",
-        "content": "@apiParam {String} userName   用户名",
+        "title": "@apiParam {String} phoneNo   用户名",
+        "content": "@apiParam {String} phoneNo   用户名",
         "type": "json"
       }
     ],
@@ -1274,8 +1266,9 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "name",
-            "description": "<p>Name of the User.</p>"
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
           }
         ]
       }
@@ -1290,16 +1283,16 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/user/regist",
-    "title": "用户注册",
+    "url": "/user/profiles",
+    "title": "修改用户头像",
     "version": "0.1.0",
-    "name": "user_regist",
+    "name": "user_profiles",
     "group": "user",
-    "description": "<p>用户注册</p>",
+    "description": "<p>修改用户头像</p>",
     "examples": [
       {
-        "title": "@apiParam {User} user 前端回传用户对象",
-        "content": "@apiParam {User} user 前端回传用户对象",
+        "title": "@apiParam {String} uid 关联用户id",
+        "content": "@apiParam {String} uid 关联用户id",
         "type": "json"
       }
     ],
@@ -1310,15 +1303,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "tel",
-            "description": "<p>电话号码</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "validatacode",
-            "description": "<p>验证码</p>"
+            "field": "profile",
+            "description": "<p>文件</p>"
           }
         ]
       }
@@ -1332,6 +1318,63 @@ define({ "api": [
             "optional": false,
             "field": "status",
             "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/UserController.java",
+    "groupTitle": "user",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/user/profiles"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/user/regist",
+    "title": "用户注册",
+    "version": "0.1.0",
+    "name": "user_regist",
+    "group": "user",
+    "description": "<p>用户注册</p>",
+    "examples": [
+      {
+        "title": "@apiParam {String} phoneNo  电话号码",
+        "content": "@apiParam {String} phoneNo  电话号码",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "validatacode",
+            "description": "<p>验证码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "passWord",
+            "description": "<p>密码</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "1,注册成功",
             "description": ""
           }
         ]
@@ -1384,16 +1427,16 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/user/updateHeadImgUrl",
-    "title": "修改用户头像",
+    "url": "/user/updatePassWord",
+    "title": "用户修改密码",
     "version": "0.1.0",
-    "name": "user_updateHeadImgUrl",
+    "name": "user_updatePassWord",
     "group": "user",
-    "description": "<p>修改用户头像</p>",
+    "description": "<p>用户修改密码</p>",
     "examples": [
       {
-        "title": "@apiParam {String} uid  用户id",
-        "content": "@apiParam {String} uid  用户id",
+        "title": "@apiParam {String} password1  用户密码",
+        "content": "@apiParam {String} password1  用户密码",
         "type": "json"
       }
     ],
@@ -1404,8 +1447,15 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "headImgUrl",
-            "description": "<p>修改的头像</p>"
+            "field": "password2",
+            "description": "<p>确认密码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id</p>"
           }
         ]
       }
@@ -1417,9 +1467,8 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "status",
-            "defaultValue": "200",
-            "description": ""
+            "field": "name",
+            "description": "<p>Name of the User.</p>"
           }
         ]
       }
@@ -1428,7 +1477,7 @@ define({ "api": [
     "groupTitle": "user",
     "sampleRequest": [
       {
-        "url": "http://www.houpuclass.com:8089/user/updateHeadImgUrl"
+        "url": "http://www.houpuclass.com:8089/user/updatePassWord"
       }
     ]
   },

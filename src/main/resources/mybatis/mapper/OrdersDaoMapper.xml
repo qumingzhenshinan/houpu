@@ -12,6 +12,7 @@
     </select>
 
     <insert id="add" parameterType="com.jiuchou.houpu.entity.Orders">
-        insert into orders values(?,?,?,?,?,?,?,?,?,?,?,?,?)
+        insert into orders values(#{oid},#{omoney},#{ocreatTime},#{opayTime},#{oisPay},#{orderNo},#{uid},#{vid},#{vclassify},#{payStyle},#{isKill},#{cost_price},#{preferential_price})
     </insert>
 </mapper>
+

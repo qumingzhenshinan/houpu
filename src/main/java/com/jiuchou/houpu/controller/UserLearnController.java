@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 
@@ -31,6 +32,7 @@ public class UserLearnController {
      * @apiSuccess {String} status=200
      */
     @RequestMapping(value = "/select", method = RequestMethod.POST)
+    @ResponseBody
     public RestFulBean<UserLearn> select(String userid) {
         return userLearnService.select(userid);
     }
@@ -49,6 +51,7 @@ public class UserLearnController {
     *@apiSuccess {String} status=200
     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ResponseBody
     public boolean insert(Generalvideo generalvideo, int learnTime, Date learnDate, String userId) {
         return userLearnService.insert(generalvideo, learnTime, learnDate, userId);
     }

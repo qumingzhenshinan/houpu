@@ -4,6 +4,7 @@ package com.jiuchou.houpu.service.impl;
 import com.jiuchou.houpu.dao.UserDao;
 import com.jiuchou.houpu.entity.User;
 import com.jiuchou.houpu.service.UserService;
+import com.jiuchou.houpu.util.MD5;
 import com.jiuchou.houpu.util.RestFulBean;
 import com.jiuchou.houpu.util.RestFulUtil;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public  RestFulBean<User> updHeadImgUrl(MultipartFile newProfile,String uid) {
         // 根据Windows和Linux配置不同的头像保存路径
-        String profilesPath = "C:/static/";
+        String profilesPath = "C:/static/userHeadImg/";
         if (!newProfile.isEmpty()) {
             // 当前用户
             User user = userDao.queryById(uid);
@@ -92,8 +93,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User login(String userName, String passWord) {
-        User user = userDao.queryByUserNameAndPassword(userName, passWord);
+    public User login(String phoneNo, String passWord) {
+        User user = userDao.queryByPhoneNoAndPassword(phoneNo, passWord);
         if (user!=null){
             return user;
         }else {
@@ -102,20 +103,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean regist(String tel) {
+    public int regist(String phoneNo,String passWord) {
         String s = UUID.randomUUID().toString();
-        User u = userDao.queryById(s);
-        User users = new User();
-        if (u == null) {
-            users.setUid(s);
-            users.setPhoneNo(tel);
+        MD5 md5 = new MD5(passWord);
+        String passWord1 = md5.compute();
+        if (phoneNo!=null&&!phoneNo.equals("")){
+            User user = userDao.queryByPhoneNo(phoneNo);
+            if (user==null) {
+                boolean b = userDao.add(s,passWord1,phoneNo);
+                if (b){
+                    return 1; //注册成功
+                }else {
+                    return 2;  //注册失败
+                }
+            }else {
+                return 3;   //手机号已存在
+            }
         }
-        boolean b = userDao.add(users);
-        if (b){
-            return true;
+            return 4;   //手机号输入有误
+    }
+
+    @Override
+    public int updatePassWord(String passWord1, String passWord2, String phoneNo) {
+        if (passWord1.equals(passWord2)) {
+            MD5 md5 = new MD5(passWord1);
+            String passWord = md5.compute();
+            userDao.updatePassWord(passWord, phoneNo);
+            return 1;
         }else {
-            return false;
+            return 0;
         }
+
     }
 }
 

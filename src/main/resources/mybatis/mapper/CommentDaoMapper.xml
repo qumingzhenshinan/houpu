@@ -7,7 +7,7 @@
     </select>
 
     <insert id="add" parameterType="com.jiuchou.houpu.entity.Comment">
-        insert into comment values(?,?,?,?,?,?,?)
+        insert into comment values(#{cid},#{cgid},#{coid},#{creatTime},#{score},#{content},#{cuid})
     </insert>
 
 </mapper>

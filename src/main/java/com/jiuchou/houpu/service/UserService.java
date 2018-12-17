@@ -12,9 +12,10 @@ public interface UserService {
 
     public RestFulBean<User> updHeadImgUrl(MultipartFile newProfile, String uid);
 
-    User login(String userName,String passWord);
+    User login(String phoneNo,String passWord);
 
-    boolean regist(String tel);
+    int regist(String phoneNo,String passWord);
 
+    int updatePassWord(String passWord1,String passWord2,String phoneNo);
 
 }

@@ -19,17 +19,16 @@ public class CommentController {
     public CommentService commentService;
 
 
-
     /**
-    *@api {post}  /comment/selectByGid   通过课程id查询所有评论
-    *@apiVersion 0.1.0
-    *@apiName   comment/selectByGid
-    *@apiGroup  comment
-    *@apiDescription   通过课程id查询所有评论
-    *@apiExample
-    *@apiParam {String} gid 关联课程id
-    *@apiSuccess {String} status=200
-    */
+     * @api {post}  /comment/selectByGid   通过课程id查询所有评论
+     * @apiVersion 0.1.0
+     * @apiName comment/selectByGid
+     * @apiGroup comment
+     * @apiDescription 通过课程id查询所有评论
+     * @apiExample
+     * @apiParam {String} gid 关联课程id
+     * @apiSuccess {String} status=200
+     */
     @RequestMapping(value = "/selectByGid", method = RequestMethod.POST)
     @ResponseBody
     public RestFulBean<Comment> select(String gid) {
@@ -38,18 +37,18 @@ public class CommentController {
 
 
     /**
-    *@api {post}  /comment/insert   添加评论
-    *@apiVersion 0.1.0
-    *@apiName   comment/insert
-    *@apiGroup  comment
-    *@apiDescription   添加评论
-    *@apiExample
-    *@apiParam {Object}  comment  获取前段数据以对象返回
-    *@apiSuccess {String} status=200
-    */
-
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
-    public boolean insert(Comment comment){
+     * @api {post}  /comment/insert   添加评论
+     * @apiVersion 0.1.0
+     * @apiName comment/insert
+     * @apiGroup comment
+     * @apiDescription 添加评论
+     * @apiExample
+     * @apiParam {Object}  comment  获取前段数据以对象返回
+     * @apiSuccess {String} status=200
+     */
+    @ResponseBody
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public boolean insert(Comment comment) {
         boolean b = commentService.insert(comment);
         return b;
     }

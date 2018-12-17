@@ -14,11 +14,23 @@
         update user set headImgUrl=#{headImgUrl} where uid=#{uid}
     </update>
 
-    <select id="queryByUserNameAndPassword" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.User">
+    <select id="queryByUserNameAndPassword" resultType="com.jiuchou.houpu.entity.User">
         select * from user where userName=#{userName} and passWord=#{password}
     </select>
 
+    <select id="queryByPhoneNoAndPassword"  resultType="com.jiuchou.houpu.entity.User">
+        select * from user where phoneNo=#{phoneNo} and passWord=#{password}
+    </select>
+
     <insert id="add" parameterType="com.jiuchou.houpu.entity.User">
-        insert into user(uid, phoneNo) values(?,?)
+        insert into user(uid, phoneNo,passWord) values(#{uid},#{phoneNo},#{passWord})
     </insert>
+
+    <update id="updatePassWord" parameterType="java.lang.String">
+        update user set passWord=#{passWord} where phoneNo=#{phoneNo}
+    </update>
+
+    <select id="queryByPhoneNo" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.User">
+        select * from user where phoneNo=#{phoneNo}
+    </select>
 </mapper>

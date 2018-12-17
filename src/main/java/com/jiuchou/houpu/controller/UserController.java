@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Random;
@@ -48,33 +49,27 @@ public class UserController {
      * @apiSuccess {String} status=200
      */
     @RequestMapping(value = "/updateUserName", method = RequestMethod.POST)
+    @ResponseBody
     public void updateUserName(String uid, String userName) {
         userService.updateUserName(userName, uid);
     }
 
-
-
-    @PutMapping("/profiles")
-    public RestFulBean setUserProfile(@RequestParam(required = true) MultipartFile profile,String uid) {
-        return userService.updHeadImgUrl(profile,uid);
-    }
-
-   /* *//**
-     * @api {post}  /user/updateHeadImgUrl   修改用户头像
+    /**
+     * @api {post}   /user/profiles   修改用户头像
      * @apiVersion 0.1.0
-     * @apiName user/updateHeadImgUrl
+     * @apiName user/profiles
      * @apiGroup user
      * @apiDescription 修改用户头像
      * @apiExample
-     * @apiParam {String} uid  用户id
-     * @apiParam {String} headImgUrl  修改的头像
+     * @apiParam {String} uid 关联用户id
+     * @apiParam {String}  profile   文件
      * @apiSuccess {String} status=200
-     *//*
-    @RequestMapping(value = "/updateHeadImgUrl", method = RequestMethod.POST)
-    public void updateHeadImgUrl(String uid, String headImgUrl) {
-        userService.updateHeadImgUrl(headImgUrl, uid);
+     */
+    @PutMapping("/profiles")
+    public RestFulBean setUserProfile(@RequestParam(required = true) MultipartFile profile, String uid) {
+        return userService.updHeadImgUrl(profile, uid);
     }
-*/
+
     /**
      * @api {post}   /user/login    用户登录
      * @apiVersion 0.1.0
@@ -82,16 +77,19 @@ public class UserController {
      * @apiGroup user
      * @apiDescription 用户登录
      * @apiExample
-     * @apiParam {String} userName   用户名
+     * @apiParam {String} phoneNo   用户名
      * @apiParam {String}  passWord  用户密码
-     * @apiSuccess {String} name Name of the User.
+     * @apiSuccess {String} status=200
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(String userName, String passWord, HttpSession session) {
-        User user = userService.login(userName, passWord);
+    @ResponseBody
+    public User login(String phoneNo, String passWord, HttpSession session) {
+        User user = userService.login(phoneNo, passWord);
         if (user != null) {
             session.setAttribute("userlogin", user);
+            return user;
         }
+        return null;
     }
 
     /**
@@ -101,23 +99,43 @@ public class UserController {
      * @apiGroup user
      * @apiDescription 用户注册
      * @apiExample
-     * @apiParam {User} user 前端回传用户对象
-     * @apiParam {String} tel  电话号码
+     * @apiParam {String} phoneNo  电话号码
      * @apiParam {String} validatacode  验证码
-     * @apiSuccess {String} status=200
+     * @apiParam {String}  passWord   密码
+     * @apiSuccess {String} status=1,注册成功
+     * @apiSuccess {String} status=2,注册失败
+     * @apiSuccess {String} status=3,手机号已存在
+     * @apiSuccess {String} status=4,信息输入有误
+     *
      */
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
-    public boolean regist(HttpSession session, String tel, String validatacode) {
-        String s = (String) session.getAttribute("ycodes");
-        if (tel != null && !"".equals(tel) && validatacode != null && s.equals(validatacode)) {
-            boolean b = userService.regist(tel);
-            if (b) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+    @ResponseBody
+    public int regist(HttpSession session, String phoneNo, String validatacode, String passWord) {
+        int t = (Integer) session.getAttribute("ycodes");
+        String s = ""+t;
+        if (phoneNo != null && !"".equals(phoneNo) && validatacode != null && s.equals(validatacode) && passWord != null && !passWord.equals("")) {
+            int i = userService.regist(phoneNo, passWord);
+            return i;
+        }else {
+            return 4;
         }
     }
+    /**
+     * @api {post}  /user/updatePassWord   用户修改密码
+     * @apiVersion 0.1.0
+     * @apiName user/updatePassWord
+     * @apiGroup user
+     * @apiDescription 用户修改密码
+     * @apiExample
+     * @apiParam {String} password1  用户密码
+     * @apiParam {String} password2  确认密码
+     * @apiParam {String}   phoneNo   用户手机号
+     * @apiSuccess {String} name Name of the User.
+     */
+    @RequestMapping(value = "/updatePassWord", method = RequestMethod.POST)
+    @ResponseBody
+    public int updatePassWord(String password1, String password2, String phoneNo) {
+        return userService.updatePassWord(password1, password2, phoneNo);
+    }
+
 }

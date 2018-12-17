@@ -3,6 +3,8 @@ package com.jiuchou.houpu.service;
 import com.jiuchou.houpu.entity.Exam;
 import com.jiuchou.houpu.util.RestFulBean;
 
+import java.util.Map;
+
 public interface ExamService {
 
     RestFulBean<Exam> selectAll();
@@ -11,5 +13,5 @@ public interface ExamService {
 
     RestFulBean<Exam> selectExamHistory(String uid);
 
-    double selectAnswer(Exam exam);
+    double selectAnswer(String etid, Map<String, String> questionsMap, String uid);
 }

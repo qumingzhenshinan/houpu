@@ -7,6 +7,10 @@
     </select>
 
     <insert id="add" parameterType="com.jiuchou.houpu.entity.Coupon">
-        insert into coupon(cname,ctype,validity,coupon_price,uid) values(?,?,?,?,?)
+        insert into coupon(cname,ctype,validity,coupon_price,uid) values(#{cname},{ctype},#{validity},#{coupon_price},#{uid})
     </insert>
+
+    <select id="queryByCtype" resultType="com.jiuchou.houpu.entity.Coupon">
+        select c.* from coupon c left join user u on c.uid=u.uid where u.uid=#{uid} and c.ctype=#{ctype} COLLATE utf8_general_ci
+    </select>
 </mapper>

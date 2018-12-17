@@ -28,7 +28,7 @@ public class QuestionsController {
      * @apiParam {String} etid 试卷id
      * @apiSuccess {String} status=200
      */
-    @RequestMapping(value = "select", method = RequestMethod.POST)
+    @RequestMapping(value = "/select", method = RequestMethod.POST)
     @ResponseBody
     public RestFulBean<Questions> select(String etid) {
         RestFulBean<Questions> questions = questionsService.select(etid);

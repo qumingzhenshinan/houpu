@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin
-@RequestMapping(value = "orders")
+@RequestMapping(value = "/orders")
 public class OrdersController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class OrdersController {
      * @apiParam {Number} user_id The user’s unique ID.
      * @apiSuccess {String} status=200
      */
-    @RequestMapping(value = "selectAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
     @ResponseBody
     public RestFulBean<Orders> selectAll() {
         RestFulBean<Orders> orders = ordersService.selectAll();
@@ -46,15 +46,16 @@ public class OrdersController {
      * @apiSuccess {String} status=200
      */
     @ResponseBody
-    @RequestMapping(value = "selectByPay", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectByPay", method = RequestMethod.POST)
     public RestFulBean<Orders> selectByPay(String oisPay) {
         RestFulBean<Orders> orders = ordersService.selectByPay(oisPay);
         return orders;
     }
 
 
-    @RequestMapping(value = "insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ResponseBody
     public void insert(Orders orders){
-
+        ordersService.insert(orders);
     }
 }

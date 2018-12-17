@@ -1,20 +1,20 @@
 package com.jiuchou.houpu.controller;
 
 import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 
+
+@CrossOrigin
 @Controller
 @RequestMapping("/message")
 public class AlidayuSendMessageController {
@@ -40,7 +40,7 @@ public class AlidayuSendMessageController {
         Random random = new Random();
         int x = random.nextInt(999999);
         session.removeAttribute("ycodes");
-        session.setAttribute("ycodes", x);
+        session.setAttribute("ycodes",x);
         // 短信模板的内容
         StringBuilder jsons = new StringBuilder();
         jsons.append("{");
@@ -60,10 +60,10 @@ public class AlidayuSendMessageController {
         try {
             AlibabaAliqinFcSmsNumSendResponse rsp = client.execute(req);
             System.out.println(rsp.getBody());
-            return 1;
+            return x;
         } catch (Exception e) {
             // TODO: handle exception
-            return -1;
+            return 0;
         }
     }
 	/*public static void main(String[] args) {

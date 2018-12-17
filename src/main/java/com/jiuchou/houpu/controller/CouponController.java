@@ -36,6 +36,24 @@ public class CouponController {
     }
 
     /**
+     * @api {post} /coupon/selectByCtype   查询某用户的适用某一课程的所有优惠券
+     * @apiVersion 0.1.0
+     * @apiName coupon/selectByCtype
+     * @apiGroup coupon
+     * @apiDescription 查询某用户的适用某一课程的所有优惠券
+     * @apiExample
+     * @apiParam {String} uid  关联用户的id
+     * @apiParam {String} ctype  课程类型
+     * @apiSuccess {String} status=200
+     */
+
+    @ResponseBody
+    @RequestMapping(value = "/selectByCtype", method = RequestMethod.POST)
+    public RestFulBean<Coupon> selectByCtype(String uid,String ctype) {
+        RestFulBean<Coupon> list = couponService.selectByCtype(uid,ctype);
+        return list;
+    }
+    /**
      * @api {post}  /coupon/insert  添加优惠券
      * @apiVersion 0.1.0
      * @apiName    coupon/insert
@@ -46,6 +64,7 @@ public class CouponController {
      * @apiSuccess {String} status=200
      */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @ResponseBody
     public boolean insert(Coupon coupon) {
         return couponService.insert(coupon);
     }

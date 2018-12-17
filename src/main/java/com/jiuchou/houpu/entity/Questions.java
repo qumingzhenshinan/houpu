@@ -1,7 +1,9 @@
 package com.jiuchou.houpu.entity;
 
 
-public class Questions {
+import java.io.Serializable;
+
+public class Questions{
 
   private int id;
   private String etid;
@@ -14,8 +16,8 @@ public class Questions {
   private String analysis;
 
 
-  public long getId() {
-    return id;
+  public String getId() {
+    return ""+id;
   }
 
   public void setId(int id) {

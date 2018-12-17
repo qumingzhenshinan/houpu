@@ -7,7 +7,7 @@
     </select>
 
     <insert id="add" parameterType="com.jiuchou.houpu.entity.UserLearn">
-        insert into userlearn(ulid, vid, vctype, learnTime, learnDate, userId) values(?,?,?,?,?,?)
+        insert into userlearn(ulid, vid, vctype, learnTime, learnDate, userId) values(#{ulid},#{vid},#{vctype},#{learnTime},#{learnDate},#{userId})
     </insert>
 
 </mapper>

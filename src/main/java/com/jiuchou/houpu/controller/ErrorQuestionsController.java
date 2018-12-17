@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin
-@RequestMapping(value = "errorquestions")
+@RequestMapping(value = "/errorquestions")
 public class ErrorQuestionsController {
 
     @Autowired

@@ -55,15 +55,13 @@ public class ExamServiceImpl implements ExamService {
     }
 
     @Override
-    public double selectAnswer(Exam exam) throws RuntimeException{
-        String etid = exam.getEtid();
+    public double selectAnswer(String etid,Map<String,String> maps,String uid) throws RuntimeException{
         List<Questions> questions = questionsDao.queryAll(etid);
-        Map<String,String> map = exam.getQuestionsMap();
         Errorquestions errorquestions = new Errorquestions();
         double sum=0.0;
         try{
-            if (map!=null&&questions!=null){
-                for (Map.Entry<String, String> entry : map.entrySet()) {
+            if (maps!=null&&questions!=null){
+                for (Map.Entry<String, String> entry : maps.entrySet()) {
                     for (int i = 0; i < questions.size(); i++) {
                         if (entry.getKey().equals(questions.get(i).getId())) {
                             if (entry.getValue().equals(questions.get(i).getAnswer())) {
@@ -77,7 +75,7 @@ public class ExamServiceImpl implements ExamService {
                                 errorquestions.setImg(questions.get(i).getImg());
                                 errorquestions.setAnswer(questions.get(i).getAnswer());
                                 errorquestions.setAnalysis(questions.get(i).getAnalysis());
-                                errorquestions.setUid(exam.getUid());
+                                errorquestions.setUid(uid);
                                 boolean b = errorquestionsDao.add(errorquestions);
                             }
                         }
@@ -85,11 +83,11 @@ public class ExamServiceImpl implements ExamService {
                 }
                 return sum;
             }else{
-               throw new RuntimeException("数据有误！");
+               throw new RuntimeException("数据有误!");
             }
         }catch (Exception e){
             e.printStackTrace();
-            throw new RuntimeException("数据有误！");
+            throw new RuntimeException("数据有误!");
         }
     }
 
