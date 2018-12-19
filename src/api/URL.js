@@ -26,6 +26,7 @@ const urls = {
 	newcourse: BASE + '/course/selectByCreatTime', // get最新课程
 	examhistoy: BASE + '/exam/selectExamHistoy', // post查询我做过的题目
 	changepassword:  BASE + '/user/updatePassWord', // post用户修改密码
+	oederdetail: BASE + '/orders/update', // post修改订单状态
 	updataimg:  BASE + '/user/profiles',// post修改用户头像
 	// todos: 'http://www.houpuclass.com:8089/teacher/select'
 	getAnswer: BASE + '/exam/selectAnswer', // post分数统计并添加错题

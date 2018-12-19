@@ -5,3 +5,6 @@ export function allOrder(params) {
     return fetch.get(URL.allorder+'?uid='+ params.uid)
     
 }
+export function OrderDetail(params) {
+    return fetch.post(URL.oederdetail,params)    
+}

@@ -34,7 +34,8 @@ import {
 } from "@/api/modules/ZeroExperience"
 
 import {
-  allOrder
+  allOrder,
+  OrderDetail
 } from "@/api/modules/MyOrder"
 
 import {
@@ -89,5 +90,6 @@ export default {
   reMCUser,
   getlogin,
   getAnswer,
-  getrecommendedC
+  getrecommendedC,
+  OrderDetail
 }

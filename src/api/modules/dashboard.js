@@ -37,7 +37,7 @@ export function upload(url, file, data) {
                         url: url,
                         headers: {
                             'Content-Type': 'multipart/form-data;charset=utf-8',
-                            'Access-Control-Allow-Origin': '*'
+                            'Access-Control-Allow-Origin': '*',
                         },
                         method: 'post',
                         data: formData

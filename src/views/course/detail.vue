@@ -65,7 +65,8 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="课程介绍" name="second">
-                        <el-row>
+                        <span  v-html="coursedetails.gintro"></span>
+                        <!-- <el-row>
                             <el-col :span="24">
                                 <span class="introduction-title">适合学员</span>
                                 <div class="introduction-content">
@@ -110,7 +111,7 @@
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">{{item.title}}</p>
                                         <p class="advantage-main">{{item.main}}</p>
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="advantage-content" style="margin-left:30px;">
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
@@ -126,7 +127,7 @@
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                     </div> -->
-                                </div>
+                                <!-- </div>
                             </el-col>
                         </el-row>
                         <div class="thinline"></div>
@@ -137,7 +138,7 @@
                                 </div>
                                 <img src="@/assets/img/jiagou.png" alt="" style="width:60%;margin-top:20px;">
                             </el-col>
-                        </el-row>
+                        </el-row> -->
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
                         <div class="comment">
@@ -297,7 +298,7 @@ export default {
         })
         // 获取评论
         api.Coursecomment(data).then(data =>{
-            this.commentlist = data.comments
+            // this.commentlist = data.comments
         })
         // 获取课程详情
         api.Coursedetails(data).then(data =>{

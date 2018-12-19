@@ -57,9 +57,12 @@
                                 <el-upload
                                     class="avatar-uploader"
                                     action=""
+                                    multiple
+                                    ref="changeFile"
                                     :on-change="getInfoFile"
                                     :http-request="uploadSectionFile"
                                     :show-file-list="false"
+                                    :auto-upload="false"
                                     :on-success="handleAvatarSuccess"
                                     :before-upload="beforeAvatarUpload"
                                     :data="uploadParm">
@@ -155,38 +158,19 @@ import {upload} from '@/api/modules/dashboard'
                 // username: this.usernameval
             }
             api.DetailUsername(data).then(data => {
-                // if(dat.status == 200) {
-                    // api.UpdataImg(data).then(data => {
-
-                    // })
-                // }
+                if(dat.status == 200) {
+                    if(this.filename !== '') {
+                        this.$refs.changeFile.submit()
+                     }else{
+                         this.uploadSectionFile({})
+                     }
+                }
             })
-            
         },
         getInfoFile(file, fileList){
             this.filename = file
         },
-        upload() {
-            // var data = {
-            //     uid: '681f95051bbf4978b455688a285b483a',
-            //     profile: this.filename
-            // }
-            // var currentTimeStamp = new Date().getTime() / 1000;
-            // if (
-            //     this.uploadParams == null ||
-            //     this.uploadParams.expire + 3 < currentTimeStamp
-            // ) {
-                // api.UpdataImg({profile: this.filename}).then(data => {
-                    // this.uploadParm = req.data;
-                // }).catch(err => {
-                    // this.$message({ message: err.message, type: "warning" });
-                // });
-            // } else {
-            //     this.uploadParm = this.uploadParams;
-            // }
-        },
         uploadSectionFile(param){
-            console.log(param)
             var visaObj = {
                 uid: '681f95051bbf4978b455688a285b483a'
             }
