@@ -55,6 +55,15 @@ public class OrdersServiceImpl implements OrdersService {
         }
     }
 
+    @Override
+    public boolean update(int isKill, String oid) {
+        boolean b = ordersDao.update(isKill,oid);
+        if (b){
+            return true;
+        }
+        return false;
+    }
+
     private RestFulBean<Orders> getOrdersRestFulBean(List<Orders> list) {
         if (list != null && list.size() > 0) {
             OrdersData ordersData = new OrdersData();

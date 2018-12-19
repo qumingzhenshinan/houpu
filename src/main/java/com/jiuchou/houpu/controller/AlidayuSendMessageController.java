@@ -3,6 +3,8 @@ package com.jiuchou.houpu.controller;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import com.jiuchou.houpu.HoupuApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,8 @@ public class AlidayuSendMessageController {
         Random random = new Random();
         int x = random.nextInt(999999);
         session.removeAttribute("ycodes");
-        session.setAttribute("ycodes",x);
+        HoupuApplication.setCode(""+x);
+        //session.setAttribute("ycodes",x);
         // 短信模板的内容
         StringBuilder jsons = new StringBuilder();
         jsons.append("{");

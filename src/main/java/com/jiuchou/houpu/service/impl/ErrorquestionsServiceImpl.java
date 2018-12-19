@@ -21,8 +21,8 @@ public class ErrorquestionsServiceImpl implements ErrorquestionsService {
 
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     @Override
-    public RestFulBean<Errorquestions> selectByUid(String uid) {
-        List<Errorquestions> list =  errorquestionsDao.queryByUid(uid);
+    public RestFulBean<Errorquestions> selectByUid(String uid,String etid) {
+        List<Errorquestions> list =  errorquestionsDao.queryByUid(uid,etid);
        if (list!=null&&list.size()>0){
            ErrorquestionsData errorquestionsData = new ErrorquestionsData();
            errorquestionsData.setErrorquestions(list);

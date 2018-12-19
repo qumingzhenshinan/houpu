@@ -10,4 +10,6 @@ public interface OrdersService {
     RestFulBean<Orders> selectByPay(String oisPay);
 
     Boolean insert(Orders orders);
+
+    boolean update(int isKill,String oid);
 }

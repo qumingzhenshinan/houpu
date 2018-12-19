@@ -265,6 +265,56 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/coupon/selectByCtype",
+    "title": "查询某用户的适用某一课程的所有优惠券",
+    "version": "0.1.0",
+    "name": "coupon_selectByCtype",
+    "group": "coupon",
+    "description": "<p>查询某用户的适用某一课程的所有优惠券</p>",
+    "examples": [
+      {
+        "title": "@apiParam {String} uid  关联用户的id",
+        "content": "@apiParam {String} uid  关联用户的id",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "ctype",
+            "description": "<p>课程类型</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/CouponController.java",
+    "groupTitle": "coupon",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/coupon/selectByCtype"
+      }
+    ]
+  },
+  {
+    "type": "post",
     "url": "/coupon/selectByUid",
     "title": "通过关联的用户id查询用户所有的优惠券列表",
     "version": "0.1.0",
@@ -681,6 +731,19 @@ define({ "api": [
         "type": "json"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "etid",
+            "description": "<p>试卷id</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -762,8 +825,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "questionsMap",
-            "description": "<p>试题集合</p>"
+            "field": "questions",
+            "description": "<p>试题数组</p>"
           },
           {
             "group": "Parameter",
@@ -844,8 +907,8 @@ define({ "api": [
     "description": "<p>查询我做过的题目</p>",
     "examples": [
       {
-        "title": "@apiParam {String} uid The 关联用户id",
-        "content": "@apiParam {String} uid The 关联用户id",
+        "title": "@apiParam {String} uid  关联用户id",
+        "content": "@apiParam {String} uid  关联用户id",
         "type": "json"
       }
     ],
@@ -905,6 +968,43 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://www.houpuclass.com:8089/message/ycode"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/orders/insert",
+    "title": "添加订单",
+    "version": "0.1.0",
+    "name": "orders_insert",
+    "group": "orders",
+    "description": "<p>添加订单</p>",
+    "examples": [
+      {
+        "title": "@apiParam {Order} order   Orders对象",
+        "content": "@apiParam {Order} order   Orders对象",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/OrdersController.java",
+    "groupTitle": "orders",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/orders/insert"
       }
     ]
   },
@@ -979,6 +1079,56 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "http://www.houpuclass.com:8089/orders/selectByPay"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/orders/update",
+    "title": "修改订单状态",
+    "version": "0.1.0",
+    "name": "orders_update",
+    "group": "orders",
+    "description": "<p>修改订单状态</p>",
+    "examples": [
+      {
+        "title": "@apiParam {int} isKill  订单状态码（0 正常订单，1  取消的订单 , 2 过期的订单）",
+        "content": "@apiParam {int} isKill  订单状态码（0 正常订单，1  取消的订单 , 2 过期的订单）",
+        "type": "json"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "oid",
+            "description": "<p>订单id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/OrdersController.java",
+    "groupTitle": "orders",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/orders/update"
       }
     ]
   },
@@ -1454,8 +1604,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "uid",
-            "description": "<p>用户id</p>"
+            "field": "phoneNo",
+            "description": "<p>用户手机号</p>"
           }
         ]
       }

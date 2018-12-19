@@ -1,14 +1,17 @@
 package com.jiuchou.houpu.controller;
 
+import com.jiuchou.houpu.HoupuApplication;
 import com.jiuchou.houpu.entity.User;
 import com.jiuchou.houpu.service.UserService;
 import com.jiuchou.houpu.util.RestFulBean;
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Random;
 
@@ -110,9 +113,13 @@ public class UserController {
      */
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     @ResponseBody
-    public int regist(HttpSession session, String phoneNo, String validatacode, String passWord) {
-        int t = (Integer) session.getAttribute("ycodes");
-        String s = ""+t;
+    public int regist(HttpServletRequest ret, String phoneNo, String validatacode, String passWord) {
+        System.out.println("phoneNo:"+phoneNo+"validatacode:"+validatacode+"passWord"+passWord);
+        String s = HoupuApplication.getCode();
+        /* HttpSession  session =  ret.getSession();
+        String s = String.valueOf(session.getAttribute("ycodes"));*/
+        //String s = ""+t;
+        //System.out.println("s:"+s);
         if (phoneNo != null && !"".equals(phoneNo) && validatacode != null && s.equals(validatacode) && passWord != null && !passWord.equals("")) {
             int i = userService.regist(phoneNo, passWord);
             return i;

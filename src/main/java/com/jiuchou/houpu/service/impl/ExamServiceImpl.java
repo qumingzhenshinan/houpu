@@ -19,7 +19,9 @@ import java.util.Map;
 public class ExamServiceImpl implements ExamService {
     @Resource
     public ExamDao examDao;
+    @Resource
     public QuestionsDao questionsDao;
+    @Resource
     public ErrorquestionsDao errorquestionsDao;
 
 

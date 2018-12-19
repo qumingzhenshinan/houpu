@@ -52,10 +52,36 @@ public class OrdersController {
         return orders;
     }
 
-
+    /**
+     * @api {post}  /orders/insert  添加订单
+     * @apiVersion 0.1.0
+     * @apiName orders/insert
+     * @apiGroup orders
+     * @apiDescription 添加订单
+     * @apiExample
+     * @apiParam {Order} order   Orders对象
+     * @apiSuccess {String} status=200
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public void insert(Orders orders){
+    public void insert(Orders orders) {
         ordersService.insert(orders);
+    }
+
+    /**
+     * @api {post}   /orders/update    修改订单状态
+     * @apiVersion 0.1.0
+     * @apiName orders/update
+     * @apiGroup orders
+     * @apiDescription 修改订单状态
+     * @apiExample
+     * @apiParam {int} isKill  订单状态码（0 正常订单，1  取消的订单 , 2 过期的订单）
+     * @apiParam  {String}  oid   订单id
+     * @apiSuccess {String} status=200
+     */
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public boolean update(int isKill, String oid) {
+        return ordersService.update(isKill, oid);
     }
 }

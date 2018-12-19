@@ -3,7 +3,7 @@
 <mapper namespace="com.jiuchou.houpu.dao.ErrorquestionsDao">
 
     <select id="queryByUid" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Errorquestions">
-        select * from errorquestions where uid=#{uid}
+        select distinct etid,name,content,score,type,img,answer,analysis,uid from errorquestions where uid=#{uid} and etid=#{etid}
     </select>
 
     <insert id="add" parameterType="com.jiuchou.houpu.entity.Errorquestions">

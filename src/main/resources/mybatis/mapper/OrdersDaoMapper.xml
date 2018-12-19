@@ -14,5 +14,9 @@
     <insert id="add" parameterType="com.jiuchou.houpu.entity.Orders">
         insert into orders values(#{oid},#{omoney},#{ocreatTime},#{opayTime},#{oisPay},#{orderNo},#{uid},#{vid},#{vclassify},#{payStyle},#{isKill},#{cost_price},#{preferential_price})
     </insert>
+
+    <update id="update">
+        update orders set isKill=#{isKill} where oid=#{oid}
+    </update>
 </mapper>
 

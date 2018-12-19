@@ -1,6 +1,9 @@
 package com.jiuchou.houpu.controller;
 
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.jiuchou.houpu.entity.Exam;
 import com.jiuchou.houpu.entity.Questions;
 import com.jiuchou.houpu.service.ExamService;
@@ -9,7 +12,6 @@ import com.jiuchou.houpu.util.RestFulBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +65,7 @@ public class ExamController {
      * @apiGroup exam
      * @apiDescription 查询我做过的题目
      * @apiExample
-     * @apiParam {String} uid The 关联用户id
+     * @apiParam {String} uid  关联用户id
      * @apiSuccess {String} status=200
      */
 
@@ -82,21 +84,21 @@ public class ExamController {
      * @apiDescription 分数统计并添加错题
      * @apiExample
      * @apiParam {String}  etid   所属试卷id
-     * @apiParam {String}  questionsMap  试题集合
+     * @apiParam {String}  questions  试题数组
      * @apiParam {String}  uid   用户id
      * @apiSuccess {String} status=200
      */
 
     @RequestMapping(value = "/selectAnswer", method = RequestMethod.POST)
     @ResponseBody
-    public double selectAnswer(String etid, @RequestBody Map questionsMap, String uid) {
+    public double selectAnswer(String etid,String questions, String uid) {
+        JSONArray jsonArray = JSON.parseArray(questions);
+       /* System.out.println(jsonArray);*/
+        Map<String,String> map1 = new HashMap<>();
+       for (int i = 0;i<jsonArray.size();i++){
+           map1.put(jsonArray.getJSONObject(i).getString("id"),jsonArray.getJSONObject(i).getString("answer"));
+       }
 
-        List<Questions> list=(List<Questions>) questionsMap.get("questions");//将返回的业务数据转换成list
-        JSONArray jsonArray = new JSONArray(Collections.singletonList(list));//将list集合转换成json数组
-        Map<String,String> maps = new HashMap<>();
-        for (int i=0;i<jsonArray.size();i++){
-          maps.put(((Questions)jsonArray.get(i)).getId(),((Questions)jsonArray.get(i)).getAnswer());
-        }
-        return examService.selectAnswer(etid, maps, uid);
+        return examService.selectAnswer(etid,map1,uid);
     }
 }

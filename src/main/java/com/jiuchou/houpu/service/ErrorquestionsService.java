@@ -5,6 +5,6 @@ import com.jiuchou.houpu.util.RestFulBean;
 
 public interface ErrorquestionsService {
 
-    RestFulBean<Errorquestions> selectByUid(String uid);
+    RestFulBean<Errorquestions> selectByUid(String uid,String etid);
 
 }

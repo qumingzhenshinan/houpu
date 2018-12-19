@@ -17,6 +17,16 @@ import javax.sql.DataSource;
 @MapperScan("com.jiuchou.houpu.dao")
 public class HoupuApplication {
 
+    public static String code;
+
+    public static String getCode() {
+        return code;
+    }
+
+    public static void setCode(String code) {
+        HoupuApplication.code = code;
+    }
+
     public static void main(String[] args) {
 
         SpringApplication.run(HoupuApplication.class, args);
