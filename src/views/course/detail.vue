@@ -25,8 +25,11 @@
                                 <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;position:relative;display: block;left:150px;top:-30px;">
                                     原价￥{{coursedetails.gmoney}}
                                 </span>
-                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;min-height: 38px;">
+                                <!-- <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;min-height: 38px;">
                                     这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍
+                                </span> -->
+                                <span style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 12px;color: #000000;display: block;width: 530px;height:100px;overflow:hidden" v-html="coursedetails.gintro">
+                                   
                                 </span>
                             </div>
                             <div style="height: 65px;">
@@ -62,7 +65,8 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="课程介绍" name="second">
-                        <el-row>
+                        <span  v-html="coursedetails.gintro"></span>
+                        <!-- <el-row>
                             <el-col :span="24">
                                 <span class="introduction-title">适合学员</span>
                                 <div class="introduction-content">
@@ -107,7 +111,7 @@
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">{{item.title}}</p>
                                         <p class="advantage-main">{{item.main}}</p>
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="advantage-content" style="margin-left:30px;">
                                         <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
@@ -123,7 +127,7 @@
                                         <p class="advantage-title">知识体系化，专业只为提升</p>
                                         <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
                                     </div> -->
-                                </div>
+                                <!-- </div>
                             </el-col>
                         </el-row>
                         <div class="thinline"></div>
@@ -134,7 +138,7 @@
                                 </div>
                                 <img src="@/assets/img/jiagou.png" alt="" style="width:60%;margin-top:20px;">
                             </el-col>
-                        </el-row>
+                        </el-row> -->
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
                         <div class="comment">
@@ -230,13 +234,7 @@ export default {
                     date: '8:20',
                     chaptersnum:'一',
                 },
-                {
-                    title:' 先秦诗歌与史传散文1',
-                    chapters:[' 先秦诗歌与史传散文',' 先秦诗歌与史传散文',' 先秦诗歌与史传散文'],
-                    date: '8:20',
-                    chaptersnum:'二',
-                },
-
+                
             ],
             introductionlist: [
                 {
@@ -300,11 +298,12 @@ export default {
         })
         // 获取评论
         api.Coursecomment(data).then(data =>{
-            this.commentlist = data.comments
+            // this.commentlist = data.comments
         })
         // 获取课程详情
         api.Coursedetails(data).then(data =>{
             this.coursedetails = data
+            // this.playerOptions.poster = data.gvimg
         })
     },
     methods: {

@@ -49,14 +49,15 @@
                                             <div v-show="phonestate">
                                                 <el-form :model="phone" status-icon :rules="phoneRules" ref="phone">
                                                     <el-form-item class="num" prop="num">
-                                                        <el-input placeholder="     手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                        <el-input placeholder="手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" />
                                                         <img src="@/assets/img/person.png" alt="" class="phoneimg">
                                                     </el-form-item>
                                                 </el-form>   
                                                 <el-form :model="password" status-icon :rules="passwordRules" ref="password"> 
                                                     <el-form-item class="num" prop="verificationcode">
-                                                        <el-input placeholder="     验证码" type="text" v-model.number="password.verificationcode" oninput="value=value.replace(/[^\d]/g,'')" />
-                                                        <span class="verificationcode"><span style="color:#ddd;">|&nbsp;</span> 获取验证码</span>
+                                                        <el-input placeholder="验证码" type="text" v-model.number="password.verificationcode" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                        <span v-show="phonenum" class="verificationcode" @click="getphonenum"><span style="color:#ddd;">|&nbsp;</span> 获取验证码</span>
+                                                        <span v-show="!phonenum" class="verificationcode" @click="getphonenum"><span style="color:#ddd;">|&nbsp;</span> {{count}} s后重新获取</span>
                                                     </el-form-item>
                                                 </el-form>
                                                 <div>
@@ -66,12 +67,16 @@
                                             <div v-show="passwordstate">
                                                 <el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
                                                     <el-form-item class="num" prop="mima">
-                                                        <el-input suffix-icon="el-icon-view" placeholder="      新密码" type="password" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <el-input v-if="passwordsate"  placeholder="新密码" type="password" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <el-input v-else placeholder="新密码" type="text" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
                                                         <img src="@/assets/img/pass.png" alt="" class="passwordimg">
+                                                        <span class="el-icon-view eyeico" @click="passwordsate = !passwordsate"></span>
                                                     </el-form-item>
                                                     <el-form-item class="num" prop="rmima">
-                                                        <el-input suffix-icon="el-icon-view" placeholder="      确认密码" type="password" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <el-input v-if="passwordsated" placeholder="确认密码" type="password" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <el-input v-else placeholder="确认密码" type="text" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
                                                         <img src="@/assets/img/pass.png" alt="" class="passwordimg">
+                                                        <span class="el-icon-view eyeico" @click="passwordsated = !passwordsated"></span>
                                                     </el-form-item>
                                                 </el-form>
                                                 <div>
@@ -176,13 +181,18 @@ export default {
             activeName: 'first',
             classstate:'5',
             activenum: 1,
+            count: '',
+            timer: null,
+            phonenum: true,
             passwordstate:false,
             phonestate:true,
             passwordsuccess: false,
+            passwordsate:true,
+            passwordsated: true,
 		}
     },
     created(){
-
+        
     },
     methods: {
         personal(val){
@@ -214,9 +224,35 @@ export default {
             this.activenum = 3
             this.passwordstate = false;
             this.passwordsuccess= true
+            var data = {
+                uid: '107eaf81f1074538a1a40f8d4cbb6269',
+                password1: this.step3.mima,
+                password2: this.step3.rmima
+            }
+            api.ChangePassword(data).then(data => {
+
+            })
         },
         handleClick(tab, event) {
             console.log(tab, event);
+        },
+        getphonenum(){
+            api.GetPhonenum({tel:this.phone.num}).then(data => {
+                    const TIME_COUNT = 60;
+                    if (!this.timer) {
+                        this.count = TIME_COUNT;
+                        this.phonenum = false
+                        this.timer = setInterval(() => {
+                             if (this.count > 0 && this.count <= TIME_COUNT) {
+                                this.count--;
+                            } else {
+                                this.phonenum = true;
+                                clearInterval(this.timer);
+                                this.timer = null;
+                            }
+                        }, 1000)
+                    }
+            })
         },
         
     }
@@ -239,6 +275,10 @@ export default {
  .num input {
      text-indent: 20px;
  }
+ .num >>> .el-input__inner {
+     text-indent: 20px;
+     position: relative;
+ }
 .phoneimg {
   position: absolute;
   top: 8px;
@@ -254,6 +294,7 @@ export default {
   opacity: 0.6;
 }
 .verificationcode {
+    cursor: pointer;
     position: absolute;
     top: 3px;
     right: 9px;
@@ -273,9 +314,15 @@ export default {
 .menuborser {
        border-bottom:1px solid #ccc;
        color: black;
-    }
-    .active {
-        background: #0099ff;
-        color: #fff;
-    }
+}
+.active {
+    background: #0099ff;
+    color: #fff;
+}
+.eyeico {
+    position: absolute;
+    top:15px;
+    right: 30px;
+    opacity: 0.6;
+}
 </style>

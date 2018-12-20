@@ -8,3 +8,15 @@ export function Getmycoupon(params) {
 export function DetailUsername(params) {
     return fetch.post(URL.detailusername,params)
 }
+export function GetPhonenum(params) {
+    return fetch.post(URL.getphonenum,params)
+}
+export function ExamHistoy(params) {
+    return fetch.post(URL.examhistoy,params)
+}
+export function ChangePassword(params) {
+    return fetch.post(URL.changepassword,params)
+}
+export function UpdataImg(params) {
+    return fetch.post(URL.updataimg,params)
+}

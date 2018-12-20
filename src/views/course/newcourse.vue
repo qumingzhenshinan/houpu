@@ -123,10 +123,9 @@ export default {
         }
     },
     created(){
-        api.AllCourse().then(data => {
+        api.NewCourse().then(data => {
                 this.mianlistarry = data.generalvideos
         });
-        
     },
     methods: {
         courseDetails(val){
@@ -169,8 +168,9 @@ export default {
             })
         },
         delected(val){
+ 
             
-        },
+        }
     }
 }
 </script>

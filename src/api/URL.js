@@ -18,10 +18,18 @@ const urls = {
 	coursecomment: BASE + '/comment/selectByGid', // post获取课程评论
 	coursedetails: BASE + '/course/selectById', // post获取课程详情
 	getmycoupon:  BASE + '/coupon/selectByUid', // post获取优惠卷
-	detailusername:  BASE + '/user/update', // post修改用户昵称
+	detailusername:  BASE + '/user/updateUserName', // post修改用户昵称
 	// 试卷 exam
 	findExamAll: BASE + '/exam/selectAll', // gett获取所有试卷
 	findExamOnly: BASE + '/questions/select', // post获取某一套试卷的所有题目
+	subjectquery: BASE + '/course/selectByKind', // post课程三级分类查询
+	getphonenum:  BASE + '/message/ycode', // post获取手机验证码	
+	newcourse: BASE + '/course/selectByCreatTime', // get最新课程
+	examhistoy: BASE + '/exam/selectExamHistoy', // post查询我做过的题目
+	changepassword:  BASE + '/user/updatePassWord', // post用户修改密码
+	oederdetail: BASE + '/orders/update', // post修改订单状态
+	updataimg:  BASE + '/user/profiles',// post修改用户头像
+	// todos: 'http://www.houpuclass.com:8089/teacher/select'
 	getAnswer: BASE + '/exam/selectAnswer', // post分数统计并添加错题
 	findPAnswer: BASE + '/errorquestions/selectByUid', // 查询答题结果
 	// 注册

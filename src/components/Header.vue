@@ -144,8 +144,8 @@
 						</li>
 					</ul>
 				</li>
-				<li class="headerHight"><p>0元课程 <span></span></p></li>
-				<li class="headerHight"><p>最新课程 <span></span></p></li>
+				<li class="headerHight" @click="zeroCourse"><p>0元课程 <span></span></p></li>
+				<li class="headerHight" @click="newCourse"><p>最新课程 <span></span></p></li>
 				<li class="headerHight"><p><router-link :to="{ path: '/quiz' }">小测验</router-link> <span></span></p></li>
 				<li class="headerHight"><p>我的课程 <span></span></p></li>
 				<li class="user" @click="Personal"><img src="../assets/Header/userImg.png" alt=""><span>张三</span></li>
@@ -163,6 +163,12 @@ export default{
 	methods: {
 		Personal(){
 			this.$router.push({name:'personalCenter'})
+		},
+		zeroCourse(){
+			this.$router.push({name:'zerocourse'})
+		},
+		newCourse(){
+			this.$router.push({name:'newcourse'})
 		}
 	}
 }

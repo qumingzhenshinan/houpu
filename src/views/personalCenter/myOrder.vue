@@ -47,18 +47,17 @@
                                             </el-col>
                                             <el-col :span="19" style="margin-left:20px">
                                                 <p style="font-weight:500;font-size:16px">{{item.payStyle}}</p>
-                                                <!-- <div class="paymentmode">
+                                                <div class="paymentmode" v-if="item.oisPay == '1'">
                                                     <p>实际支付{{item.moneryvip}}</p>
                                                     <p>优惠券支付{{item.monery}}</p>
-                                                </div> -->
+                                                </div>
                                                 <span class="ordermonery">￥{{item.omoney}}</span>
-                                                <el-button type="primary" class="orderbtn" v-if="item.oisPay == '0'">付款</el-button>
-                                                <!-- <el-button class="cancelorderbtn">取消订单</el-button> -->
-                                                
-                                                <!-- <p class="expired">已过期</p> -->
+                                                <el-button type="primary" class="orderbtn" v-if="item.oisPay == '0' && item.isKill == 0" @click="paymonery(item.num)">付款</el-button>
+                                                <el-button class="cancelorderbtn" @click="cancelpayment(item.num,item.oid)" v-if="item.oisPay == '0' && item.isKill == 0">取消订单</el-button>                                              
+                                                <p class="expired" disabled v-if="item.isKill == 2">已过期</p>
+                                                <p  class="expired1">{{time}}</p>
                                                 <p class="paidbtn"  v-if="item.oisPay == '1'">已付款</p>
-                                                <!-- <p class="deliveryrefund">发货退款</p> -->
-                                                <!-- <el-button class="cancelorderbtn">评价</el-button> -->
+                                                <el-button class="cancelorderbtn" v-if="item.oisPay == '1'">评价</el-button>
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -93,6 +92,7 @@ import Vue from 'vue'
 import api from '@/api'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { setTimeout } from 'timers';
   export default {
       components:{Header,Footer},
       data(){
@@ -100,7 +100,8 @@ import Footer from '@/components/Footer'
            activeName: 'first',
            classstate:'3',
            Mpage: 5,
-		   currentPage: 1,
+           currentPage: 1,
+           time: '',
            couponlist:[{
                title:'初一数学强化练习班（创新班）（秋季）',
                monery: '100.00',
@@ -115,8 +116,13 @@ import Footer from '@/components/Footer'
         }
     },
     created(){
-        api.allOrder().then(data => {
+        api.allOrder({uid:'681f95051bbf4978b455688a285b483a'}).then(data => {
             this.couponlist = data.orders
+            var num = 0
+            this.couponlist.forEach((item,index) => {
+                
+                item.num = index
+            })
         })
     },
     filters: {
@@ -170,6 +176,49 @@ import Footer from '@/components/Footer'
 		nextPage() {
 			this.currentPage++
         },
+        cancelpayment(index, val){
+            this.$confirm('确认取消订单？', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+            }).then(() => {   
+                // this.couponlist.splice(index,1) 
+                this.couponlist[index].isKill = 1
+                var data = {
+                    isKill: 1,
+                    oid: val
+                }
+                api.OrderDetail(data).then(data => {
+                    var num = 0
+                    this.couponlist.forEach((item,index) => {                      
+                        item.num = index
+                    })
+                    if(data.status = 200){
+                        this.$message({
+                            type: 'success',
+                            message: '取消成功!'
+                        })
+                    }
+                })                            
+            }).catch(() => {
+                
+            })
+        },
+        paymonery(index){
+            var maxtime = 60*60
+            setInterval(() =>{
+                if (maxtime > 0) {
+                    maxtime = maxtime-1
+                    // var minutes = Math.floor(maxtime / 60);
+                    // var seconds = Math.floor(maxtime % 60);
+                    // this.time = "距离结束还有" + minutes + "分" + seconds + '秒'
+                    console.log(maxtime)
+                } else{
+                     clearInterval()
+                     this.couponlist[index].isKill = 2
+                }
+            },1000)
+        }
     }
   }
 </script>
@@ -225,6 +274,12 @@ import Footer from '@/components/Footer'
      top: 50px;
      right: 55px;
  }
+  /* .expired1 {
+     color:#999;
+     position: absolute;
+     top: 50px;
+     right: 155px;
+ } */
  .paymentmode {
      color:#999;
      position: absolute;

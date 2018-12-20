@@ -13,11 +13,12 @@ export function Coursecomment(params) {
 export function Coursedetails(params) {
     return fetch.post(URL.coursedetails,params)
 }
-
+export function SubjectQuery(params) {
+    return fetch.post(URL.subjectquery,params)
+}
 export function findCourse(params) {
 	return fetch.post(URL.findCourse, params)
 }
-
 export function getrecommendedC(params) {
 	return fetch.post(URL.getrecommendedC, params)
 }
