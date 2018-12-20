@@ -3,10 +3,10 @@
     <Header></Header>
     <div class="totalm">
       <div class="fraction">
-        恭喜获得89分，继续努力！
+        恭喜获得{{$quiz.testResult}}分，继续努力！
       </div>
       <div class="fractions">
-        <el-button type="primary">查看答案</el-button>
+        <el-button @click="getAnswer" type="primary">查看答案</el-button>
         <div class="recommended">
           <span>推荐课程</span>
         </div>
@@ -30,6 +30,7 @@
 
 <script>
 import Header from '@/components/Header'
+import { mapActions, mapGetters} from 'vuex'
 import Footer from '@/components/Footer'
 import api from '@/api'
 export default {
@@ -69,14 +70,22 @@ export default {
     Header,
     Footer
   },
+  computed: {
+    ...mapGetters(['$quiz']),
+  },
   created() {
     api.getrecommendedC({
       userid: '',
-      etid: ''
+      etid: this.$quiz.quiz.etid
     }).then(data => {
       console.log(data);
       // this.course = data
     })
+  },
+  methods: {
+    getAnswer() {
+      this.$router.push('/quiz/testResult')
+    }
   }
 }
 </script>

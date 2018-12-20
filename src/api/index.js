@@ -43,7 +43,8 @@ import {
 import {
   findExamAll,
   findExamOnly,
-  getAnswer
+  getAnswer,
+  findPAnswer
 } from "@/api/modules/exam"
 
 import {
@@ -77,6 +78,7 @@ export default {
   reMCUser,
   getlogin,
   getAnswer,
-  getrecommendedC
+  getrecommendedC,
+  findPAnswer
 
 }

@@ -12,3 +12,7 @@ export function findExamOnly(params) {
 export function getAnswer(params) {
 	return fetch.post(URL.getAnswer, params)
 }
+
+export function findPAnswer(params) {
+	return fetch.post(URL.findPAnswer, params)
+}

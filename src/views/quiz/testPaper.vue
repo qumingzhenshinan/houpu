@@ -41,7 +41,7 @@
       <span>您还有未提交的试题，确认提交吗？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="confirAssignment">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -68,6 +68,8 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { mapActions, mapGetters} from 'vuex'
 import api from '@/api'
+import axios from 'axios'
+import qs from 'qs'
 export default {
   name: 'testPaper',
   data () {
@@ -115,16 +117,7 @@ export default {
     clearInterval(this.timer);
   },
   created() {
-    api.getAnswer({
-            etid: this.$quiz.quiz.etid,
-            uid: 'a958d03cc43c44db83b0178b8a752fd6',
-            questionsMap: this.answers
-          }).then(data => {
-            console.log(data);
-          })
     api.findExamOnly({etid: this.$quiz.quiz.etid}).then(data => {
-    // api.findExamOnly({etid: "1109c2e6311b4db18a012c42097e3f5b"}).then(data => {
-      console.log(data.questions);
       data.questions.forEach(item => {
         item.content = item.content.split(";")
         item.selected = false
@@ -139,11 +132,31 @@ export default {
         item.content = objs
       })
       this.topics = data.questions
+      console.log(this.topics);
     })
     this.countDown()
   },
   methods: {
-    ...mapActions(['GetQuiz']),
+    ...mapActions(['GetQuizResult']),
+    confirAssignment() {
+      this.topics.forEach((item,index) => {
+        if(item.selected === false) {
+          this.answers.push({
+            id: item.id,
+            answer: ""
+          })
+        }
+      })
+      api.getAnswer({
+        'etid': this.$quiz.quiz.etid,
+        'uid': 'a958d03cc43c44db83b0178b8a752fd6',
+        'questions': JSON.stringify(this.answers)
+      }).then(data => {
+        this.GetQuizResult(data)
+        this.dialogVisible = false
+        this.$router.push('/quiz/resultPaper')
+      })
+    },
     selected(i,int) {
       if(this.answers.length === 0) {
         this.answers.push({
@@ -166,7 +179,6 @@ export default {
           }
         }        
       }
-      console.log(this.answers);
       this.topics[i].selected = true
       this.topics[i].content.forEach(item => {
         item.statu = false
@@ -182,25 +194,19 @@ export default {
     },
     handIn() {
       var cout = 0
-      this.topics.forEach(item => {
-        if(item.selected == true) {
-          cout++
-        }
-        if(cout == this.topics.length) {
-          api.getAnswer({
-            etid: this.$quiz.quiz.etid,
-            uid: 'a958d03cc43c44db83b0178b8a752fd6',
-            questionsMap: this.answers
-          }).then(data => {
-            console.log(data);
-          })
+      if(this.answers.length == this.topics.length) {
+        api.getAnswer({
+          'etid': this.$quiz.quiz.etid,
+          'uid': 'a958d03cc43c44db83b0178b8a752fd6',
+          'questions': JSON.stringify(this.answers)
+        }).then(data => {
+          this.GetQuizResult(data)
+          console.log(data);
           this.$router.push('/quiz/resultPaper')
-        }else{
-          cout = cout
-          this.dialogVisible = true
-        }
-
-      })
+        })
+      }else {
+        this.dialogVisible = true
+      }
     },
     countDown() {
       --this.$quiz.quiz.timeLength
@@ -209,7 +215,7 @@ export default {
           this.seconds = 60
           this.$quiz.quiz.timeLength--
         }else if(this.$quiz.quiz.timeLength === 0) {
-          clearInterval(timer)
+          clearInterval(this.timer)
           alert('时间到了')
           this.$router.push('/quiz/resultPaper')
         }else {

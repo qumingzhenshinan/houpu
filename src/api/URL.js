@@ -1,4 +1,5 @@
 const BASE = 'http://www.houpuclass.com:8089'   //接口网址
+const BASE1 = 'http://192.168.2.123:8089'   // 测试网址
 
 const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员
@@ -22,6 +23,7 @@ const urls = {
 	findExamAll: BASE + '/exam/selectAll', // gett获取所有试卷
 	findExamOnly: BASE + '/questions/select', // post获取某一套试卷的所有题目
 	getAnswer: BASE + '/exam/selectAnswer', // post分数统计并添加错题
+	findPAnswer: BASE + '/errorquestions/selectByUid', // 查询答题结果
 	// 注册
 	getPhoneC: BASE + '/message/ycode', // post根据手机号获取验证码
 	reMCUser: BASE + '/user/regist', // post密码手机号注册验证

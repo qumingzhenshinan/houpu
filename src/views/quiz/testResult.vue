@@ -3,28 +3,30 @@
     <Header></Header>
     <header>
       <div class="totalm">
-        <span>{{$quiz.quiz.subject}}</span>
-        <p>{{$quiz.quiz.title}}</p>
+        <span>{{$quiz.quiz.etsubject}}</span>
+        <p>{{$quiz.quiz.etname}}</p>
       </div>
     </header><!-- /header -->
     <div class="totalm">
       <div class="fractions">
-        <div class="errorBU" v-for="i in 3">
+        <div class="errorBU" v-for="item in errorQ">
           <p class="error_p1">
-            <span>单选题</span>
-            <p>(1分)</p>
+            <span>{{item.type}}题</span>
+            <p>({{item.score}}分)</p>
           </p>
-          <p class="topic_title">噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是( )</p>
-          <div class="topic_select" v-for="i in 4">
-            <span v-show="false">{{zimus[i-1]}}</span>
-            <i v-show="false" class="topic_select_span el-icon-error"></i>
-            <i v-show="true" class="topic_select_span1 el-icon-success"></i>
-            <p>清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁清除城市垃圾，保持环境整洁</p>
+          <p class="topic_title">{{item.name}}</p>
+          <div class="topic_select" v-for="(data,index) in item.content.split(';')">
+            <span v-if="zimus[index] !== item.answer && zimus[index] !== item.erranswer">{{zimus[index]}}</span>
+            <!-- 错题 -->
+            <i v-if="item.erranswer === zimus[index]" class="topic_select_span el-icon-error"></i>
+            <i v-if="item.answer === zimus[index]" class="topic_select_span1 el-icon-success"></i>
+            <p>{{data}}</p>
           </div>
-          <p class="errorBU_p">正确答案：D</p>
-          <p class="errorBU_p">考生答案：D</p>
+          <p class="errorBU_p">正确答案：{{item.answer}}</p>
+          <p v-if="item.erranswer === null" class="errorBU_p">考生答案：{{item.answer}}</p>
+          <p v-if="item.erranswer !== null" class="errorBU_p">考生答案：{{item.erranswer}}</p>
           <p class="errorBU_p">题目解析：</p>
-          <p class="errorBU_p1">噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中不能有效控制噪声的是噪声严重污染环境,影响人们的生活和工作,已成为社会公害,下列措施中。</p>
+          <p class="errorBU_p1">{{item.analysis}}</p>
         </div>
       </div>
     </div>
@@ -55,7 +57,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { mapActions, mapGetters} from 'vuex'
-
+import api from "@/api"
 export default {
   name: 'testResult',
   data () {
@@ -87,7 +89,8 @@ export default {
           price: '1680.00',
           rprice: '2000.00'
         },
-      ]
+      ],
+      errorQ: []
     }
   },
   components: {
@@ -99,6 +102,18 @@ export default {
   },
   created() {
     console.log(this.$quiz);
+    api.findPAnswer({uid: 'a958d03cc43c44db83b0178b8a752fd6', etid: '5c271a1f08b4417b90099c9cf8b765e3'}).then(data => {
+      this.errorQ = data.errorquestions
+      console.log(data);
+    })
+    // 获取推荐课程
+    api.getrecommendedC({
+      userid: 'a958d03cc43c44db83b0178b8a752fd6',
+      etid: this.$quiz.quiz.etid
+    }).then(data => {
+      console.log(data);
+      // this.course = data
+    })
   }
 }
 </script>

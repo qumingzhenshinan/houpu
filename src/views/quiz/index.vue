@@ -83,7 +83,6 @@ export default {
 	},
 	created() {
 		api.findExamAll().then(data => {
-			console.log(data);
 			this.quizs = data.exams
 		})
 	},

@@ -33,6 +33,8 @@
 
 <script>
 import api from "@/api"
+import axios from "axios"
+import qs from 'qs'
 var codes = false
 var phoneC = false
 export default {
@@ -128,6 +130,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          console.log(this.login);
           api.reMCUser({
             'phoneNo': this.login.name + "",
             'validatacode': this.login.phoneCode + "",
@@ -155,10 +158,18 @@ export default {
     },
     getphoneCode() {
       if(codes === true) {
-        api.getPhoneC({tel: this.login.name+""}).then(data => {
-          phoneC = data
+        axios({
+          url: 'http://www.houpuclass.com:8089/message/ycode',
+          method: 'post',
+          data: qs.stringify({tel: this.login.name + ""}),
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }).then(data => {
+          phoneC = data.data
+          console.log(this);
           var timer = setInterval(() => {
-            if(this.countTime > 0 && phoneC === data) {
+            if(this.countTime > 0 && phoneC === data.data) {
               this.countTime--
               this.getphone = this.countTime + 's后重新发送'
             }else if (this.countTime === 0 || phoneC === true) {
@@ -167,6 +178,7 @@ export default {
               this.countTime = 120
             }
           }, 1000)
+          console.log(data.data);
         })
       }else {
         alert("请输入验证码")
@@ -174,12 +186,12 @@ export default {
     }
   },
   created() {
-    api.reMCUser({
-      'phoneNo': '15201347467',
-      'passWord': "ss222222ss"
-    }).then(data => {
-      console.log(data);
-    })
+    // api.reMCUser({
+    //   'phoneNo': '15201347467',
+    //   'passWord': "ss222222ss"
+    // }).then(data => {
+    //   console.log(data);
+    // })
     this.createCode()
   },
   computed: {
