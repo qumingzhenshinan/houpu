@@ -67,13 +67,13 @@
                                             <div v-show="passwordstate">
                                                 <el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
                                                     <el-form-item class="num" prop="mima">
-                                                        <el-input v-if="passwordsate"  placeholder="新密码" type="password" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <el-input v-if="passwordsate"  placeholder="新密码" type="password" v-model="step3.mima"></el-input>
                                                         <el-input v-else placeholder="新密码" type="text" v-model="step3.mima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
                                                         <img src="@/assets/img/pass.png" alt="" class="passwordimg">
                                                         <span class="el-icon-view eyeico" @click="passwordsate = !passwordsate"></span>
                                                     </el-form-item>
                                                     <el-form-item class="num" prop="rmima">
-                                                        <el-input v-if="passwordsated" placeholder="确认密码" type="password" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
+                                                        <el-input v-if="passwordsated" placeholder="确认密码" type="password" v-model="step3.rmima"></el-input>
                                                         <el-input v-else placeholder="确认密码" type="text" v-model="step3.rmima" oninput="value=value.replace(/[^\d]/g,'')" ></el-input>
                                                         <img src="@/assets/img/pass.png" alt="" class="passwordimg">
                                                         <span class="el-icon-view eyeico" @click="passwordsated = !passwordsated"></span>

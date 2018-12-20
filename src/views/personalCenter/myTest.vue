@@ -53,20 +53,23 @@
                         </el-col>
                     </el-row>
                     <div class="line"></div>
-                    <div style="text-align:center">
-                        <el-pagination
-                            background
-                            :page-size='Mpage'
-                            :current-page="currentPage"
-                            @size-change="handleSizeChange"
-                            @current-change="currentChange"
-                            @prev-click="prevPage"
-                            @next-click="nextPage"
-                            next-text="下一页"
-                            prev-text="上一页"
-                            layout="prev, pager, next"
-                            :total="textlist.length">
-                        </el-pagination>
+                    <div class="center">
+                        <div class="pagination">
+                            <el-pagination
+                                background
+                                :page-size='Mpage'
+                                :current-page="currentPage"
+                                @size-change="handleSizeChange"
+                                @current-change="currentChange"
+                                @prev-click="prevPage"
+                                @next-click="nextPage"
+                                next-text="下一页"
+                                prev-text="上一页"
+                                layout="prev, pager, next"
+                                :total="textlist.length">
+                            </el-pagination>
+                        </div>
+                        
                     </div>
                 </el-main>
             </el-container>
@@ -129,7 +132,7 @@ import Footer from '@/components/Footer'
     },
     created(){
         api.ExamHistoy({uid:'681f95051bbf4978b455688a285b483a'}).then(data => {
-            this.textlist = data
+            // this.textlist = data
         })
     },
     methods: {

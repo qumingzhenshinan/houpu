@@ -49,13 +49,13 @@
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 18px;color: #000000;">{{item.gname}}</span>
                                 <span style="display: block;margin-top: 20px;">主讲老师:  {{item.teacherName}}</span>
                                 <p style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-html="item.gintro"></p>
-                                
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 30px;color: #F5A623;text-align: right;display: block;position: absolute;top:35px;right:20px;">¥{{item.gisVip}}</span>
                                 <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;text-align: right;display: block;position: absolute;top:75px;right:20px;">原价￥{{item.gmoney}}</span>
                             </div>    
                         </el-col>
                     </el-row>
                 </div>
+                <no-data :inforData='mianlistarry' tips='当前课程暂无'></no-data>
             </div>
             <div class="line"></div>
             <div style="text-align:center">
@@ -82,31 +82,16 @@ import Vue from 'vue'
 import api from '@/api'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import noData from '@/components/noDataDisplay'
 export default {
     components: {
         Header,
-        Footer
+        Footer,
+        noData
     },
     data(){
         return {
-            mianlistarry: [
-                {
-                    img:require('../../assets/img/Bitmap.png'),
-                    title:' 文学常识梳理班——聚力计划语文一',
-                    teacher: '田园',
-                    describe: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
-                    money: '1600.00',
-                    oldmony: '100.00'
-                },
-                {   
-                    img:require('../../assets/img/Bitmap.png'),
-                    title:' 文学常识梳理班——聚力计划语文一',
-                    teacher: '田园',
-                    describe: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
-                    money: '1600.00',
-                    oldmony: '100.00'
-                },
-            ],
+            mianlistarry: [],
             arrysubject: [
                 {
                     subject:['语文','数学','英语','物理','化学','科学'],
@@ -123,10 +108,24 @@ export default {
         }
     },
     created(){
-        api.AllCourse().then(data => {
+        var paths = this.$route.path
+        console.log('11');
+        if(paths === '/courseList') {
+            // 所有课程
+            api.AllCourse().then(data => {
                 this.mianlistarry = data.generalvideos
-        });
-        
+            });
+        }else if(paths === '/newCourse') {
+            // 最新课程
+            api.NewCourse().then(data => {
+                this.mianlistarry = data.generalvideos
+            });
+        }else {
+            // 0元课程
+            api.ZeroCourse({gmoney: '0'}).then(data => {
+                this.mianlistarry = data.generalvideos
+            });
+        }
     },
     methods: {
         courseDetails(val){

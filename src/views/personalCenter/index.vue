@@ -56,8 +56,9 @@
                                 <!-- <img src="@/assets/img/Headportrait.png" alt="" style="widh:140px;height:140px;"> -->
                                 <el-upload
                                     class="avatar-uploader"
-                                    action=""
+                                    action="https://jsonplaceholder.typicode.com/posts/"
                                     multiple
+                                    :limit='1'
                                     ref="changeFile"
                                     :on-change="getInfoFile"
                                     :http-request="uploadSectionFile"
@@ -90,7 +91,6 @@
                             </div>
                         </el-col>
                     </el-row>
-
                 </el-main>
             </el-container>
         </div>
@@ -103,24 +103,28 @@ import api from '@/api'
 import url from '@/api/URL'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import axios from 'axios'
+import qs from 'qs'
 import {upload} from '@/api/modules/dashboard'
-  export default {
-      components:{Header,Footer,upload},
-      data(){
+export default {
+    components:{Header,Footer,upload},
+    data(){
         return {
-           username:"李磊",
-           classname:'一年级',
-           setupstate: true,
-           classstate:'1',
-           usernameval: '',
-           filename: '',
-           user:"",
-           imageUrl: '',
-           uploadParm: {},
+            username:"李磊",
+            classname:'一年级',
+            setupstate: true,
+            classstate:'1',
+            usernameval: '',
+            filename: '',
+            user:"",
+            imageUrl: '',
+            uploadParm: {},
         }
     },
     created(){
-        
+        axios.post('http://192.168.2.123:8089/course/selectByKind', qs.stringify({gsbuject: '',gclass: '', gclassify: '长期班'})).then(data => {
+            console.log(data);
+        })
     },
     methods: {
         personal(val){
@@ -155,10 +159,10 @@ import {upload} from '@/api/modules/dashboard'
         Detailusername(){
             var data = {
                 uid: '681f95051bbf4978b455688a285b483a',
-                // username: this.usernameval
+                username: this.usernameval
             }
             api.DetailUsername(data).then(data => {
-                if(dat.status == 200) {
+                if(data.status == 200) {
                     if(this.filename !== '') {
                         this.$refs.changeFile.submit()
                      }else{
@@ -168,9 +172,14 @@ import {upload} from '@/api/modules/dashboard'
             })
         },
         getInfoFile(file, fileList){
+            console.log(file, fileList);
             this.filename = file
+            axios.post('http://www.houpuclass.com:8089/user/profiles', {uid: 'a958d03cc43c44db83b0178b8a752fd6', profile: file},{headers:{'Content-Type':'multipart/form-data'}}).then(data => {
+                console.log(data)
+            })
         },
         uploadSectionFile(param){
+            console.log(param);
             var visaObj = {
                 uid: '681f95051bbf4978b455688a285b483a'
             }
@@ -179,9 +188,11 @@ import {upload} from '@/api/modules/dashboard'
             })
         },
         handleAvatarSuccess(res, file) {
+            console.log(res, file);
             this.imageUrl = URL.createObjectURL(file.raw);         
         },
         beforeAvatarUpload(file) {
+            console.log(file);
             const isJPG = file.type === 'image/jpeg';
             const isLt2M = file.size / 1024 / 1024 < 2;
 
@@ -195,41 +206,41 @@ import {upload} from '@/api/modules/dashboard'
         }
         
     }
-  }
+}
 </script>
 <style scoped>
-    .el-form-item {
-        margin: 0;
-    }
-    .menuborser {
-       border-bottom:1px solid #ccc;
-       color: black;
-    }
-    .active {
-        background: #0099ff;
-        color: #fff;
-    }
-    .avatar-uploader .el-upload {
+.el-form-item {
+    margin: 0;
+}
+.menuborser {
+   border-bottom:1px solid #ccc;
+   color: black;
+}
+.active {
+    background: #0099ff;
+    color: #fff;
+}
+.avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
+}
+.avatar-uploader .el-upload:hover {
     border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
+}
+.avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
     width: 178px;
     height: 178px;
     line-height: 178px;
     text-align: center;
-  }
-  .avatar {
+}
+.avatar {
     width: 178px;
     height: 178px;
     display: block;
-  }
+}
 </style>

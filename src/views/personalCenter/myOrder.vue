@@ -66,20 +66,22 @@
                         </el-col>
                     </el-row>
                     <div class="line"></div>
-                    <div style="text-align:center">
-                        <el-pagination
-                            background
-                            :page-size='Mpage'
-                            :current-page="currentPage"
-                            @size-change="handleSizeChange"
-                            @current-change="currentChange"
-                            @prev-click="prevPage"
-                            @next-click="nextPage"
-                            next-text="下一页"
-                            prev-text="上一页"
-                            layout="prev, pager, next"
-                            :total="couponlist.length">
-                        </el-pagination>
+                    <div class="center">
+                        <div class="pagination">
+                            <el-pagination
+                                background
+                                :page-size='Mpage'
+                                :current-page="currentPage"
+                                @size-change="handleSizeChange"
+                                @current-change="currentChange"
+                                @prev-click="prevPage"
+                                @next-click="nextPage"
+                                next-text="下一页"
+                                prev-text="上一页"
+                                layout="prev, pager, next"
+                                :total="couponlist.length">
+                            </el-pagination>
+                        </div>
                     </div>
                 </el-main>
             </el-container>

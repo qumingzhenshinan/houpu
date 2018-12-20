@@ -80,7 +80,7 @@ import Footer from '@/components/Footer'
     created(){
 
         api.Getmycoupon({uid:'107eaf81f1074538a1a40f8d4cbb6269'}).then(data => {
-
+            console.log(data);
         })
     },
     methods: {

@@ -147,7 +147,7 @@
 				<li class="headerHight" @click="zeroCourse"><p>0元课程 <span></span></p></li>
 				<li class="headerHight" @click="newCourse"><p>最新课程 <span></span></p></li>
 				<li class="headerHight"><p><router-link :to="{ path: '/quiz' }">小测验</router-link> <span></span></p></li>
-				<li class="headerHight"><p>我的课程 <span></span></p></li>
+				<li class="headerHight" @click="myCourse"><p>我的课程 <span></span></p></li>
 				<li class="user" @click="Personal"><img src="../assets/Header/userImg.png" alt=""><span>张三</span></li>
 			</ul>
 		</div>
@@ -160,15 +160,22 @@ export default{
 			aa:["123","123"]
 		}
 	},
+	inject: ['reload'],
 	methods: {
 		Personal(){
 			this.$router.push({name:'personalCenter'})
 		},
 		zeroCourse(){
-			this.$router.push({name:'zerocourse'})
+			this.reload()
+			this.$router.push('/zeroCourse')
 		},
 		newCourse(){
-			this.$router.push({name:'newcourse'})
+			this.reload()
+			this.$router.push('/newCourse')
+		},
+		myCourse() {
+			this.reload()
+			this.$router.push('/courseList')
 		}
 	}
 }
