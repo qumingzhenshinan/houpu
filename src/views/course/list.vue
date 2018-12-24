@@ -3,8 +3,24 @@
         <Header></Header>
         <div class="totalm">
             <div>
-                <el-row>
-                    <div style="font-size:16px;color:#ccc;margin-bottom:2px;">当前条件 > <span class="activedel" v-if="subjectarry.gsbuject !== undefined"><span class="condition">{{subjectarry.gsbuject}}<i class="el-icon-close del" @click="delected(subjectarry.gsbuject)"></i></span></span> <span class="activedel" v-if="subjectarry.gclass !== undefined"><span class="condition1">{{subjectarry.gclass}}<i class="el-icon-close del"></i></span></span><span class="activedel" v-if="subjectarry.gclassify !== undefined"><span class="condition1">{{subjectarry.gclassify}}<i class="el-icon-close del"></i></span></span></div>
+                <el-row style="padding: 15px 0">
+                    <div style="font-size:16px;color:#ccc;margin-bottom:2px;">当前条件 >
+                        <span class="activedel" v-if="subjectarry.gsbuject !== undefined">
+                            <span class="condition">{{subjectarry.gsbuject}}
+                                <i class="el-icon-close del" @click="delected('1')"></i>
+                            </span>
+                        </span>
+                        <span class="activedel" v-if="subjectarry.gclass !== undefined">
+                            <span class="condition">{{subjectarry.gclass}}
+                                <i class="el-icon-close del" @click="delected('2')"></i>
+                            </span>
+                        </span>
+                        <span class="activedel" v-if="subjectarry.gclassify !== undefined">
+                            <span class="condition">{{subjectarry.gclassify}}
+                                <i class="el-icon-close del" @click="delected('3')"></i>
+                            </span>
+                        </span>
+                    </div>
                 </el-row>
                 <el-row>
                     <div class="mainheader">
@@ -13,7 +29,9 @@
                         </el-col>
                         <el-col :span="22">
                             <div class="miansubject">
-                                <span v-for="item in arrysubject[0].subject"><el-button size="small" @click="subjecttype(item)" :class="{active:active == item}">{{item}}</el-button></span>
+                                <span v-for="item in arrysubject[0].subject">
+                                    <el-button size="small" @click="subjecttype(item)" :class="{active:active == item}">{{item}}</el-button>
+                                </span>
                             </div>
                         </el-col>
                         <el-col :span="1.5">
@@ -21,7 +39,9 @@
                         </el-col>
                         <el-col :span="22">
                             <div class="miansubject">
-                                <span v-for="item in arrysubject[0].class"><el-button size="small" @click="subjectclass(item)" :class="{active:active1 == item}">{{item}}</el-button></span>
+                                <span v-for="item in arrysubject[0].class">
+                                    <el-button size="small" @click="subjectclass(item)" :class="{active:active1 == item}">{{item}}</el-button>
+                                </span>
                             </div>
                         </el-col>
                         <el-col :span="1.5">
@@ -29,7 +49,9 @@
                         </el-col>
                         <el-col :span="22">
                             <div class="miansubject">
-                                <span v-for="item in arrysubject[0].subjectstate"><el-button size="small"  @click="subjectstate(item)" :class="{active:active2 == item}">{{item}}</el-button></span>
+                                <span v-for="item in arrysubject[0].subjectstate">
+                                    <el-button size="small"  @click="subjectstate(item)" :class="{active:active2 == item}">{{item}}</el-button>
+                                </span>
                             </div>
                         </el-col>
                     </div>
@@ -59,19 +81,21 @@
             </div>
             <div class="line"></div>
             <div style="text-align:center">
-                <el-pagination
-                    background
-                    :page-size='Mpage'
-                    :current-page="currentPage"
-                    @size-change="handleSizeChange"
-                    @current-change="currentChange"
-                    @prev-click="prevPage"
-			        @next-click="nextPage"
-                    next-text="下一页"
-                    prev-text="上一页"
-                    layout="prev, pager, next"
-                    :total="mianlistarry.length">
-                </el-pagination>
+                <div class="pagination">
+                    <el-pagination
+                        background
+                        :page-size='Mpage'
+                        :current-page="currentPage"
+                        @size-change="handleSizeChange"
+                        @current-change="currentChange"
+                        @prev-click="prevPage"
+                        @next-click="nextPage"
+                        next-text="下一页"
+                        prev-text="上一页"
+                        layout="prev, pager, next"
+                        :total="mianlistarry.length">
+                    </el-pagination>
+                </div>
             </div>
         </div>
         <Footer></Footer>
@@ -83,6 +107,7 @@ import api from '@/api'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import noData from '@/components/noDataDisplay'
+import axios from 'axios'
 export default {
     components: {
         Header,
@@ -99,7 +124,7 @@ export default {
                     subjectstate: ['常规课','竞赛课']
                 }
             ],
-            subjectarry: [],
+            subjectarry: {},
             Mpage: 5,
             currentPage: 1,
             active: '',
@@ -109,7 +134,15 @@ export default {
     },
     created(){
         var paths = this.$route.path
-        console.log('11');
+        axios.get('http://www.houpuclass.com:8089/course/selectGclassify').then(data => {
+            this.arrysubject[0].subjectstate = data.data.data.lists
+        })
+        axios.get('http://www.houpuclass.com:8089/course/selectGclass').then(data => {
+            this.arrysubject[0].class = data.data.data.lists
+        })
+        axios.get('http://www.houpuclass.com:8089/course/selectGsbuject').then(data => {
+            this.arrysubject[0].subject = data.data.data.lists
+        })
         if(paths === '/courseList') {
             // 所有课程
             api.AllCourse().then(data => {
@@ -159,16 +192,24 @@ export default {
         },
         subjectstate(val){
             this.subjectarry.gclassify = val
-             this.active2 = val
-             this.subjectquery()
+            this.active2 = val
+            this.subjectquery()
         },
         subjectquery(){
             api.SubjectQuery(this.subjectarry).then(data => {
-
+                console.log(data.generalvideos);
+                this.mianlistarry = data.generalvideos
             })
         },
         delected(val){
-            
+            if(val === '1') {
+                this.subjectarry.gsbuject = null
+            }else if(val === '2') {
+                this.subjectarry.gclass = null
+            }else {
+                this.subjectarry.gclassify = null
+            }
+            this.subjectquery()
         },
     }
 }
@@ -236,18 +277,11 @@ export default {
      display:inline-block;
      border:1px solid #ccc;
      font-size:12px;
-     width:50px;
+     padding: 0 5px;
      text-align: center;
      margin-left: 10px;
  }
- .condition1 {
-     display:inline-block;
-     border:1px solid #ccc;
-     font-size:12px;
-     width:60px;
-     text-align: center;
-     margin-left: 10px;
- }
+
  .activedel {
      color: #ccc;
  }

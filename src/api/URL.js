@@ -1,5 +1,5 @@
 const BASE = 'http://www.houpuclass.com:8089'   //接口网址
-const BASE1 = 'http://192.168.2.123:8089'   // 测试网址
+const BASE1 = 'http://172.20.10.10:8089'   // 测试网址
 
 const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员

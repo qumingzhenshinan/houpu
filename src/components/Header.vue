@@ -17,130 +17,16 @@
 				<li class="allClass">
 					<p class="allClassP">全部分类</p>
 					<ul class="crouseType">
-						<li>
-						<p>语文</p>
-						<div class="grade">
-                            <div class="selectGrade">一年级</div>
-                            <div class="chooseCourse">
-                                <a href="">常规课</a>
-                                <a href="">竞赛课</a>
-                                <a href="">字少</a>
-                                <a href="">竞赛课</a>
-                                <a href="">常规课</a>
-                                <a href="">竞赛课</a>
-                                <a href="">常规课</a>
-                            </div>
-                            <div class="selectGrade">二年级</div>
-                            <div class="chooseCourse">
-                                <a href="">常规课</a>
-                                <a href="">竞赛课</a>
-                            </div>
-                            <div class="selectGrade">三年级</div>
-                            <div class="chooseCourse">
-                                <a href="">常规课</a>
-                                <a href="">竞赛课</a>
-                            </div>
-                        </div>
-						</li>
-						<li>
-							<p>英语</p>
+						<li v-for="item in subjectH">
+							<p>{{item}}</p>
 							<div class="grade">
-                                <div class="selectGrade">一年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课1</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">字少</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                </div>
-                                <div class="selectGrade">二年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                                <div class="selectGrade">三年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                            </div>
-						</li>
-						<li>
-							<p>数学</p>
-							<div class="grade">
-                                <div class="selectGrade">一年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课2</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">字少</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                </div>
-                                <div class="selectGrade">二年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                                <div class="selectGrade">三年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                            </div>
-						</li>
-						<li>
-							<p>物理</p>
-							<div class="grade">
-                                <div class="selectGrade">一年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课3</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">字少</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                </div>
-                                <div class="selectGrade">二年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                                <div class="selectGrade">三年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                            </div>
-						</li>
-						<li>
-							<p>化学</p>
-							<div class="grade">
-                                <div class="selectGrade">一年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课4</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">字少</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                    <a href="">常规课</a>
-                                </div>
-                                <div class="selectGrade">二年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                                <div class="selectGrade">三年级</div>
-                                <div class="chooseCourse">
-                                    <a href="">常规课</a>
-                                    <a href="">竞赛课</a>
-                                </div>
-                            </div>
+	                            <div class="selectGrade" v-for="data in classH">
+	                            	{{data}}
+	                            	<div class="chooseCourse">
+		                                <a href="" v-for="state in subjectstate">{{state}}</a>
+		                        	</div>
+	                            </div>
+	                        </div>
 						</li>
 					</ul>
 				</li>
@@ -154,10 +40,14 @@
 	</div>
 </template>
 <script type="text/javascript">
+import axios from 'axios'
 export default{
 	data(){
 		return {
-			aa:["123","123"]
+			aa:["123","123"],
+			subjectH: [],
+			classH: [],
+			subjectstate: []
 		}
 	},
 	inject: ['reload'],
@@ -177,6 +67,17 @@ export default{
 			this.reload()
 			this.$router.push('/courseList')
 		}
+	},
+	created() {
+        axios.get('http://www.houpuclass.com:8089/course/selectGclassify').then(data => {
+            this.subjectstate = data.data.data.lists
+        })
+        axios.get('http://www.houpuclass.com:8089/course/selectGclass').then(data => {
+            this.classH = data.data.data.lists
+        })
+        axios.get('http://www.houpuclass.com:8089/course/selectGsbuject').then(data => {
+            this.subjectH = data.data.data.lists
+        })
 	}
 }
 </script>
@@ -334,7 +235,6 @@ export default{
 .selectGrade{
     text-align: left;
     margin-left: 26px;
-    height: 40px;
 }
 .grade{
     width: 460px;
@@ -347,7 +247,14 @@ export default{
     display: none;
     background-color: #FFFFFF;
     z-index: 9999;
+    overflow: scroll;
 }
+
+.grade::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+}
+
 .chooseCourse{
     margin-top: 10px;
     line-height: 30px;

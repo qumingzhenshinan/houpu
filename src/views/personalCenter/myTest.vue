@@ -11,23 +11,38 @@
                                 default-active="1"
                                 class="el-menu-vertical-demo">
                                 <el-menu-item index="1" :class="{menuborser:true,active:classstate == '1'}" @click.native="personal">
-                                    <i><img src="@/assets/img/business.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '1'" src="@/assets/img/business.png" alt="">
+                                        <img v-if="classstate == '1'" src="@/assets/img/businessB.png" alt="">
+                                    </i>
                                     <span slot="title">个人资料</span>
                                 </el-menu-item>                   
                                 <el-menu-item index="2" :class="{menuborser:true,active:classstate == '2'}" @click.native="mycoupon">
-                                    <i><img src="@/assets/img/Coupon.png" alt=""></i>
-                                    <span slot="title">我的优惠卷</span>
+                                    <i>
+                                        <img v-if="classstate !== '2'" src="@/assets/img/Coupon.png" alt="">
+                                        <img v-if="classstate == '2'" src="@/assets/img/CouponB.png" alt="">
+                                    </i>
+                                    <span slot="title">我的优惠券</span>
                                 </el-menu-item>
                                 <el-menu-item index="3"  :class="{menuborser:true,active:classstate == '3'}" @click.native="myorder">
-                                    <i><img src="@/assets/img/order.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '3' " src="@/assets/img/order.png" alt="">
+                                        <img v-if="classstate == '3'" src="@/assets/img/orderB.png" alt="">
+                                    </i>
                                     <span slot="title">我的订单</span>
                                 </el-menu-item>
                                 <el-menu-item index="4"  :class="{menuborser:true,active:classstate == '4'}" @click.native="mytest">
-                                    <i><img src="@/assets/img/pen.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '4' " src="@/assets/img/pen.png" alt="">
+                                        <img v-if="classstate == '4'" src="@/assets/img/penB.png" alt="">
+                                    </i>
                                     <span slot="title">我的小测试</span>
                                 </el-menu-item>
                                 <el-menu-item index="5"  :class="{menuborser:true,active:classstate == '5'}" @click.native="mypassword">
-                                    <i><img src="@/assets/img/password.png" alt=""></i>
+                                    <i>
+                                        <img style="width: 15px;height: 17px;" v-if="classstate !== '5' " src="@/assets/img/password.png" alt="">
+                                        <img src="@/assets/img/passwordB.png" v-if="classstate == '5'" alt="">
+                                    </i>
                                     <span slot="title">修改密码</span>
                                 </el-menu-item>
                             </el-menu>
@@ -40,11 +55,11 @@
                             <el-tabs v-model="activeName" @tab-click="handleClick">
                                 <el-tab-pane label="我的小测试" name="first">
                                     <div style="margin-bottom:15px;">
-                                        <div class="textcontent" v-for="item in textlist.slice((currentPage-1)*Mpage,currentPage*Mpage)">
-                                            <p class="texttitle">{{item.title}}</p>
-                                            <p class="textSubject">科目：{{item.Subject}}</p>
-                                            <p class="textfraction">分数：{{item.fraction}}</p>
-                                            <p class="textcomment">试卷后评语：{{item.comment}}</p>
+                                        <div class="textcontent" @click="goTestDetail(item)" v-for="item in textlist.slice((currentPage-1)*Mpage,currentPage*Mpage)">
+                                            <p class="texttitle">{{item.etname}}</p>
+                                            <p class="textSubject">科目：{{item.etsubject}}</p>
+                                            <p class="textfraction">分数：{{item.score}}</p>
+                                            <p class="textcomment">试卷后评语：{{item.content}}</p>
                                             <el-button class="textbtn">查看推荐视频 &nbsp;></el-button>
                                         </div>
                                     </div>
@@ -80,6 +95,7 @@
 <script>
 import Vue from 'vue'
 import api from '@/api'
+import { mapActions, mapGetters} from 'vuex'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
   export default {
@@ -88,7 +104,7 @@ import Footer from '@/components/Footer'
         return {
            activeName: 'first',
            classstate:'4',
-           Mpage: 2,
+           Mpage: 6,
 		   currentPage: 1,
            textlist:[
                 {
@@ -131,11 +147,17 @@ import Footer from '@/components/Footer'
         }
     },
     created(){
-        api.ExamHistoy({uid:'681f95051bbf4978b455688a285b483a'}).then(data => {
-            // this.textlist = data
+        api.ExamHistoy({uid:'404a256f91b945249c199ad120d8fe9a'}).then(data => {
+            this.textlist = data.exams
+            console.log(data);
         })
     },
     methods: {
+        ...mapActions(['GetQuiz']),
+        goTestDetail(data) {
+            console.log(data);
+            this.GetQuiz(data)
+        },
         personal(val){
             this.classstate = '1'
             this.$router.push({name:'personalCenter'})

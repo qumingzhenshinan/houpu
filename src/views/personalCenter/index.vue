@@ -13,23 +13,38 @@
                                         default-active="1"
                                         class="el-menu-vertical-demo">
                                         <el-menu-item index="1" :class="{menuborser:true,active:classstate == '1'}" @click.native="personal">
-                                            <i><img src="@/assets/img/business.png" alt=""></i>
+                                            <i>
+                                                <img v-if="classstate !== '1'" src="@/assets/img/business.png" alt="">
+                                                <img v-if="classstate == '1'" src="@/assets/img/businessB.png" alt="">
+                                            </i>
                                             <span slot="title">个人资料</span>
                                         </el-menu-item>                   
                                         <el-menu-item index="2" :class="{menuborser:true,active:classstate == '2'}" @click.native="mycoupon">
-                                            <i><img src="@/assets/img/Coupon.png" alt=""></i>
-                                            <span slot="title">我的优惠卷</span>
+                                            <i>
+                                                <img v-if="classstate !== '2'" src="@/assets/img/Coupon.png" alt="">
+                                                <img v-if="classstate == '2'" src="@/assets/img/CouponB.png" alt="">
+                                            </i>
+                                            <span slot="title">我的优惠券</span>
                                         </el-menu-item>
                                         <el-menu-item index="3"  :class="{menuborser:true,active:classstate == '3'}" @click.native="myorder">
-                                            <i><img src="@/assets/img/order.png" alt=""></i>
+                                            <i>
+                                                <img v-if="classstate !== '3' " src="@/assets/img/order.png" alt="">
+                                                <img v-if="classstate == '3'" src="@/assets/img/orderB.png" alt="">
+                                            </i>
                                             <span slot="title">我的订单</span>
                                         </el-menu-item>
                                         <el-menu-item index="4"  :class="{menuborser:true,active:classstate == '4'}" @click.native="mytest">
-                                            <i><img src="@/assets/img/pen.png" alt=""></i>
+                                            <i>
+                                                <img v-if="classstate !== '4' " src="@/assets/img/pen.png" alt="">
+                                                <img v-if="classstate == '4'" src="@/assets/img/penB.png" alt="">
+                                            </i>
                                             <span slot="title">我的小测试</span>
                                         </el-menu-item>
                                         <el-menu-item index="5"  :class="{menuborser:true,active:classstate == '5'}" @click.native="mypassword">
-                                            <i><img src="@/assets/img/password.png" alt=""></i>
+                                            <i>
+                                                <img style="width: 15px;height: 17px;" v-if="classstate !== '5' " src="@/assets/img/password.png" alt="">
+                                                <img src="@/assets/img/passwordB.png" v-if="classstate == '5'" alt="">
+                                            </i>
                                             <span slot="title">修改密码</span>
                                         </el-menu-item>
                                     </el-menu>
