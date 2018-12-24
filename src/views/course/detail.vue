@@ -281,7 +281,7 @@ export default {
         }
     },
     created(){
-        this.playerOptions.poster = require('@/assets/img/video.png')
+        
         // for(let key in this.playerOptions.sources){
              // this.playerOptions.sources[key].src=require('../../assets/Course/test.mp4')
         // }
@@ -291,6 +291,7 @@ export default {
         }
         // 获取章节
         api.Coursecatalogue(data).then(data =>{
+            this.playerOptions.poster = 'http://www.houpuclass.com:8089' + data.gvimg
             this.cataloguearr = data.videoChild
             this.cataloguearr.forEach((item,index) => {
                 this.cataloguearr[index].vcname = item.vcname.replace(" ",":")
@@ -307,12 +308,8 @@ export default {
         })
     },
     methods: {
-        onPlayerPlay(){
-
-        },
-       onPlayerPause(){
-
-       },
+        onPlayerPlay(){},// 视频播放
+        onPlayerPause(){},// 视频暂停
         handleSizeChange(val) {
         
         },
@@ -333,21 +330,21 @@ export default {
 			this.currentPage++
 		},
     },
-    watch: {
+    // watch: {
         //更改视频源 videoUrl从弹出框组件传值
-        videoUrl: function (val) {
-            if (val !== '') {
-            this.$refs.videoPlayer.player.src(val)
-            }
-        },
+        // videoUrl: function (val) {
+        //     if (val !== '') {
+        //     this.$refs.videoPlayer.player.src(val)
+        //     }
+        // },
         //弹出框关闭后暂停 否则一直在播放 state从弹出框组件传值
 
-        state: function (val) {
-            if (val) {
-            this.$refs.videoPlayer.player.pause()
-            }
-        }
-    },
+    //     state: function (val) {
+    //         if (val) {
+    //         this.$refs.videoPlayer.player.pause()
+    //         }
+    //     }
+    // },
     computed: {
         player() {
             return this.$refs.videoPlayer.player
