@@ -30,7 +30,9 @@ import {
 
 import {
   ZeroCourse,
-  NewCourse
+  NewCourse,
+  allZeroC,
+  newAllC
 } from "@/api/modules/ZeroExperience"
 
 import {
@@ -93,5 +95,7 @@ export default {
   getAnswer,
   getrecommendedC,
   findPAnswer,
-  OrderDetail
+  OrderDetail,
+  allZeroC,
+  newAllC
 }

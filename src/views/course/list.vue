@@ -77,7 +77,7 @@
                         </el-col>
                     </el-row>
                 </div>
-                <no-data :inforData='mianlistarry' tips='当前课程暂无'></no-data>
+                <no-data :inforData='mianlistarry' :tips='terms'></no-data>
             </div>
             <div class="line"></div>
             <div style="text-align:center">
@@ -108,14 +108,20 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import noData from '@/components/noDataDisplay'
 import axios from 'axios'
+import { mapGetters } from 'vuex'
+
 export default {
     components: {
         Header,
         Footer,
         noData
     },
+    computed: {
+        ...mapGetters(['$course']),
+    },
     data(){
         return {
+            terms: '当前课程暂无',
             mianlistarry: [],
             arrysubject: [
                 {
@@ -144,20 +150,32 @@ export default {
             this.arrysubject[0].subject = data.data.data.lists
         })
         if(paths === '/courseList') {
-            // 所有课程
-            api.AllCourse().then(data => {
-                this.mianlistarry = data.generalvideos
-            });
+            // 所有课程 条件筛选
+            if(this.$course.term.sub !== undefined) {
+                this.subjectarry.gsbuject = this.$course.term.sub
+                this.subjectarry.gclass = this.$course.term.gclass
+                this.subjectarry.gclassify = this.$course.term.gtype
+                this.active = this.$course.term.sub
+                this.active1 = this.$course.term.gclass
+                this.active2 = this.$course.term.gtype
+                this.subjectquery()
+            }
         }else if(paths === '/newCourse') {
             // 最新课程
-            api.NewCourse().then(data => {
+            api.newAllC().then(data => {
                 this.mianlistarry = data.generalvideos
-            });
+            })
+            // api.NewCourse().then(data => {
+            //     this.mianlistarry = data.generalvideos
+            // });
         }else {
             // 0元课程
-            api.ZeroCourse({gmoney: '0'}).then(data => {
+            api.allZeroC().then(data => {
                 this.mianlistarry = data.generalvideos
-            });
+            })
+            // api.ZeroCourse({gmoney: '0'}).then(data => {
+            //     this.mianlistarry = data.generalvideos
+            // });
         }
     },
     methods: {
@@ -181,33 +199,63 @@ export default {
 			this.currentPage++
         },
         subjecttype(val) {
+            this.terms = '搜索条件不完整'
             this.active = val
             this.subjectarry.gsbuject  = val
             this.subjectquery()
         },
         subjectclass(val) {
+            this.terms = '搜索条件不完整'
             this.subjectarry.gclass = val
             this.active1 = val
             this.subjectquery()
         },
         subjectstate(val){
+            this.terms = '当前课程暂无'
             this.subjectarry.gclassify = val
             this.active2 = val
             this.subjectquery()
         },
         subjectquery(){
-            api.SubjectQuery(this.subjectarry).then(data => {
-                console.log(data.generalvideos);
-                this.mianlistarry = data.generalvideos
-            })
+            var paths = this.$route.path
+            if(paths === '/courseList') {
+               api.SubjectQuery(this.subjectarry).then(data => {
+                    if(data.generalvideos !== undefined) {
+                        this.mianlistarry = data.generalvideos
+                    }else {
+                        this.mianlistarry = []
+                    }
+                    
+                }) 
+           }else if(paths === '/newCourse') {
+                api.NewCourse(this.subjectarry).then(data => {
+                    if(data.generalvideos !== undefined) {
+                        this.mianlistarry = data.generalvideos
+                    }else {
+                        this.mianlistarry = []
+                    }
+                })
+           }else {
+                api.ZeroCourse(this.subjectarry).then(data => {
+                    if(data.generalvideos !== undefined) {
+                        this.mianlistarry = data.generalvideos
+                    }else {
+                        this.mianlistarry = []
+                    }
+                })
+           }
+            
         },
         delected(val){
             if(val === '1') {
-                this.subjectarry.gsbuject = null
+                this.subjectarry.gsbuject = undefined
+                this.active = null
             }else if(val === '2') {
-                this.subjectarry.gclass = null
+                this.subjectarry.gclass = undefined
+                this.active1 = null
             }else {
-                this.subjectarry.gclassify = null
+                this.subjectarry.gclassify = undefined
+                this.active2 = null
             }
             this.subjectquery()
         },

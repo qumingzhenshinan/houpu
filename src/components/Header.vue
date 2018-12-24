@@ -23,7 +23,7 @@
 	                            <div class="selectGrade" v-for="data in classH">
 	                            	{{data}}
 	                            	<div class="chooseCourse">
-		                                <a href="" v-for="state in subjectstate">{{state}}</a>
+		                                <span @click="reterm(item, data, state)" v-for="state in subjectstate">{{state}}</span>
 		                        	</div>
 	                            </div>
 	                        </div>
@@ -41,6 +41,8 @@
 </template>
 <script type="text/javascript">
 import axios from 'axios'
+import { mapActions } from 'vuex'
+
 export default{
 	data(){
 		return {
@@ -52,6 +54,7 @@ export default{
 	},
 	inject: ['reload'],
 	methods: {
+		...mapActions(['GetTerm']),
 		Personal(){
 			this.$router.push({name:'personalCenter'})
 		},
@@ -64,6 +67,11 @@ export default{
 			this.$router.push('/newCourse')
 		},
 		myCourse() {
+			this.reload()
+			this.$router.push('/courseList')
+		},
+		reterm(a, b, c) {
+			this.GetTerm({sub: a, gclass: b, gtype: c})
 			this.reload()
 			this.$router.push('/courseList')
 		}
@@ -260,7 +268,7 @@ export default{
     line-height: 30px;
     text-align: left;
 }
-.chooseCourse a{
+.chooseCourse span{
     display: inline-block;
     margin-left: 26px;
     font-size: 17px;
