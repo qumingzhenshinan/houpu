@@ -20,7 +20,7 @@ import {
 
 import {
   AllCourse,
-  Coursecatalogue,
+  coursecatalogue,
   Coursedetails,
   Coursecomment,
   SubjectQuery,
@@ -75,7 +75,7 @@ export default {
   AllCourse,
   ZeroCourse,
   allOrder,
-  Coursecatalogue,
+  coursecatalogue,
   Coursecomment,
   Coursedetails,
   Getmycoupon,

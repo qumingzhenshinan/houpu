@@ -53,7 +53,7 @@
                 </el-row>
             </div>
             <div class="mian-content">
-                <el-tabs v-model="activeName" @tab-click="handleClick">
+                <el-tabs v-model="activeName">
                     <el-tab-pane label="课程目录" name="first">
                         <div v-for="item in chaptersList" style="margin-bottom:20px;">
                             <div class="chapterscontent">
@@ -66,79 +66,6 @@
                     </el-tab-pane>
                     <el-tab-pane label="课程介绍" name="second">
                         <span  v-html="coursedetails.gintro"></span>
-                        <!-- <el-row>
-                            <el-col :span="24">
-                                <span class="introduction-title">适合学员</span>
-                                <div class="introduction-content">
-                                    <p>1、{{coursedetails.gclass}}</p>
-                                    <p>2、{{coursedetails.gclassify}}</p>
-                                    <p>3、{{coursedetails.gclassify2}}</p>
-                                </div>
-                                <div>
-                                    <span class="introduction-title">培养目标</span>
-                                    <div class="introduction-content" >
-                                        <p>1、介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
-                                        <p>2、介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
-                                    </div>
-                                </div>
-                            </el-col>
-                        </el-row>
-                        <div class="thinline"></div>
-                        <el-row style="min-height:150px;">
-                            <div >
-                                <el-col :span="3">
-                                    <div>
-                                        <span class="introduction-title">授课老师</span>
-                                    </div>
-                                    <div style="width:100%;height:100%;">
-                                        <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;position:absolute;top:60px;left:100px;">
-                                        <span style="color:red;font-size:12px;position:absolute;top:105px;left:110px;">{{coursedetails.teacherName}}</span>
-                                    </div>
-                                </el-col>
-                                <el-col :span="21">
-                                    <p style="margin-top:65px;text-index:5px;width:60%;min-height:30px;text-indent:2em;margin-bottom:20px;">绍介绍介绍介绍介绍介绍介绍介绍介绍绍介绍介绍介绍介绍介绍介绍介绍介绍介绍绍介绍介绍介绍介绍绍介绍绍介绍介绍介绍介绍介绍介绍介绍绍介绍介绍介绍介绍介绍介绍介绍介绍介绍绍介绍介绍介绍绍介绍介绍介绍介绍介绍介绍介绍介绍介绍</p>
-                                </el-col>
-                            </div>
-                        </el-row>
-                        <div class="thinline"></div>
-                        <el-row >
-                            <el-col :span="24">
-                                <div>
-                                    <span class="introduction-title">课程优势</span>
-                                </div>
-                                <div style="width:65%;margin-top:20px;">
-                                    <div class="advantage-content" v-for="item in introductionlist" style="margin-left:10px;">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">{{item.title}}</p>
-                                        <p class="advantage-main">{{item.main}}</p>
-                                    </div> -->
-                                    <!-- <div class="advantage-content" style="margin-left:30px;">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
-                                    <div class="advantage-content">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div>
-                                    <div class="advantage-content" style="margin-left:30px;">
-                                        <img src="@/assets/img/heart.png" style="width:45px;height:45px;"> 
-                                        <p class="advantage-title">知识体系化，专业只为提升</p>
-                                        <p class="advantage-main">十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀</p>
-                                    </div> -->
-                                <!-- </div>
-                            </el-col>
-                        </el-row>
-                        <div class="thinline"></div>
-                        <el-row style="margin-bottom:20px;">
-                            <el-col>
-                                <div>
-                                    <span class="introduction-title">学科架构</span>
-                                </div>
-                                <img src="@/assets/img/jiagou.png" alt="" style="width:60%;margin-top:20px;">
-                            </el-col>
-                        </el-row> -->
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
                         <div class="comment">
@@ -154,11 +81,11 @@
                                                 {{item.content}}
                                             </p>
                                         </el-col>
-                                        <el-col :span="4">
+                                        <!-- <el-col :span="4">
                                             <div class="rate">
                                                 <el-rate v-model="item.score"></el-rate>
                                             </div>
-                                        </el-col>
+                                        </el-col> -->
                                     </div>
                                 </el-row>
                             </div>
@@ -227,15 +154,7 @@ export default {
                   fullscreenToggle: true //全屏按钮
                  }
             },
-            chaptersList: [
-                {
-                    title:' 先秦诗歌与史传散文',
-                    chapters:[' 先秦诗歌与史传散文',' 先秦诗歌与史传散文1'],
-                    date: '8:20',
-                    chaptersnum:'一',
-                },
-                
-            ],
+            chaptersList: [],
             introductionlist: [
                 {
                     title:'知识体系化，专业只为提升',
@@ -290,21 +209,45 @@ export default {
             // gid:'c10b60d161a2401aa2e247acdfa6616c'
         }
         // 获取章节
-        api.Coursecatalogue(data).then(data =>{
-            this.playerOptions.poster = 'http://www.houpuclass.com:8089' + data.gvimg
-            this.cataloguearr = data.videoChild
-            this.cataloguearr.forEach((item,index) => {
-                this.cataloguearr[index].vcname = item.vcname.replace(" ",":")
-            })
-        })
+        // api.Coursecatalogue(data).then(data =>{
+            // console.log(data)
+           
+            // this.cataloguearr = data.videoChild
+            // this.cataloguearr.forEach((item,index) => {
+            //     this.cataloguearr[index].vcname = item.vcname.replace(" ",":")
+            // })
+        // })
         // 获取评论
-        api.Coursecomment(data).then(data =>{
-            // this.commentlist = data.comments
-        })
+        // api.Coursecomment(data).then(data =>{
+        //     this.commentlist = data.comments
+        //     this.comments.forEach(item => {
+        //         data.comments.forEach(items =>{
+        //             item.creatTime = new Date(+new Date()+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+        //         })
+        //     })
+        //     data.comments.creatTime = new Date(+new Date()+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
+        //     this.commentlist.creatTime = data.comments.creatTime
+        // })
         // 获取课程详情
-        api.Coursedetails(data).then(data =>{
+        var _data = data
+        api.Coursedetails(_data).then(data =>{
+            console.log(data)
+            this.playerOptions.poster = 'http://www.houpuclass.com:8089' + data.gvimg
             this.coursedetails = data
-            // this.playerOptions.poster = data.gvimg
+            if(data.gvideoUrl != ''){
+                console.log(data.gvideoUrl)
+                for(let key in this.playerOptions.sources){
+                    this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8089' + data.gvideoUrl
+                }
+            }else{
+                api.coursecatalogue(_data).then(data => {
+                    console.log(data.videoChild)
+                    this.cataloguearr = data.videoChild
+                    for(let key in this.playerOptions.sources){
+                        this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8089' + data.videoChild[0].vcideoUrl
+                    }
+                })
+            }
         })
     },
     methods: {
@@ -314,11 +257,8 @@ export default {
         
         },
         //点击下一页和点击页码时执行
-      handleCurrentChange(val) {
-       
-      },
-       handleClick(tab, event) {
-            console.log(tab, event);
+        handleCurrentChange(val) {
+        
         },
         currentChange(val){
             this.currentPage = val

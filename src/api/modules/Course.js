@@ -4,7 +4,7 @@ import URL from "@/api/URL"
 export function AllCourse(params) {
     return fetch.get(URL.course)
 }
-export function Coursecatalogue(params) {
+export function coursecatalogue(params) {
     return fetch.post(URL.coursecatalogue,params)
 }
 export function Coursecomment(params) {
