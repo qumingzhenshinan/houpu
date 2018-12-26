@@ -1,7 +1,7 @@
 <template>
 	<div class="header">
 		<div class="top">
-			<div class="logo">
+			<div class="logo" @click="goHome">
 				<img src="../assets/img/logo.png" alt="">
 			</div>
 			<div class="search">
@@ -55,6 +55,9 @@ export default{
 	inject: ['reload'],
 	methods: {
 		...mapActions(['GetTerm']),
+		goHome() {
+			this.$router.push('/')
+		},
 		Personal(){
 			this.$router.push({name:'personalCenter'})
 		},
