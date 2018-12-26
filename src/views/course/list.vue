@@ -293,7 +293,7 @@ export default {
      text-align: center;
  }
  .line {
-     height: 10px;
+     height: 20px;
      width: 100%;
  }
  .mainlist {
