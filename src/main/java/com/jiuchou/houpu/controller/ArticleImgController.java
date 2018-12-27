@@ -24,6 +24,7 @@ public class ArticleImgController {
      *@apiExample
      *@apiSuccess {String} status=200
      */
+
     @RequestMapping("/select")
     @ResponseBody
     public RestFulBean<ArticleImg> select(){
