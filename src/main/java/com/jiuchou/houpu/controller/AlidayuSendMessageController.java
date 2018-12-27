@@ -31,6 +31,8 @@ public class AlidayuSendMessageController {
      * @apiSuccess {String} status=200
      */
 
+
+
     @RequestMapping(value = "/ycode", method = RequestMethod.POST)
     @ResponseBody
     public int sendMessage(HttpServletRequest reqt, String tel, HttpSession session)
