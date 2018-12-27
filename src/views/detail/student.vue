@@ -71,7 +71,7 @@ export default {
 <style scoped>
 .main {
 	width: 100%;
-	height: 450px;
+	height: 550px;
 }
 
 .Tleft {

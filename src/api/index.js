@@ -47,6 +47,7 @@ import {
   ExamHistoy,
   ChangePassword,
   UpdataImg,
+  selectUser
 } from "@/api/modules/personal"
 
 import {
@@ -97,5 +98,6 @@ export default {
   findPAnswer,
   OrderDetail,
   allZeroC,
-  newAllC
+  newAllC,
+  selectUser
 }

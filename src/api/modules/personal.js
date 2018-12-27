@@ -20,3 +20,6 @@ export function ChangePassword(params) {
 export function UpdataImg(params) {
     return fetch.post(URL.updataimg,params)
 }
+export function selectUser(params) {
+    return fetch.post(URL.selectUser,params)
+}

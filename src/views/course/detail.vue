@@ -55,13 +55,16 @@
             <div class="mian-content">
                 <el-tabs v-model="activeName">
                     <el-tab-pane label="课程目录" name="first">
-                        <div v-for="item in chaptersList" style="margin-bottom:20px;">
+                        <div v-for="item in cataloguearr" style="margin-bottom:20px;">
                             <div class="chapterscontent">
-                                <p class="chapters">&emsp;<span style="width: 60px;height: 25px;text-align: center;color:#fff;line-height:25px;background-color: #0099FF;border-radius: 0 12.5px 12.5px 0;float: left;margin-top: 18px;position:absolute;top:-7px;left:0;">章节{{item.chaptersnum}}</span><span class="chaptertitle">{{item.title}}</span></p>
+                                <p class="chapters">&emsp;<span style="width: 90px;height: 25px;text-align: center;color:#fff;line-height:25px;background-color: #0099FF;border-radius: 0 12.5px 12.5px 0;float: left;margin-top: 18px;position:absolute;top:-7px;left:0;">章节&emsp;{{item.vcname}}</span><span class="chaptertitle">{{item.title}}</span></p>
                             </div>
-                            <div class="chaptersList" v-for="itemd in cataloguearr">
-                                <p class="downOn"><span>▷&emsp;{{itemd.vcname}}</span><span class="chapterstime">{{item.date}}</span><el-button size="small" style="background: #0099FF;color: #fff;float:right;font-family:MicrosoftYaHei;font-size: 14px;margin-top:10px;">回放课程</el-button></p>
+                            <div class="chaptersList">
+                                <p class="downOn"><span>▷&emsp;{{item.vcname}}</span><el-button size="small" style="background: #0099FF;color: #fff;float:right;font-family:MicrosoftYaHei;font-size: 14px;margin-top:10px;">回放课程</el-button></p>
                             </div>
+                            <!-- <div class="chapterscontent">
+                                <p>{{item.vcname}}</p>
+                            </div> -->
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="课程介绍" name="second">
@@ -231,7 +234,7 @@ export default {
         // 获取课程详情
         var _data = data
         api.Coursedetails(_data).then(data =>{
-            console.log(data)
+            // console.log(data)
             this.playerOptions.poster = 'http://www.houpuclass.com:8089' + data.gvimg
             this.coursedetails = data
             if(data.gvideoUrl != ''){
@@ -241,8 +244,9 @@ export default {
                 }
             }else{
                 api.coursecatalogue(_data).then(data => {
-                    console.log(data.videoChild)
+                    // console.log(data.videoChild)
                     this.cataloguearr = data.videoChild
+                    console.log(this.cataloguearr)
                     for(let key in this.playerOptions.sources){
                         this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8089' + data.videoChild[0].vcideoUrl
                     }
@@ -270,21 +274,6 @@ export default {
 			this.currentPage++
 		},
     },
-    // watch: {
-        //更改视频源 videoUrl从弹出框组件传值
-        // videoUrl: function (val) {
-        //     if (val !== '') {
-        //     this.$refs.videoPlayer.player.src(val)
-        //     }
-        // },
-        //弹出框关闭后暂停 否则一直在播放 state从弹出框组件传值
-
-    //     state: function (val) {
-    //         if (val) {
-    //         this.$refs.videoPlayer.player.pause()
-    //         }
-    //     }
-    // },
     computed: {
         player() {
             return this.$refs.videoPlayer.player

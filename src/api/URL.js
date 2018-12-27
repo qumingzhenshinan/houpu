@@ -31,6 +31,7 @@ const urls = {
 	changepassword:  BASE + '/user/updatePassWord', // post用户修改密码
 	oederdetail: BASE + '/orders/update', // post修改订单状态
 	updataimg:  BASE + '/user/profiles',// post修改用户头像
+	selectUser: BASE + '/user/selectById',//post获取用户信息
 	// todos: 'http://www.houpuclass.com:8089/teacher/select'
 	getAnswer: BASE + '/exam/selectAnswer', // post分数统计并添加错题
 	findPAnswer: BASE + '/errorquestions/selectByUid', // 查询答题结果
