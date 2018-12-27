@@ -15,9 +15,6 @@ public class ArticleImgController {
     @Autowired
     private ArticleImgService articleImgService;
 
-
-
-
     /**
      *@api {get} /article/select  获取所有轮播图集合
      *@apiVersion 0.1.0
