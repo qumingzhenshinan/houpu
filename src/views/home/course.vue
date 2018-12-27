@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script> 
 import api from '@/api'
 import base from '@/baseimg'
 export default {
