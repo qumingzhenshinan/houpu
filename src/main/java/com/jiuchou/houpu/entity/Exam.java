@@ -22,6 +22,16 @@ public class Exam {
     private String content;
     private Map<String, String> questionsMap;//用户所作答的题答案集合
     private String uid;
+    private int score;
+
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getUid() {
         return uid;

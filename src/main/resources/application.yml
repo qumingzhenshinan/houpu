@@ -21,6 +21,13 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+
+    jpa:
+      database: mysql
+      show-sql: true
+      thymeleaf:
+        cache: false
+        mode: LEGACYHTML5
   http:
         encoding:
           charset: utf-8

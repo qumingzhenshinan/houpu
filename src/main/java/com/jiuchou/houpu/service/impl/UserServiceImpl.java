@@ -1,6 +1,5 @@
 package com.jiuchou.houpu.service.impl;
 
-
 import com.jiuchou.houpu.dao.UserDao;
 import com.jiuchou.houpu.entity.User;
 import com.jiuchou.houpu.service.UserService;
@@ -43,12 +42,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserName(String userName,String uid) {
-        userDao.updateUserName(userName,uid);
+    public boolean updateUserName(String userName,String uid) {
+        boolean b = userDao.updateUserName(userName,uid);
+        if (b){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override
-    public  RestFulBean<User> updHeadImgUrl(MultipartFile newProfile,String uid) {
+    public boolean updHeadImgUrl(MultipartFile newProfile,String uid) {
         // 根据Windows和Linux配置不同的头像保存路径
         String profilesPath = "C:/static/userHeadImg/";
         if (!newProfile.isEmpty()) {
@@ -76,7 +80,7 @@ public class UserServiceImpl implements UserService {
                 out.flush();
             } catch (Exception e) {
                 e.printStackTrace();
-                return RestFulUtil.getInstance().getResuFulBean(null, 201,"设置头像失败");
+                return false;
             } finally {
                 try {
                     out.close();
@@ -85,9 +89,9 @@ public class UserServiceImpl implements UserService {
                 }
             }
 
-            return RestFulUtil.getInstance().getResuFulBean(null, 200,"设置头像成功");
+            return true;
         } else {
-            return RestFulUtil.getInstance().getResuFulBean(null, 201,"设置头像失败");
+            return false;
         }
     }
 

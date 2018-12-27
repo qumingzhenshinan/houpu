@@ -11,9 +11,9 @@ public interface UserDao {
 
    User queryById(String id);
 
-   void updateUserName(@Param("userName") String userName, @Param("uid") String uid);
+   boolean updateUserName(@Param("userName") String userName, @Param("uid") String uid);
 
-   void updateUserProfilePath(User user);
+   boolean updateUserProfilePath(User user);
 
    User queryByUserNameAndPassword(@Param("userName") String userName,@Param("password") String password);
 

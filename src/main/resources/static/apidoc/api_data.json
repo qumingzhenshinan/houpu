@@ -439,6 +439,80 @@
   },
   {
     "type": "get",
+    "url": "/course/selectAllByCreatTime",
+    "title": "所有热门课程",
+    "version": "0.1.0",
+    "name": "course_selectAllByCreatTime",
+    "group": "course",
+    "description": "<p>所有热门课程</p>",
+    "examples": [
+      {
+        "title": "@apiParam {Number} user_id The user’s unique ID.",
+        "content": "@apiParam {Number} user_id The user’s unique ID.",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/GeneralvideoController.java",
+    "groupTitle": "course",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/course/selectAllByCreatTime"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/course/selectAllByMoney",
+    "title": "0元体验所有查询",
+    "version": "0.1.0",
+    "name": "course_selectAllByMoney",
+    "group": "course",
+    "description": "<p>0元体验所有查询</p>",
+    "examples": [
+      {
+        "title": "@apiParam {Number} user_id The user’s unique ID.",
+        "content": "@apiParam {Number} user_id The user’s unique ID.",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/GeneralvideoController.java",
+    "groupTitle": "course",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/course/selectAllByMoney"
+      }
+    ]
+  },
+  {
+    "type": "post",
     "url": "/course/selectByCreatTime",
     "title": "通过时间降序来选取热门课程",
     "version": "0.1.0",
@@ -447,11 +521,31 @@
     "description": "<p>通过时间降序来选取热门课程</p>",
     "examples": [
       {
-        "title": "@apiParam {Number} user_id The user’s unique ID.",
-        "content": "@apiParam {Number} user_id The user’s unique ID.",
+        "title": "@apiParam {String}   gsbuject   科目",
+        "content": "@apiParam {String}   gsbuject   科目",
         "type": "json"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "gclass",
+            "description": "<p>年级</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "gclassify",
+            "description": "<p>专题(长期)</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -571,18 +665,38 @@
   {
     "type": "post",
     "url": "/course/selectByMoney",
-    "title": "0元体验列表",
+    "title": "0元体验三级条件查询",
     "version": "0.1.0",
     "name": "course_selectByMoney",
     "group": "course",
     "description": "<p>0元体验列表</p>",
     "examples": [
       {
-        "title": "@apiParam {String} gmoney  课程价格",
-        "content": "@apiParam {String} gmoney  课程价格",
+        "title": "@apiParam {String}   gsbuject   科目",
+        "content": "@apiParam {String}   gsbuject   科目",
         "type": "json"
       }
     ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "gclass",
+            "description": "<p>年级</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "gclassify",
+            "description": "<p>专题(长期)</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "fields": {
         "Success 200": [
@@ -652,8 +766,8 @@
     "description": "<p>课程模糊查询</p>",
     "examples": [
       {
-        "title": "@apiParam {String} gname 用户输入字符串",
-        "content": "@apiParam {String} gname 用户输入字符串",
+        "title": "@apiParam {String} value 用户输入字符串",
+        "content": "@apiParam {String} value 用户输入字符串",
         "type": "json"
       }
     ],
@@ -676,6 +790,117 @@
     "sampleRequest": [
       {
         "url": "http://www.houpuclass.com:8089/course/selectByValue"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/course/selectGclass",
+    "title": "年级种类查询",
+    "version": "0.1.0",
+    "name": "course_selectGclass",
+    "group": "course",
+    "description": "<p>年级种类查询</p>",
+    "examples": [
+      {
+        "title": "@apiParam {Number} 无参数",
+        "content": "@apiParam {Number} 无参数",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/GeneralvideoController.java",
+    "groupTitle": "course",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/course/selectGclass"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/course/selectGclassify",
+    "title": "专题（长期）种类查询",
+    "version": "0.1.0",
+    "name": "course_selectGclassify",
+    "group": "course",
+    "description": "<p>专题（长期）种类查询</p>",
+    "examples": [
+      {
+        "title": "@apiParam {Number} 无参数",
+        "content": "@apiParam {Number} 无参数",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/GeneralvideoController.java",
+    "groupTitle": "course",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/course/selectGclassify"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/course/selectGsbuject",
+    "title": "科目种类查询",
+    "version": "0.1.0",
+    "name": "course_selectGsbuject",
+    "group": "course",
+    "description": "<p>科目种类查询</p>",
+    "examples": [
+      {
+        "title": "@apiParam {Number} 无参数",
+        "content": "@apiParam {Number} 无参数",
+        "type": "json"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "status",
+            "defaultValue": "200",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "filename": "./src/main/java/com/jiuchou/houpu/controller/GeneralvideoController.java",
+    "groupTitle": "course",
+    "sampleRequest": [
+      {
+        "url": "http://www.houpuclass.com:8089/course/selectGsbuject"
       }
     ]
   },
@@ -776,8 +1001,8 @@
     "description": "<p>查询所有试题</p>",
     "examples": [
       {
-        "title": "@apiParam {Number} user_id The user’s unique ID.",
-        "content": "@apiParam {Number} user_id The user’s unique ID.",
+        "title": "@apiParam {Number}",
+        "content": "@apiParam {Number}",
         "type": "json"
       }
     ],
@@ -870,8 +1095,8 @@
     "description": "<p>模糊查询</p>",
     "examples": [
       {
-        "title": "@apiParam {String} s 页面输入的字段",
-        "content": "@apiParam {String} s 页面输入的字段",
+        "title": "@apiParam {String} value 页面输入的字段",
+        "content": "@apiParam {String} value 页面输入的字段",
         "type": "json"
       }
     ],

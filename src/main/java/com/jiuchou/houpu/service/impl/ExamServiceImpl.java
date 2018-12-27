@@ -75,6 +75,7 @@ public class ExamServiceImpl implements ExamService {
                                 errorquestions.setScore(0);
                                 errorquestions.setType(questions.get(i).getType());
                                 errorquestions.setImg(questions.get(i).getImg());
+                                errorquestions.setErranswer(entry.getValue());
                                 errorquestions.setAnswer(questions.get(i).getAnswer());
                                 errorquestions.setAnalysis(questions.get(i).getAnalysis());
                                 errorquestions.setUid(uid);

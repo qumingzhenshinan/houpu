@@ -8,9 +8,9 @@ public interface UserService {
 
     RestFulBean<User> selectById(String id);
 
-    void updateUserName(String userName,String uid);
+    boolean updateUserName(String userName,String uid);
 
-    public RestFulBean<User> updHeadImgUrl(MultipartFile newProfile, String uid);
+    boolean updHeadImgUrl(MultipartFile newProfile, String uid);
 
     User login(String phoneNo,String passWord);
 

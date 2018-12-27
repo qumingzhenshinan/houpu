@@ -3,23 +3,24 @@ package com.jiuchou.houpu.entity;
 
 public class Errorquestions {
 
-  private long id;
+  private int id;
   private String etid;
   private String name;
   private String content;
   private double score;
   private String type;
   private String img;
+  private String erranswer;
   private String answer;
   private String analysis;
   private String uid;
 
 
-  public long getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -75,6 +76,15 @@ public class Errorquestions {
 
   public void setImg(String img) {
     this.img = img;
+  }
+
+
+  public String getErranswer() {
+    return erranswer;
+  }
+
+  public void setErranswer(String erranswer) {
+    this.erranswer = erranswer;
   }
 
 

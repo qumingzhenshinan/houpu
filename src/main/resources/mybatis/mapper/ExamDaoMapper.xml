@@ -10,8 +10,8 @@
         select * from exam where ${s} like CONCAT('%',#{value},'%')
     </select>
 
-    <select id="queryExamHistory" resultType="com.jiuchou.houpu.entity.Exam">
-        SELECT e.*,u.score from exam e join userscore u on u.etid = e.etid where u.uid=#{uid}
+    <select id="queryExamHistory" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Exam">
+        SELECT u.score,e.* from exam e left join userscore u on u.etid = e.etid where u.uid=#{uid}
     </select>
 
     <select id="queryByEtid" parameterType="java.lang.String" resultType="com.jiuchou.houpu.entity.Exam">

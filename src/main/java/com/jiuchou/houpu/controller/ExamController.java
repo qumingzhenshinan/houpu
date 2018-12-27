@@ -32,7 +32,7 @@ public class ExamController {
      * @apiGroup exam
      * @apiDescription 查询所有试题
      * @apiExample
-     * @apiParam {Number} user_id The user’s unique ID.
+     * @apiParam {Number}
      * @apiSuccess {String} Status=200
      */
     @ResponseBody
@@ -49,7 +49,7 @@ public class ExamController {
      * @apiGroup exam
      * @apiDescription 模糊查询
      * @apiExample
-     * @apiParam {String} s 页面输入的字段
+     * @apiParam {String} value 页面输入的字段
      * @apiSuccess {String} status=200
      */
     @ResponseBody

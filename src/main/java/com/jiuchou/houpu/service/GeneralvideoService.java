@@ -23,4 +23,14 @@ public interface GeneralvideoService {
     RestFulBean<Generalvideo> selectRecommend(String uid,String etid);
 
     RestFulBean<Generalvideo> selectByValue(String value);
+
+    RestFulBean<Generalvideo> selectAllByMoney();
+
+    RestFulBean<Generalvideo> selectAllByCreatTime();
+
+    RestFulBean<String> selectGclass();
+
+    RestFulBean<String> selectGclassify();
+
+    RestFulBean<String> selectGsbuject();
 }

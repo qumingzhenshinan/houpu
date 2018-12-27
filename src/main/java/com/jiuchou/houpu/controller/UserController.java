@@ -53,8 +53,8 @@ public class UserController {
      */
     @RequestMapping(value = "/updateUserName", method = RequestMethod.POST)
     @ResponseBody
-    public void updateUserName(String uid, String userName) {
-        userService.updateUserName(userName, uid);
+    public boolean updateUserName(String uid, String userName) {
+        return userService.updateUserName(userName, uid);
     }
 
     /**
@@ -69,7 +69,7 @@ public class UserController {
      * @apiSuccess {String} status=200
      */
     @PutMapping("/profiles")
-    public RestFulBean setUserProfile(@RequestParam(required = true) MultipartFile profile, String uid) {
+    public boolean setUserProfile(@RequestParam(required = true) MultipartFile profile, String uid) {
         return userService.updHeadImgUrl(profile, uid);
     }
 

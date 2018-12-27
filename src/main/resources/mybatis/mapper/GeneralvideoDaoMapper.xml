@@ -55,6 +55,25 @@
     </select>
 
     <select id="queryByValue"  resultType="com.jiuchou.houpu.entity.Generalvideo">
-        SELECT * from generalvideo where gname like CONCAT('%',#{value},'%')
+        SELECT * from generalvideo where ${s} like CONCAT('%',#{value},'%')
+    </select>
+
+    <select id="queryGsbuject" resultType="java.lang.String">
+        select distinct gsbuject from generalvideo
+    </select>
+    <select id="queryGclass" resultType="java.lang.String">
+        select distinct gclass from generalvideo
+    </select>
+    <select id="queryGclassify" resultType="java.lang.String">
+        select distinct gclassify from generalvideo
+    </select>
+    <select id="queryGname" resultType="java.lang.String">
+        select distinct gname from generalvideo
+    </select>
+    <select id="queryAllByMoney" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo where gmoney='0'
+    </select>
+    <select id="queryAllByCreatTime" resultType="com.jiuchou.houpu.entity.Generalvideo">
+        select * from generalvideo order by gcreatTime desc
     </select>
 </mapper>

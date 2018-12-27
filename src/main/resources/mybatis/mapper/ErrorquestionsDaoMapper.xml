@@ -7,6 +7,6 @@
     </select>
 
     <insert id="add" parameterType="com.jiuchou.houpu.entity.Errorquestions">
-        insert into errorquestions (etid, name, content, score, type, img, answer, analysis, uid) values (#{etid},#{name},#{content},#{score},#{type},#{img},#{answer},#{analysis},#{uid})
+        insert into errorquestions (etid, name, content, score, type, img, answer, analysis, uid, erranswer) values (#{etid},#{name},#{content},#{score},#{type},#{img},#{answer},#{analysis},#{uid},#{erranswer})
     </insert>
 </mapper>

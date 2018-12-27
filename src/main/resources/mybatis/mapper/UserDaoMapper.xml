@@ -6,11 +6,11 @@
         select * from user where uid=#{uid}
     </select>
 
-    <update id="updateUserName" parameterType="java.lang.String">
+    <update id="updateUserName" parameterType="java.lang.String" >
         update user set userName=#{userName} where uid=#{uid}
     </update>
 
-    <update id="updateHeadImgUrl" parameterType="java.lang.String">
+    <update id="updateUserProfilePath" parameterType="java.lang.String">
         update user set headImgUrl=#{headImgUrl} where uid=#{uid}
     </update>
 
