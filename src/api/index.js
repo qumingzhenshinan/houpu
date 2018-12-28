@@ -20,7 +20,7 @@ import {
 
 import {
   AllCourse,
-  Coursecatalogue,
+  coursecatalogue,
   Coursedetails,
   Coursecomment,
   SubjectQuery,
@@ -47,6 +47,7 @@ import {
   ExamHistoy,
   ChangePassword,
   UpdataImg,
+  selectUser
 } from "@/api/modules/personal"
 
 import {
@@ -75,7 +76,7 @@ export default {
   AllCourse,
   ZeroCourse,
   allOrder,
-  Coursecatalogue,
+  coursecatalogue,
   Coursecomment,
   Coursedetails,
   Getmycoupon,
@@ -97,5 +98,6 @@ export default {
   findPAnswer,
   OrderDetail,
   allZeroC,
-  newAllC
+  newAllC,
+  selectUser
 }

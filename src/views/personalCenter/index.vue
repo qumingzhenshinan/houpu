@@ -59,8 +59,8 @@
                             <div style="width:100%;height:100%;text-align:center;">
                                 <img src="@/assets/img/Headportrait.png" alt="" style="widh:140px;height:140px;">
                                 
-                                <p style="margin-top:20px;">昵称：李磊</p>
-                                <!-- <p style="color:#2D3339;font-size:12px;margin-top:10px;">年级：一年级</p> -->
+                                <p style="margin-top:20px;"v-if="user.userName == ''">昵称：userName</p>
+                                <p style="margin-top:20px;"v-else>昵称：{{user.userName}}</p>
                                 <el-button type="primary" size="medium" style="width:100px;margin-top:20px;" @click="Setup">设置</el-button>
                             </div>
                         </el-col>
@@ -134,11 +134,16 @@ export default {
             user:"",
             imageUrl: '',
             uploadParm: {},
+            user:{}
         }
     },
     created(){
         axios.post('http://192.168.2.123:8089/course/selectByKind', qs.stringify({gsbuject: '',gclass: '', gclassify: '长期班'})).then(data => {
             console.log(data);
+        })
+        api.selectUser({uid: '07711212f22b4ed89f66272ff35938f3'}).then(data => {
+            console.log(data)
+            this.user = data
         })
     },
     methods: {
