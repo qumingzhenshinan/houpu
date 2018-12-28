@@ -44,6 +44,7 @@
         <el-button type="primary" @click="confirAssignment">确 定</el-button>
       </span>
     </el-dialog>
+    <div class="top" @click="goTop">回到顶部</div>
   </div>
 </template>
 
@@ -138,6 +139,9 @@ export default {
   },
   methods: {
     ...mapActions(['GetQuizResult']),
+    goTop() {
+
+    },
     confirAssignment() {
       this.topics.forEach((item,index) => {
         if(item.selected === false) {
@@ -228,6 +232,19 @@ export default {
 </script>
 
 <style scoped>
+.top {
+  position: fixed;
+  bottom: 50px;
+  right: 80px;
+  width: 50px;
+  color: #fff;
+  height: 50px;
+  font-size: 19px;
+  line-height: 25px;
+  text-align: center;
+  background: #09f;
+}
+
 .paperHead {
   height: 64px;
   width: 1366px;

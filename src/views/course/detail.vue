@@ -56,15 +56,15 @@
                 <el-tabs v-model="activeName">
                     <el-tab-pane label="课程目录" name="first">
                         <div v-for="item in cataloguearr" style="margin-bottom:20px;">
-                            <div class="chapterscontent">
-                                <p class="chapters">&emsp;<span style="width: 90px;height: 25px;text-align: center;color:#fff;line-height:25px;background-color: #0099FF;border-radius: 0 12.5px 12.5px 0;float: left;margin-top: 18px;position:absolute;top:-7px;left:0;">章节&emsp;{{item.vcname}}</span><span class="chaptertitle">{{item.title}}</span></p>
-                            </div>
                             <div class="chaptersList">
-                                <p class="downOn"><span>▷&emsp;{{item.vcname}}</span><el-button size="small" style="background: #0099FF;color: #fff;float:right;font-family:MicrosoftYaHei;font-size: 14px;margin-top:10px;">回放课程</el-button></p>
+                                <p class="downOn">
+                                    <span>
+                                        <span @click="startMp4(item)">▷</span>
+                                        &emsp;{{item.vcname}}
+                                    </span>
+                                    <el-button size="small" style="background: #0099FF;color: #fff;float:right;font-family:MicrosoftYaHei;font-size: 14px;margin-top:10px;">回放课程</el-button>
+                                </p>
                             </div>
-                            <!-- <div class="chapterscontent">
-                                <p>{{item.vcname}}</p>
-                            </div> -->
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="课程介绍" name="second">
@@ -211,15 +211,6 @@ export default {
             gid:this.$route.params.gid,
             // gid:'c10b60d161a2401aa2e247acdfa6616c'
         }
-        // 获取章节
-        // api.Coursecatalogue(data).then(data =>{
-            // console.log(data)
-           
-            // this.cataloguearr = data.videoChild
-            // this.cataloguearr.forEach((item,index) => {
-            //     this.cataloguearr[index].vcname = item.vcname.replace(" ",":")
-            // })
-        // })
         // 获取评论
         // api.Coursecomment(data).then(data =>{
         //     this.commentlist = data.comments
@@ -234,31 +225,36 @@ export default {
         // 获取课程详情
         var _data = data
         api.Coursedetails(_data).then(data =>{
-            // console.log(data)
             this.playerOptions.poster = 'http://www.houpuclass.com:8089' + data.gvimg
             this.coursedetails = data
             if(data.gvideoUrl != ''){
-                console.log(data.gvideoUrl)
                 for(let key in this.playerOptions.sources){
                     this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8089' + data.gvideoUrl
                 }
             }else{
+                // 获取章节
                 api.coursecatalogue(_data).then(data => {
                     // console.log(data.videoChild)
                     this.cataloguearr = data.videoChild
                     console.log(this.cataloguearr)
-                    for(let key in this.playerOptions.sources){
-                        this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8089' + data.videoChild[0].vcideoUrl
-                    }
+                    this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8089' + data.videoChild[0].vcideoUrl
                 })
             }
         })
     },
     methods: {
-        onPlayerPlay(){},// 视频播放
+        onPlayerPlay(event){
+            // console.log(event);
+        },// 视频播放
         onPlayerPause(){},// 视频暂停
         handleSizeChange(val) {
         
+        },
+        startMp4(data) {
+            this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8089' + data.vcideoUrl
+            var t = document.documentElement||document.body
+            t.scrollTop = 100
+            this.playerOptions.autoplay = true
         },
         //点击下一页和点击页码时执行
         handleCurrentChange(val) {
@@ -333,6 +329,9 @@ export default {
 }
 .downOn{
     color: #0196fd;
+}
+.downOn span {
+    cursor: pointer;
 }
 .other{
     color: black;
