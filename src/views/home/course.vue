@@ -1,8 +1,8 @@
 <template>
   <div class="course">
     <div class="coursePresent totalm">
-      <el-card class="box-card left" v-for="(item,index) in coursePresent" :key="index">
-        <div>
+      <el-card class="box-card left" v-for="(item,index) in coursePresent"  :key="index">
+        <div @click="goDetail(item)">
           <img :src="base + item.gvimg" alt="">
           <p class="bannerP">{{item.gname}}</p>
           <p>主讲人： {{item.gsbuject}}  <span>￥{{item.gmoney}}</span> </p>
@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script> 
 import api from '@/api'
 import base from '@/baseimg'
 export default {
@@ -76,10 +76,16 @@ export default {
     }
   },
   created() {
-    api.homeCourse().then(data => {
+    api.newAllC().then(data => {
       this.coursePresent = data.generalvideos.splice(0,10)
     })
     this.base = base
+  },
+  methods: {
+    goDetail(data) {
+      console.log(data);
+      this.$router.push(`/courseDetail/${data.gid}`)
+    }
   }
 }
 </script>
@@ -98,6 +104,7 @@ export default {
 
 .coursePresent>.el-card img {
   width: 100%;
+  height: 127px;
 }
 
 .coursePresent>.el-card p {

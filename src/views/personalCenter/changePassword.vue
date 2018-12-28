@@ -11,23 +11,38 @@
                                 default-active="1"
                                 class="el-menu-vertical-demo">
                                 <el-menu-item index="1" :class="{menuborser:true,active:classstate == '1'}" @click.native="personal">
-                                    <i><img src="@/assets/img/business.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '1'" src="@/assets/img/business.png" alt="">
+                                        <img v-if="classstate == '1'" src="@/assets/img/businessB.png" alt="">
+                                    </i>
                                     <span slot="title">个人资料</span>
                                 </el-menu-item>                   
                                 <el-menu-item index="2" :class="{menuborser:true,active:classstate == '2'}" @click.native="mycoupon">
-                                    <i><img src="@/assets/img/Coupon.png" alt=""></i>
-                                    <span slot="title">我的优惠卷</span>
+                                    <i>
+                                        <img v-if="classstate !== '2'" src="@/assets/img/Coupon.png" alt="">
+                                        <img v-if="classstate == '2'" src="@/assets/img/CouponB.png" alt="">
+                                    </i>
+                                    <span slot="title">我的优惠券</span>
                                 </el-menu-item>
                                 <el-menu-item index="3"  :class="{menuborser:true,active:classstate == '3'}" @click.native="myorder">
-                                    <i><img src="@/assets/img/order.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '3' " src="@/assets/img/order.png" alt="">
+                                        <img v-if="classstate == '3'" src="@/assets/img/orderB.png" alt="">
+                                    </i>
                                     <span slot="title">我的订单</span>
                                 </el-menu-item>
                                 <el-menu-item index="4"  :class="{menuborser:true,active:classstate == '4'}" @click.native="mytest">
-                                    <i><img src="@/assets/img/pen.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '4' " src="@/assets/img/pen.png" alt="">
+                                        <img v-if="classstate == '4'" src="@/assets/img/penB.png" alt="">
+                                    </i>
                                     <span slot="title">我的小测试</span>
                                 </el-menu-item>
                                 <el-menu-item index="5"  :class="{menuborser:true,active:classstate == '5'}" @click.native="mypassword">
-                                    <i><img src="@/assets/img/password.png" alt=""></i>
+                                    <i>
+                                        <img v-if="classstate !== '5' " src="@/assets/img/password.png" alt="">
+                                        <img src="@/assets/img/passwordB.png" v-if="classstate == '5'" alt="">
+                                    </i>
                                     <span slot="title">修改密码</span>
                                 </el-menu-item>
                             </el-menu>
@@ -52,17 +67,15 @@
                                                         <el-input placeholder="手机号码" type="text" v-model.number="phone.num" oninput="value=value.replace(/[^\d]/g,'')" />
                                                         <img src="@/assets/img/person.png" alt="" class="phoneimg">
                                                     </el-form-item>
-                                                </el-form>   
-                                                <el-form :model="password" status-icon :rules="passwordRules" ref="password"> 
-                                                    <el-form-item class="num" prop="verificationcode">
-                                                        <el-input placeholder="验证码" type="text" v-model.number="password.verificationcode" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                    <el-form-item class="num" prop="password">
+                                                        <el-input placeholder="验证码" type="text" v-model="phone.password" />
                                                         <span v-show="phonenum" class="verificationcode" @click="getphonenum"><span style="color:#ddd;">|&nbsp;</span> 获取验证码</span>
                                                         <span v-show="!phonenum" class="verificationcode" @click="getphonenum"><span style="color:#ddd;">|&nbsp;</span> {{count}} s后重新获取</span>
                                                     </el-form-item>
+                                                    <el-form-item>
+                                                        <el-button class="nextbtn" type="primary" @click="phonenext('phone')">下一步</el-button>
+                                                    </el-form-item>
                                                 </el-form>
-                                                <div>
-                                                    <el-button class="nextbtn" type="primary" @click="phonenext">下一步</el-button>
-                                                </div>
                                             </div>
                                             <div v-show="passwordstate">
                                                 <el-form :model="step3" status-icon :rules="step3Rules" ref="step3" class="demo-ruleForm">
@@ -78,10 +91,10 @@
                                                         <img src="@/assets/img/pass.png" alt="" class="passwordimg">
                                                         <span class="el-icon-view eyeico" @click="passwordsated = !passwordsated"></span>
                                                     </el-form-item>
+                                                    <el-form-item>
+                                                        <el-button class="nextbtn" type="primary" @click="passwordnext('step3')">确定</el-button>
+                                                    </el-form-item>
                                                 </el-form>
-                                                <div>
-                                                    <el-button class="nextbtn" type="primary" @click="passwordnext">确定</el-button>
-                                                </div>
                                             </div>
                                             <div v-show="passwordsuccess">
                                                 <img src="@/assets/img/success.png" alt="">
@@ -101,9 +114,13 @@
 </template>
 <script>
 import api from '@/api'
+import axios from 'axios'
+import qs from 'qs'
 import Vue from 'vue'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+var phones = false
+var codes = 0
 export default {
     components:{Header,Footer},
 	name: 'retireves',
@@ -118,7 +135,8 @@ export default {
                     if (!(/^1[3456789]\d{9}$/.test(value))) {
                     callback(new Error('手机号格式不正确'));
                     } else {
-                    callback();
+                        phones = true
+                        callback();
                     }
                 }
             }
@@ -127,8 +145,10 @@ export default {
             if (value === '') {
                 callback(new Error('请输入验证码'));
             }else{
-                if (!Number.isInteger(value)) {
-                    callback(new Error('请输入数字值'));
+                if (codes != value) {
+                    callback(new Error('验证码输入错误'));
+                }else {
+                    callback()
                 }
             }
         }
@@ -155,20 +175,16 @@ export default {
         }
 		return {
 			phone: {
-				num: ''
+				num: '',
+                password: ''
 			},
 			phoneRules: {
 				num: [
 					{ validator: phone, trigger: 'blur' }
-				]
-            },
-            password: {
-				verificationcode: ''
-			},
-			passwordRules: {
-				verificationcode: [
-					{ validator: password, trigger: 'blur' }
-				]
+				],
+                password: [
+                    { validator: password, trigger: 'blur' }
+                ]
             },
             step3: {
 				mima: '',
@@ -215,12 +231,38 @@ export default {
             this.classstate = '5'
             this.$router.push({name:'changePassword'})
         },
-        phonenext(){
-            this.phonestate = false;
-            this.passwordstate = true;
-            this.activenum = 2
+        phonenext(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    this.phonestate = false;
+                    this.passwordstate = true;
+                    this.activenum = 2
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
+            
         },
-        passwordnext(){
+        passwordnext(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    var data = {
+                        uid: '107eaf81f1074538a1a40f8d4cbb6269',
+                        password1: this.step3.mima,
+                        password2: this.step3.rmima
+                    }
+                    api.ChangePassword(data).then(data => {
+                        this.activenum = 3
+                        this.passwordstate = false;
+                        this.passwordsuccess= true
+                        console.log(data);
+                    })
+                } else {
+                    console.log('error submit!!');
+                    return false;
+                }
+            });
             this.activenum = 3
             this.passwordstate = false;
             this.passwordsuccess= true
@@ -229,16 +271,24 @@ export default {
                 password1: this.step3.mima,
                 password2: this.step3.rmima
             }
-            api.ChangePassword(data).then(data => {
-
-            })
+            
         },
         handleClick(tab, event) {
             console.log(tab, event);
         },
         getphonenum(){
-            api.GetPhonenum({tel:this.phone.num}).then(data => {
-                    const TIME_COUNT = 60;
+            if(this.phone.num.length > 0 || phones === true) {
+                axios({
+                    url: 'http://www.houpuclass.com:8089/message/ycode',
+                    method: 'post',
+                    data: qs.stringify({tel: this.phone.name + ""}),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(data => {
+                    codes = data.data
+                    console.log(data.data);
+                    const TIME_COUNT = 120;
                     if (!this.timer) {
                         this.count = TIME_COUNT;
                         this.phonenum = false
@@ -252,7 +302,10 @@ export default {
                             }
                         }, 1000)
                     }
-            })
+                })
+            }else {
+                alert('请输入手机号或手机号格式不正确')
+            }
         },
         
     }

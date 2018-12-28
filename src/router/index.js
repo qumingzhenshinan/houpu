@@ -20,7 +20,7 @@ import Quiz from '@/views/quiz/index'
 import TestPaper from '@/views/quiz/testPaper'
 import ResultPaper from '@/views/quiz/result'
 import TestResult from '@/views/quiz/testResult'
-
+// 
 Vue.use(Router)
 
 export default new Router({
@@ -29,7 +29,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     // 登录注册页
     {

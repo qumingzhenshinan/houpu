@@ -1,5 +1,5 @@
 const BASE = 'http://www.houpuclass.com:8089'   //接口网址
-const BASE1 = 'http://192.168.2.123:8089'   // 测试网址
+const BASE1 = 'http://192.168.137.143:8089'   // 测试网址
 
 const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员
@@ -12,7 +12,8 @@ const urls = {
 	findstudent: BASE +'/trophy/selectById',//post根据id获取学生详情
 	findstuimg: BASE + '/stuimg/selectByProthyId',//post通过关联学员id获取学员证书图片
 	killendtime: BASE + '/course/selectKillEndTime',//get限时促销
-	zerocourse: BASE + '/course/selectByMoney',//post0元体验列表
+	zerocourse: BASE + '/course/selectByMoney',//post 0元体验列表
+	allZeroC: BASE + '/course/selectAllByMoney', // get 获取所有0元课程
 	allorder: BASE + '/orders/selectAll', //get查询所有订单
 	coursecatalogue: BASE + '/videochild/select', // post获取课程目录
 	coursecomment: BASE + '/comment/selectByGid', // post获取课程评论
@@ -24,7 +25,8 @@ const urls = {
 	findExamOnly: BASE + '/questions/select', // post获取某一套试卷的所有题目
 	subjectquery: BASE + '/course/selectByKind', // post课程三级分类查询
 	getphonenum:  BASE + '/message/ycode', // post获取手机验证码	
-	newcourse: BASE + '/course/selectByCreatTime', // get最新课程
+	newcourse: BASE + '/course/selectByCreatTime', // post 时间排序最新课程
+	newAllC: BASE + '/course/selectAllByCreatTime',  // get  获取所有最新课程
 	examhistoy: BASE + '/exam/selectExamHistoy', // post查询我做过的题目
 	changepassword:  BASE + '/user/updatePassWord', // post用户修改密码
 	oederdetail: BASE + '/orders/update', // post修改订单状态
