@@ -70,7 +70,8 @@
                             <div class="mainlist-center">
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 18px;color: #000000;">{{item.gname}}</span>
                                 <span style="display: block;margin-top: 20px;">主讲老师:  {{item.teacherName}}</span>
-                                <p style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-html="item.gintro"></p>
+                                <p style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-if="item.gintro == ''">暂无课程介绍</p>
+                                <p style="opacity: 0.6;font-family: MicrosoftYaHei;font-size: 14px;color: #000000;display: block;width: 600px;margin:31px 0 10px 0;min-height:40px;" v-html="item.gintro" v-if="item.gintro != ''"></p>
                                 <span style="font-family: MicrosoftYaHei-Bold;font-size: 30px;color: #F5A623;text-align: right;display: block;position: absolute;top:35px;right:20px;">¥{{item.gisVip}}</span>
                                 <span style="opacity: 0.4;font-family: MicrosoftYaHei;font-size: 18px;color: #000000;text-decoration:line-through;text-align: right;display: block;position: absolute;top:75px;right:20px;">原价￥{{item.gmoney}}</span>
                             </div>    
@@ -263,78 +264,78 @@ export default {
 }
 </script>
 <style scoped>
-    .mainheader{
-       border-bottom: 2px solid #fff; 
-    }
- .mainclass {
-     background: #E5EAF3;
-     width:86px;
-     height:36px;
-     line-height: 36px;
-     font-family: MicrosoftYaHei;
-     font-size: 14px;
-     color: #000000;
-     text-align: center;
-     display: inline-block;
- }
- .miansubject { 
-    float: left;
-    width:100%;
-    height:36px;
-    line-height: 36px;
-    background: #F8FAFF;
-    border:2px solid #fff; 
- }
- .miansubject button {
-     width: 86px;
-     font-size: 14px;
-     background: #F8FAFF;
-     border:none;
-     text-align: center;
- }
- .line {
-     height: 20px;
-     width: 100%;
- }
- .mainlist {
-     width: 100%;
-     height: 100%;
- }
- .mainlist-center {
-     width: 100%;
-     margin-left: 10px;
-     min-height: 160px;
-     position: relative;
- }
- .mainlist-content {
-     margin-bottom: 10px;
-     border-bottom: 1px solid #999;
- }
- .mainlist-img {
-     height: 100%;
-     width: 100%;
- }
- .mainlist-img  img{
-     height: 100%;
-     width: 100%;
- }
- .active {
-     color:#0099ff;
- }
- .condition {
-     display:inline-block;
-     border:1px solid #ccc;
-     font-size:12px;
-     padding: 0 5px;
-     text-align: center;
-     margin-left: 10px;
- }
+.mainheader{
+  border-bottom: 2px solid #fff; 
+}
+.mainclass {
+  background: #E5EAF3;
+  width:86px;
+  height:36px;
+  line-height: 36px;
+  font-family: MicrosoftYaHei;
+  font-size: 14px;
+  color: #000000;
+  text-align: center;
+  display: inline-block;
+}
+.miansubject { 
+  float: left;
+  width:100%;
+  height:36px;
+  line-height: 36px;
+  background: #F8FAFF;
+  border:2px solid #fff; 
+}
+.miansubject button {
+  width: 86px;
+  font-size: 14px;
+  background: #F8FAFF;
+  border:none;
+  text-align: center;
+}
+.line {
+  height: 20px;
+  width: 100%;
+}
+.mainlist {
+  width: 100%;
+  height: 100%;
+}
+.mainlist-center {
+  width: 100%;
+  margin-left: 10px;
+  min-height: 160px;
+  position: relative;
+}
+.mainlist-content {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #999;
+}
+.mainlist-img {
+  width: 100%;
+  height: 143px;
+}
+.mainlist-img  img{
+  height: 100%;
+  width: 100%;
+}
+.active {
+  color:#0099ff;
+}
+.condition {
+  display:inline-block;
+  border:1px solid #ccc;
+  font-size:12px;
+  padding: 0 5px;
+  text-align: center;
+  margin-left: 10px;
+}
 
- .activedel {
-     color: #ccc;
- }
-  .activedel :hover .del{
-     color: #0099ff;
- }
+.activedel {
+  color: #ccc;
+}
+.activedel :hover .del{
+  color: #0099ff;
+}
 </style>
 
