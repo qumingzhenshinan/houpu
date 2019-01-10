@@ -44,7 +44,7 @@
         <el-button type="primary" @click="confirAssignment">确 定</el-button>
       </span>
     </el-dialog>
-    <div class="top" @click="goTop">回到顶部</div>
+    <div class="top" id="goTop" @click="goTop">回到顶部</div>
   </div>
 </template>
 
@@ -53,15 +53,18 @@ window.onscroll= function(){
   //变量t是滚动条滚动时，距离顶部的距离
   var t = document.documentElement.scrollTop||document.body.scrollTop;
   var headP = document.getElementById('headP')
+  var goTop = document.getElementById('goTop')
   if(headP) {
     if(t >= 160) {
       headP.style.position = "fixed"
       headP.style.margin = 0 + 'px'
       headP.style.top = 0 + 'px'
+      goTop.style.display = 'block'
     }else {
       headP.style.position = "static"
       headP.style.marginTop = 20 + 'px'
       headP.style.marginBottom = 20 + 'px'
+      goTop.style.display = "none"
     }
   }
 }

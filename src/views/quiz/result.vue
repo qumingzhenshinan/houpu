@@ -23,6 +23,7 @@
               <span> 原价￥{{item.gmoney}} </span>
             </div>
           </div>
+          <no-data :inforData='course' tips='暂无课程'></no-data>
         </div>  
       </div>
     </div>
@@ -34,6 +35,7 @@
 import Header from '@/components/Header'
 import { mapActions, mapGetters} from 'vuex'
 import Footer from '@/components/Footer'
+import noData from '@/components/noDataDisplay'
 import api from '@/api'
 import base from '@/baseimg'
 export default {
@@ -72,7 +74,8 @@ export default {
   },
   components: {
     Header,
-    Footer
+    Footer,
+    noData
   },
   computed: {
     ...mapGetters(['$quiz']),
