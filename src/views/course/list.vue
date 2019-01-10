@@ -2,7 +2,7 @@
     <div class="totalw">
         <Header></Header>
         <div class="totalm">
-            <div>
+            <div v-if="$route.path == '/zeroCourse' || $route.path == '/newCourse'  || $route.path == '/courseList'">
                 <el-row style="padding: 15px 0">
                     <div style="font-size:16px;color:#ccc;margin-bottom:2px;">当前条件 >
                         <span class="activedel" v-if="subjectarry.gsbuject !== undefined">
@@ -134,9 +134,9 @@ export default {
             subjectarry: {},
             Mpage: 5,
             currentPage: 1,
-            active: '',
-            active1: '',
-            active2: '',
+            active: null,
+            active1: null,
+            active2: null,
         }
     },
     created(){
@@ -160,23 +160,38 @@ export default {
                 this.active1 = this.$course.term.gclass
                 this.active2 = this.$course.term.gtype
                 this.subjectquery()
+            }else {
+                api.AllCourse().then(data => {
+                    this.mianlistarry = data.generalvideos
+                })
             }
+        }else if(paths === '/selectCourse') {
+            this.mianlistarry = this.$course.courseList
         }else if(paths === '/newCourse') {
             // 最新课程
             api.newAllC().then(data => {
                 this.mianlistarry = data.generalvideos
             })
-            // api.NewCourse().then(data => {
-            //     this.mianlistarry = data.generalvideos
-            // });
-        }else {
+
+        }else if(paths === '/recommended') {
+            // 推荐课程
+            api.getrecommendedC({
+                uid: '0340eb5d283f4fffaba9c9bf9a4d5da2',
+                etid: 'fa315beb4a984093b608439b79baa484'
+                // etid: this.$quiz.quiz.etid
+            }).then(data => {
+                this.mianlistarry = data.generalvideos
+            })
+        }else if(paths === '/myCourses') {
+            // 我的课程
+            api.myCourseLise({userid: '20f3a3a8292d4a45b62586531a2b1faa'}).then(data => {
+                this.mianlistarry = data.userLearns
+            })
+        } else {
             // 0元课程
             api.allZeroC().then(data => {
                 this.mianlistarry = data.generalvideos
             })
-            // api.ZeroCourse({gmoney: '0'}).then(data => {
-            //     this.mianlistarry = data.generalvideos
-            // });
         }
     },
     methods: {
@@ -219,33 +234,39 @@ export default {
         },
         subjectquery(){
             var paths = this.$route.path
-            if(paths === '/courseList') {
-               api.SubjectQuery(this.subjectarry).then(data => {
-                    if(data.generalvideos !== undefined) {
-                        this.mianlistarry = data.generalvideos
-                    }else {
-                        this.mianlistarry = []
-                    }
-                    
-                }) 
-           }else if(paths === '/newCourse') {
-                api.NewCourse(this.subjectarry).then(data => {
-                    if(data.generalvideos !== undefined) {
-                        this.mianlistarry = data.generalvideos
-                    }else {
-                        this.mianlistarry = []
-                    }
+            if(this.active === null && this.active1 === null && this.active2 === null){
+                console.log('2');
+                api.AllCourse().then(data => {
+                    this.mianlistarry = data.generalvideos
                 })
-           }else {
-                api.ZeroCourse(this.subjectarry).then(data => {
-                    if(data.generalvideos !== undefined) {
-                        this.mianlistarry = data.generalvideos
-                    }else {
-                        this.mianlistarry = []
-                    }
-                })
-           }
-            
+            }else {
+                if(paths === '/courseList') {
+                   api.SubjectQuery(this.subjectarry).then(data => {
+                        if(data.generalvideos !== undefined) {
+                            this.mianlistarry = data.generalvideos
+                        }else {
+                            this.mianlistarry = []
+                        }
+                        
+                    }) 
+               }else if(paths === '/newCourse') {
+                    api.NewCourse(this.subjectarry).then(data => {
+                        if(data.generalvideos !== undefined) {
+                            this.mianlistarry = data.generalvideos
+                        }else {
+                            this.mianlistarry = []
+                        }
+                    })
+               }else {
+                    api.ZeroCourse(this.subjectarry).then(data => {
+                        if(data.generalvideos !== undefined) {
+                            this.mianlistarry = data.generalvideos
+                        }else {
+                            this.mianlistarry = []
+                        }
+                    })
+               }
+            }
         },
         delected(val){
             if(val === '1') {

@@ -54,7 +54,7 @@
             </div>
             <div class="mian-content">
                 <el-tabs v-model="activeName">
-                    <el-tab-pane label="课程目录" name="first">
+                    <el-tab-pane label="课程目录" name="first" v-if="cataloguearr.length != 0">
                         <div v-for="item in cataloguearr" style="margin-bottom:20px;">
                             <div class="chaptersList">
                                 <p class="downOn">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane label="课程介绍" name="second">
+                    <el-tab-pane label="课程介绍" name="second" v-if="coursedetails.gintro != ''">
                         <span  v-html="coursedetails.gintro"></span>
                     </el-tab-pane>
                     <el-tab-pane label="课程评论" name="third">
@@ -79,7 +79,7 @@
                                             <span>
                                                 <img src="@/assets/img/touxiang.png" alt="" style="width:45px;height:45px;margin-top: 20px;">
                                             </span>
-                                            <span style="position:absolute;top:20px;left:60px;">{{item.username}}</span>
+                                            <span style="position:absolute;top:20px;left:60px;">{{item.userName}}</span>
                                             <p style="font-size: 14px;color: #333333;text-align: left;line-height: 22px;width: 79%;min-height:30px;display: block;margin:-20px 0 20px 60px;">
                                                 {{item.content}}
                                             </p>
@@ -92,6 +92,7 @@
                                     </div>
                                 </el-row>
                             </div>
+                            <No-data :inforData="commentlist" tips="暂无评论"></No-data>
                         </div>
                         <div class="line"></div>
                         <div style="text-align:center;margin-top:20px;">
@@ -121,12 +122,14 @@ import Vue from 'vue'
 import { videoPlayer } from 'vue-video-player';
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import NoData from '@/components/noDataDisplay'
 import api from '@/api'
 export default {
     components: {
         Header,
         Footer,
-        videoPlayer
+        videoPlayer,
+        NoData
     },
     data(){
         return {
@@ -176,28 +179,7 @@ export default {
                     main: '十年语文沉淀，十年语文沉淀十年语文沉淀十年语文沉淀十年语文沉淀'
                 },
             ],
-            commentlist: [
-                {
-                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
-                    score: '4',
-                    username : '李磊'
-                },
-                 {
-                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
-                    score: '5',
-                    username : '田园'
-                },
-                 {
-                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
-                    score: '2',
-                    username : '郑爽'
-                },
-                {
-                    content:'我的评论我的评论我的评论我的评论我的评论我的评论我的评论',
-                    score: '1',
-                    username : '郭浩'
-                },
-            ],
+            commentlist: [],
             cataloguearr: [],
             coursedetails: {},
         }
@@ -209,19 +191,18 @@ export default {
         // }
         var data = {
             gid:this.$route.params.gid,
-            // gid:'c10b60d161a2401aa2e247acdfa6616c'
+            // gid:'3b88734212ce439c83e5b9b181183fd9'
         }
         // 获取评论
-        // api.Coursecomment(data).then(data =>{
-        //     this.commentlist = data.comments
-        //     this.comments.forEach(item => {
-        //         data.comments.forEach(items =>{
-        //             item.creatTime = new Date(+new Date()+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
-        //         })
-        //     })
-        //     data.comments.creatTime = new Date(+new Date()+8*3600*1000).toISOString().replace(/T/g,' ').replace(/\.[\d]{3}Z/,'');
-        //     this.commentlist.creatTime = data.comments.creatTime
-        // })
+        api.Coursecomment(data).then(data =>{
+            console.log(data);
+            data.comments.forEach(item => {
+                api.selectUser({uid: item.cuid}).then(data => {
+                    this.commentlist.push({...data,content:data.content})
+                })
+            })
+            
+        })
         // 获取课程详情
         var _data = data
         api.Coursedetails(_data).then(data =>{

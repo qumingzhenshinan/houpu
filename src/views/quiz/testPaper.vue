@@ -133,7 +133,6 @@ export default {
         item.content = objs
       })
       this.topics = data.questions
-      console.log(this.topics);
     })
     this.countDown()
   },

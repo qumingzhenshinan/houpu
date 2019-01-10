@@ -58,8 +58,8 @@
                         <el-col :span="24">
                             <div style="width:100%;height:100%;text-align:center;">
                                 <img src="@/assets/img/Headportrait.png" alt="" style="widh:140px;height:140px;">
-                                
-                                <p style="margin-top:20px;"v-if="user.userName == ''">昵称：userName</p>
+                                <!-- <img :src="'http://www.houpuclass.com:8089' + user.yqCodeUrl" alt=""> -->
+                                <p style="margin-top:20px;"v-if="user.userName == ''">昵称：{{userName}}</p>
                                 <p style="margin-top:20px;"v-else>昵称：{{user.userName}}</p>
                                 <el-button type="primary" size="medium" style="width:100px;margin-top:20px;" @click="Setup">设置</el-button>
                             </div>
@@ -82,8 +82,8 @@
                                     :on-success="handleAvatarSuccess"
                                     :before-upload="beforeAvatarUpload"
                                     :data="uploadParm">
-                                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
                                 <el-form label-width="450px" >
                                     <el-row>
@@ -138,9 +138,6 @@ export default {
         }
     },
     created(){
-        axios.post('http://192.168.2.123:8089/course/selectByKind', qs.stringify({gsbuject: '',gclass: '', gclassify: '长期班'})).then(data => {
-            console.log(data);
-        })
         api.selectUser({uid: '07711212f22b4ed89f66272ff35938f3'}).then(data => {
             console.log(data)
             this.user = data

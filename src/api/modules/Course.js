@@ -22,3 +22,9 @@ export function findCourse(params) {
 export function getrecommendedC(params) {
 	return fetch.post(URL.getrecommendedC, params)
 }
+export function myCourseLise(params) {
+	return fetch.post(URL.myCourseLise, params)
+}
+export function selectHeader(params) {
+	return fetch.post(URL.selectHeader, params)
+}

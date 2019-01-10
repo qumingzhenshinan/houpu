@@ -1,5 +1,5 @@
 const BASE = 'http://www.houpuclass.com:8089'   //接口网址
-const BASE1 = 'http://192.168.137.143:8089'   // 测试网址
+const BASE1 = 'http://192.168.3.94:8089'   // 测试网址
 
 const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员
@@ -14,7 +14,7 @@ const urls = {
 	killendtime: BASE + '/course/selectKillEndTime',//get限时促销
 	zerocourse: BASE + '/course/selectByMoney',//post 0元体验列表
 	allZeroC: BASE + '/course/selectAllByMoney', // get 获取所有0元课程
-	allorder: BASE + '/orders/selectAll', //get查询所有订单
+	allorder: BASE + '/orders/selectAllByUid', //get查询所有订单
 	coursecatalogue: BASE + '/videochild/select', // post获取课程目录
 	coursecomment: BASE + '/comment/selectByGid', // post获取课程评论
 	coursedetails: BASE + '/course/selectById', // post获取课程详情
@@ -38,7 +38,13 @@ const urls = {
 	// 注册
 	getPhoneC: BASE + '/message/ycode', // post根据手机号获取验证码
 	reMCUser: BASE + '/user/regist', // post密码手机号注册验证
-	getlogin: BASE + '/user/login' // post 登录
+	getlogin: BASE + '/user/login', // post 登录
+	// 添加评价
+	addping: BASE + '/comment/insert', // 添加评价
+	myCourseLise: BASE + '/userlearn/select', // 我看过的课程列表（视频列表）
+	// header头部查询
+	selectHeader: BASE + '/course/selectByValue' // 课程模糊查询
+
 }
 
 export default urls

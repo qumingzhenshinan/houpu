@@ -25,7 +25,9 @@ import {
   Coursecomment,
   SubjectQuery,
   findCourse,
-  getrecommendedC
+  getrecommendedC,
+  myCourseLise,
+  selectHeader
 } from "@/api/modules/Course"
 
 import {
@@ -37,7 +39,8 @@ import {
 
 import {
   allOrder,
-  OrderDetail
+  OrderDetail,
+  addping
 } from "@/api/modules/MyOrder"
 
 import {
@@ -99,5 +102,8 @@ export default {
   OrderDetail,
   allZeroC,
   newAllC,
-  selectUser
+  selectUser,
+  addping,
+  selectHeader,
+  myCourseLise
 }

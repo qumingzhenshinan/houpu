@@ -5,7 +5,7 @@
 				<img src="../assets/img/logo.png" alt="">
 			</div>
 			<div class="search">
-				<input type="text" name="" value="" placeholder="请输入课程名称或者教师姓名"><el-button type="primary" icon="el-icon-search"></el-button>
+				<input type="text" name="" @keydown.enter="select" v-model="selectS" placeholder="请输入课程名称或者教师姓名"><el-button @click="select" type="primary" icon="el-icon-search"></el-button>
 			</div>
 			<div class="phone">
 				<p>客服电话：<span>400-898-9991</span></p>
@@ -15,7 +15,7 @@
 		<div class="headerTitleOut">
 			<ul class="totalm">
 				<li class="allClass">
-					<p class="allClassP">全部分类</p>
+					<p class="allClassP" @click="golist">全部分类</p>
 					<ul class="crouseType">
 						<li v-for="item in subjectH">
 							<p>{{item}}</p>
@@ -41,6 +41,7 @@
 </template>
 <script type="text/javascript">
 import axios from 'axios'
+import api from '@/api'
 import { mapActions } from 'vuex'
 
 export default{
@@ -49,12 +50,26 @@ export default{
 			aa:["123","123"],
 			subjectH: [],
 			classH: [],
-			subjectstate: []
+			subjectstate: [],
+			selectS: ''
 		}
 	},
 	inject: ['reload'],
 	methods: {
-		...mapActions(['GetTerm']),
+		...mapActions(['GetTerm', 'GetList']),
+		select() {
+			api.selectHeader({value: this.selectS}).then(data => {
+				this.GetList(data.generalvideos)
+				this.reload()
+				this.$router.push('/selectCourse')
+			})
+			
+		},
+		golist() {
+			this.GetTerm({})
+			this.reload()
+			this.$router.push('/courseList')
+		},
 		goHome() {
 			this.$router.push('/')
 		},
@@ -71,7 +86,7 @@ export default{
 		},
 		myCourse() {
 			this.reload()
-			this.$router.push('/courseList')
+			this.$router.push('/myCourses')
 		},
 		reterm(a, b, c) {
 			this.GetTerm({sub: a, gclass: b, gtype: c})

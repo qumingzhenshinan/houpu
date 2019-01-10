@@ -7,21 +7,23 @@
       </div>
       <div class="fractions">
         <el-button @click="getAnswer" type="primary">查看答案</el-button>
-        <div class="recommended">
-          <span>推荐课程</span>
-        </div>
-        <div class="sec" v-for="item in course" >
-          <img class="sec1" src="@/assets/img/Bitmap.png" alt="">
-          <div class="sec2">
-            <p> {{item.title}} </p>
-            <p> 主讲老师：{{item.teacher}} </p>
-            <p class="sec2_3p"> {{item.intro}} </p>
+        <div v-if="$quiz.testResult < 60">
+            <div class="recommended">
+            <span>推荐课程</span>
           </div>
-          <div class="sec3">
-            <span> ￥{{item.price}} </span>
-            <span> 原价￥{{item.rprice}} </span>
+          <div class="sec" v-for="item in course" >
+            <img class="sec1" :src="base + item.gvimg" alt="">
+            <div class="sec2">
+              <p> {{item.gname}} </p>
+              <p> 主讲老师：{{item.teacherName}} </p>
+              <div class="sec2_3p" v-html="item.gintro"></div>
+            </div>
+            <div class="sec3">
+              <span> ￥{{item.price}} </span>
+              <span> 原价￥{{item.gmoney}} </span>
+            </div>
           </div>
-        </div>
+        </div>  
       </div>
     </div>
     <Footer></Footer>
@@ -33,10 +35,12 @@ import Header from '@/components/Header'
 import { mapActions, mapGetters} from 'vuex'
 import Footer from '@/components/Footer'
 import api from '@/api'
+import base from '@/baseimg'
 export default {
   name: 'result',
   data () {
     return {
+      base: '',
       course: [
         {
           title: '文学常识梳理班——聚力计划语文一',
@@ -74,12 +78,14 @@ export default {
     ...mapGetters(['$quiz']),
   },
   created() {
+    this.base = base
     api.getrecommendedC({
-      userid: '',
-      etid: this.$quiz.quiz.etid
+      uid: '0340eb5d283f4fffaba9c9bf9a4d5da2',
+      // etid: this.$quiz.quiz.etid
+      etid: 'fa315beb4a984093b608439b79baa484'
     }).then(data => {
       console.log(data);
-      // this.course = data
+      this.course = data.generalvideos
     })
   },
   methods: {
@@ -160,6 +166,9 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   padding: 0 !important;
+  text-align: left;
+  opacity: 0.6;
+  height: 40px;
 }
 
 .sec3 {

@@ -60,7 +60,7 @@
                                             <p class="textSubject">科目：{{item.etsubject}}</p>
                                             <p class="textfraction">分数：{{item.score}}</p>
                                             <p class="textcomment">试卷后评语：{{item.content}}</p>
-                                            <el-button class="textbtn">查看推荐视频 &nbsp;></el-button>
+                                            <el-button @click="gorecommended(item)" class="textbtn">查看推荐视频 &nbsp;></el-button>
                                         </div>
                                     </div>
                                 </el-tab-pane>
@@ -149,14 +149,18 @@ import Footer from '@/components/Footer'
     created(){
         api.ExamHistoy({uid:'404a256f91b945249c199ad120d8fe9a'}).then(data => {
             this.textlist = data.exams
-            console.log(data);
         })
     },
     methods: {
         ...mapActions(['GetQuiz']),
-        goTestDetail(data) {
-            console.log(data);
+        gorecommended(data) {
             this.GetQuiz(data)
+            this.$router.push('/recommended')
+            event.stopPropagation();
+        },
+        goTestDetail(data) {
+            this.GetQuiz(data)
+            this.$router.push('/quiz/testResult')
         },
         personal(val){
             this.classstate = '1'
@@ -242,9 +246,10 @@ import Footer from '@/components/Footer'
     font-size: 12px;
     color: #409EFF;
     position: absolute;
-    top:155px;
+    top:154px;
     right: 0px;
-    z-index: -9999;
+    z-index: 9999;
+    cursor: pointer;
 }
 .line {
      height: 20px;

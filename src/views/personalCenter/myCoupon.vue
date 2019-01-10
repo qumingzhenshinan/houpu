@@ -57,15 +57,19 @@
                                     <div v-for="item in couponlist">
                                         <el-row style="border:1px solid #999;padding:15px;border-radius:5px">
                                             <el-col :span="4">
-                                                <img src="@/assets/img/Coupon1.png" alt="" style="width:100%;height:100%">
+                                                <div class="PCquan">
+                                                    <p><span>￥</span><span>{{item.couponPrice}}</span></p>
+                                                    <p>{{item.ctype}}</p>
+                                                </div>
                                             </el-col>
                                             <el-col :span="19" style="margin-left:20px">
-                                                <p style="font-weight:600;">立减￥10元</p>
+                                                <p style="font-weight:600;">{{item.cname}}</p>
                                                 <p style="font-size:13px;margin-top:10px;min-height:50px">优惠券描述：这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个这是一个</p>
-                                                <p style="font-size:12px;margin-top:10px;">使用期限制：2018-09-20</p>
+                                                <p style="font-size:12px;margin-top:10px;">使用期限制：{{item.validity.substr(0,10)}}</p>
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <no-data :inforData='couponlist' tips='您还没有优惠券'></no-data>
                                 </el-tab-pane>
                             </el-tabs>
                         </el-col>
@@ -81,8 +85,10 @@ import Vue from 'vue'
 import api from '@/api'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import noData from '@/components/noDataDisplay'
+
   export default {
-      components:{Header,Footer},
+      components:{ Header, Footer, noData},
       data(){
         return {
            activeName: 'first',
@@ -96,6 +102,12 @@ import Footer from '@/components/Footer'
 
         api.Getmycoupon({uid:'a958d03cc43c44db83b0178b8a752fd6'}).then(data => {
             console.log(data);
+            if(data.coupons === undefined) {
+                this.couponlist = data.coupons
+            }else {
+                this.couponlist = []
+            }
+            
         })
     },
     methods: {
@@ -126,13 +138,38 @@ import Footer from '@/components/Footer'
   }
 </script>
 <style scoped>
-    .menuborser {
-       border-bottom:1px solid #ccc;
-       color: black;
-    }
-    .active {
-        background: #0099ff;
-        color: #fff;
-    }
-    
+.menuborser {
+   border-bottom:1px solid #ccc;
+   color: black;
+}
+.active {
+    background: #0099ff;
+    color: #fff;
+}
+
+.PCquan {
+    width: 100%;
+    height: 107px;
+}
+
+.PCquan p:nth-child(1) {
+    height: 70%;
+    background: #83D8D9;
+    line-height: 75px;
+    text-align: center;
+    color: #fff;
+}
+
+.PCquan p:nth-child(1) span:nth-child(2) {
+    font-size: 36px;
+}
+
+.PCquan p:nth-child(2) {
+    height: 30%;
+    background: #5FBEC0;
+    text-align: center;
+    line-height: 32px;
+    font-size: 18px;
+    color: #fff;
+}
 </style>

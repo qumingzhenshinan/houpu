@@ -150,4 +150,8 @@ a {
 .el-dialog--center .el-dialog__body {
   text-align: center;
 }
+/* 评价星级 */
+.el-rate__icon {
+    font-size: 24px;
+}
 </style>

@@ -57,8 +57,8 @@
                                     <div v-for="item in couponlist.slice((currentPage-1)*Mpage,currentPage*Mpage)" style="margin-bottom:15px;">
                                         <p class="ordernum">订单编号：{{item.orderNo}} <span style="margin-left:50px">{{item.ocreatTime | formatDate}}</span></p>
                                         <el-row class="ordercontent">
-                                            <el-col :span="4">
-                                                <img src="@/assets/img/Coupon1.png" alt="" style="width:100%;height:100%">
+                                            <el-col :span="4" v-if="item.gid === its.gid" v-for="(its,i) in courses" :key="i">
+                                                <img :src="base + its.gvimg" alt="" style="width:100%;height:100%">
                                             </el-col>
                                             <el-col :span="19" style="margin-left:20px">
                                                 <p style="font-weight:500;font-size:16px">{{item.payStyle}}</p>
@@ -72,10 +72,11 @@
                                                 <p class="expired" disabled v-if="item.isKill == 2">已过期</p>
                                                 <p  class="expired1">{{time}}</p>
                                                 <p class="paidbtn"  v-if="item.oisPay == '1'">已付款</p>
-                                                <el-button class="cancelorderbtn" v-if="item.oisPay == '1'">评价</el-button>
+                                                <el-button class="cancelorderbtn" @click="cancelorder(item)" v-if="item.oisPay == '1'">评价</el-button>
                                             </el-col>
                                         </el-row>
                                     </div>
+                                    <no-data :inforData='couponlist' tips='您还没有订单'></no-data>
                                 </el-tab-pane>
                             </el-tabs>
                         </el-col>
@@ -102,6 +103,33 @@
             </el-container>
         </div>
         <Footer></Footer>
+        <el-dialog
+            title="评论"
+            :visible.sync="pinglun"
+            width="45%"
+            :before-close="handleClose">
+            <span class="pingbody">
+                <div class="pingleft">
+                    <img v-for="item in courses" v-if="pingluns.gid === item.gid" :src="base + item.gvimg" alt="" style="width:180px;">
+                    <p>{{pingluns.payStyle}}</p>
+                </div>
+                <div class="pingright">
+                    <el-rate v-model="value1" @change="getvalue" :allow-half="true"></el-rate>
+                    <el-input
+                        class="txtB"
+                        type="textarea"
+                        placeholder="请输入内容"
+                        :rows="4"
+                        v-model="textarea3">
+                    </el-input>
+                    <span>{{textarea3.length}}/200</span>
+                </div>
+            </span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="pinglun = false">取 消</el-button>
+                <el-button type="primary" @click="addPing">提 交</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -109,37 +137,48 @@ import Vue from 'vue'
 import api from '@/api'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { setTimeout } from 'timers';
-  export default {
-      components:{Header,Footer},
-      data(){
+import noData from '@/components/noDataDisplay'
+import { setTimeout } from 'timers'
+import base from '@/baseimg'
+export default {
+    components:{Header,Footer,noData},
+    data(){
         return {
-           activeName: 'first',
-           classstate:'3',
-           Mpage: 5,
-           currentPage: 1,
-           time: '',
-           couponlist:[{
+            value1: null,
+            textarea3: '',
+            base: '',
+            pingluns: {},
+            pinglun: false,
+            activeName: 'first',
+            classstate:'3',
+            Mpage: 5,
+            currentPage: 1,
+            time: '',
+            couponlist:[{
                title:'初一数学强化练习班（创新班）（秋季）',
                monery: '100.00',
                moneryvip:'69.00',
                zongmonery:'169.00'
-           },{
+            },{
                title:'初一语文强化练习班（创新班）（秋季）',
                monery: '100.00',
                moneryvip:'60.00',
                zongmonery:'160.00'
-           },]
-        }
-    },
+            }],
+            courses: []
+            }
+        },
     created(){
-        api.allOrder().then(data => {
+        this.base = base
+        api.allOrder({uid: '07711212f22b4ed89f66272ff35938f3'}).then(data => {
             this.couponlist = data.orders
             var num = 0
             this.couponlist.forEach((item,index) => {
-                
                 item.num = index
             })
+        })
+        api.AllCourse().then(data => {
+            this.courses = data.generalvideos
         })
     },
     filters: {
@@ -154,6 +193,33 @@ import { setTimeout } from 'timers';
       }
     },
     methods: {
+        addPing() {
+            var data = new Date()
+            api.addping({comment: {
+                oid: this.pingluns.oid,
+                uid: this.pingluns.uid,
+                creatTime: data.getFullYear() + '-' + data.getMonth() + '-' + data.getDate() + ' ' + data.getHours() + ':' + data.getUTCMinutes() + ':' + data.getSeconds(), // 评论时间
+                score: this.value1, // 星级
+                content: this.textarea3, // 内容
+                gid: this.pingluns.gid
+            }}).then(data => {
+                this.pinglun = false
+            })
+        },
+        getvalue() {
+            console.log(this.value1)
+        },
+        cancelorder(data) {
+            this.pinglun = true
+            this.pingluns = data
+        },
+        handleClose(done) {
+            this.$confirm('确认要放弃评论吗？')
+                .then(_ => {
+                    done();
+                })
+                .catch(_ => {});
+        },
         personal(val){
             this.classstate = '1'
             this.$router.push({name:'personalCenter'})
@@ -188,10 +254,10 @@ import { setTimeout } from 'timers';
             this.currentPage = val
         },
         prevPage() {
-			this.currentPage--
-		},
-		nextPage() {
-			this.currentPage++
+    		this.currentPage--
+    	},
+    	nextPage() {
+    		this.currentPage++
         },
         cancelpayment(index, val){
             this.$confirm('确认取消订单？', {
@@ -221,6 +287,7 @@ import { setTimeout } from 'timers';
                 
             })
         },
+        // 支付触发的事件
         paymonery(index){
             var maxtime = 60*60
             setInterval(() =>{
@@ -229,7 +296,7 @@ import { setTimeout } from 'timers';
                     // var minutes = Math.floor(maxtime / 60);
                     // var seconds = Math.floor(maxtime % 60);
                     // this.time = "距离结束还有" + minutes + "分" + seconds + '秒'
-                    console.log(maxtime)
+                    // console.log(maxtime)
                 } else{
                      clearInterval()
                      this.couponlist[index].isKill = 2
@@ -237,9 +304,38 @@ import { setTimeout } from 'timers';
             },1000)
         }
     }
-  }
+}
 </script>
 <style scoped>
+.txtB {
+    width: 350px;
+    height: 100px;
+    margin-top: 20px;
+}
+.pingbody {
+    height: 120px;
+    display: block;
+}
+.pingleft {
+    float: left;
+    text-align: left;
+    width: 185px;
+    padding-right: 20px;
+}
+.pingright {
+    float: left;
+    text-align: left;
+    position: relative;
+}
+
+.pingright span {
+    font-size: 14px;
+    color: #ccc;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
 .ordernum {
     color:#999;
     height:40px;

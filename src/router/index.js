@@ -66,6 +66,24 @@ export default new Router({
     	name: 'newcourse',
     	component: CourseList
     },
+    // 推荐课程
+    {
+      path: '/recommended',
+      name: 'recommended',
+      component: CourseList
+    },
+    // 我的课程
+    {
+      path: '/myCourses',
+      name: 'myCourses',
+      component: CourseList
+    },
+    // 搜素跳转的课程列表
+    {
+      path: '/selectCourse',
+      name: 'selectCourse',
+      component: CourseList
+    },
     // 个人中心 
     {
     	path: '/personalCenter',

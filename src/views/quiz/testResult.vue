@@ -36,17 +36,18 @@
           <span>推荐课程</span>
         </div>
         <div class="sec" v-for="item in course" >
-          <img class="sec1" src="@/assets/img/Bitmap.png" alt="">
+          <img class="sec1" :src="base + item.gvimg" alt="">
           <div class="sec2">
-            <p> {{item.title}} </p>
-            <p> 主讲老师：{{item.teacher}} </p>
-            <p class="sec2_3p"> {{item.intro}} </p>
+            <p> {{item.gname}} </p>
+            <p> 主讲老师：{{item.teacherName}} </p>
+            <p class="sec2_3p" v-html="item.gintro"></p>
           </div>
           <div class="sec3">
             <span> ￥{{item.price}} </span>
-            <span> 原价￥{{item.rprice}} </span>
+            <span> 原价￥{{item.gmoney}} </span>
           </div>
         </div>
+        <no-data :inforData='course' tips='暂时没有相关的课程'></no-data>
       </div>
     </div>
     <Footer></Footer>
@@ -56,12 +57,16 @@
 <script>
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import noData from '@/components/noDataDisplay'
 import { mapActions, mapGetters} from 'vuex'
 import api from "@/api"
+import base from '@/baseimg'
+
 export default {
   name: 'testResult',
   data () {
     return {
+      base: '',
       zimus: ["A","B","C","D","E","F","G","H"],
       course: [
         {
@@ -95,12 +100,14 @@ export default {
   },
   components: {
     Header,
-    Footer
+    Footer,
+    noData
   },
   computed: {
     ...mapGetters(['$quiz'])
   },
   created() {
+    this.base = base
     console.log(this.$quiz);
     api.findPAnswer({uid: 'a958d03cc43c44db83b0178b8a752fd6', etid: '5c271a1f08b4417b90099c9cf8b765e3'}).then(data => {
       this.errorQ = data.errorquestions
@@ -108,11 +115,12 @@ export default {
     })
     // 获取推荐课程
     api.getrecommendedC({
-      userid: 'a958d03cc43c44db83b0178b8a752fd6',
-      etid: this.$quiz.quiz.etid
+      uid: '0340eb5d283f4fffaba9c9bf9a4d5da2',
+      etid: 'fa315beb4a984093b608439b79baa484'
+      // etid: this.$quiz.quiz.etid
     }).then(data => {
       console.log(data);
-      // this.course = data
+      this.course = data.generalvideos
     })
   }
 }
