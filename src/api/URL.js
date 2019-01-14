@@ -1,4 +1,4 @@
-const BASE = 'http://www.houpuclass.com:8089'   //接口网址
+const BASE = 'http://www.houpuclass.com:8080'   //接口网址
 const BASE1 = 'http://192.168.3.94:8089'   // 测试网址
 
 const urls = {

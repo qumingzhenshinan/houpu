@@ -117,12 +117,16 @@ export default{
 	height: 80px;
 	margin: 0 auto;
 }
-.logo,.search,.phone{
+.logo,.search {
 	float: left;
 	height: 80px;
 }
+.phone {
+	float: right;
+	height: 80px;
+}
 .logo img{
-	width: 147px;
+	width: 190px;
 	height: 80px;
 }
 .search input{
@@ -143,7 +147,6 @@ export default{
 }
 .phone p{
 	height: 33px;
-	margin-left: 132px;
 	margin-top: 26px;
 	background: url('../assets/Header/phone.png') no-repeat 2px 12px;
 	padding-left: 30px;

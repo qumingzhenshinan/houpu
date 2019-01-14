@@ -108,8 +108,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           api.getlogin({
-            userName: '15201347467',
-            passWord: 's222s2s22s'
+            userName: this.login.name,
+            passWord: this.login.pass
           }).then(data => {
             console.log(data);
           })
