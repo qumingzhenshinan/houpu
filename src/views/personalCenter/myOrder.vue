@@ -154,28 +154,23 @@ export default {
             Mpage: 5,
             currentPage: 1,
             time: '',
-            couponlist:[{
-               title:'初一数学强化练习班（创新班）（秋季）',
-               monery: '100.00',
-               moneryvip:'69.00',
-               zongmonery:'169.00'
-            },{
-               title:'初一语文强化练习班（创新班）（秋季）',
-               monery: '100.00',
-               moneryvip:'60.00',
-               zongmonery:'160.00'
-            }],
+            couponlist:[],
             courses: []
             }
         },
     created(){
         this.base = base
-        api.allOrder({uid: '07711212f22b4ed89f66272ff35938f3'}).then(data => {
-            this.couponlist = data.orders
-            var num = 0
-            this.couponlist.forEach((item,index) => {
-                item.num = index
-            })
+        api.allOrder({uid: window.sessionStorage.getItem("user")}).then(data => {
+            if(data.status !== 201) {
+                this.couponlist = data.orders
+                var num = 0
+                this.couponlist.forEach((item,index) => {
+                    item.num = index
+                })
+            }else {
+                this.couponlist = []
+            }
+                
         })
         api.AllCourse().then(data => {
             this.courses = data.generalvideos

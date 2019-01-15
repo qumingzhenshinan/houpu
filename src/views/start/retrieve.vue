@@ -161,8 +161,8 @@ export default {
 	},
 	methods: {
 		getCode() {
-			// api.getPhoneC({tel: this.phone.num}).then(data => {
-			api.getPhoneC({tel: '15201347467'}).then(data => {
+			api.getPhoneC({tel: this.phone.num}).then(data => {
+			// api.getPhoneC({tel: '15201347467'}).then(data => {
 				console.log(data);
 				codes = data
 			})
@@ -180,7 +180,6 @@ export default {
 			this.$refs[formName].validate((valid) => {
         if (valid) {
           this.active++
-
         } else {
           return false;
         }

@@ -83,9 +83,9 @@ export default {
   created() {
     this.base = base
     api.getrecommendedC({
-      uid: '0340eb5d283f4fffaba9c9bf9a4d5da2',
-      // etid: this.$quiz.quiz.etid
-      etid: 'fa315beb4a984093b608439b79baa484'
+      uid: window.sessionStorage.getItem("user"),
+      etid: this.$quiz.quiz.etid
+      // etid: 'fa315beb4a984093b608439b79baa484'
     }).then(data => {
       console.log(data);
       this.course = data.generalvideos

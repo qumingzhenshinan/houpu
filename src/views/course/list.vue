@@ -63,7 +63,7 @@
                     <el-row class="">
                         <el-col :span="5">
                             <div class="mainlist-img">
-                                <img :src="'http://www.houpuclass.com:8089' + item.gvimg" alt="">
+                                <img :src="'http://www.houpuclass.com:8080' + item.gvimg" alt="">
                             </div>
                         </el-col>
                         <el-col :span="18">
@@ -81,7 +81,7 @@
                 <no-data :inforData='mianlistarry' :tips='terms'></no-data>
             </div>
             <div class="line"></div>
-            <div style="text-align:center">
+            <div style="text-align:center" v-if="mianlistarry.length !== 0">
                 <div class="pagination">
                     <el-pagination
                         background
@@ -126,9 +126,9 @@ export default {
             mianlistarry: [],
             arrysubject: [
                 {
-                    subject:['语文','数学','英语','物理','化学','科学'],
-                    class: ['一年级','二年级','三年级','四年级'],
-                    subjectstate: ['常规课','竞赛课']
+                    subject: [],
+                    class: [],
+                    subjectstate: []
                 }
             ],
             subjectarry: {},
@@ -141,13 +141,13 @@ export default {
     },
     created(){
         var paths = this.$route.path
-        axios.get('http://www.houpuclass.com:8089/course/selectGclassify').then(data => {
+        axios.get('http://www.houpuclass.com:8080/course/selectGclassify').then(data => {
             this.arrysubject[0].subjectstate = data.data.data.lists
         })
-        axios.get('http://www.houpuclass.com:8089/course/selectGclass').then(data => {
+        axios.get('http://www.houpuclass.com:8080/course/selectGclass').then(data => {
             this.arrysubject[0].class = data.data.data.lists
         })
-        axios.get('http://www.houpuclass.com:8089/course/selectGsbuject').then(data => {
+        axios.get('http://www.houpuclass.com:8080/course/selectGsbuject').then(data => {
             this.arrysubject[0].subject = data.data.data.lists
         })
         if(paths === '/courseList') {
@@ -166,6 +166,7 @@ export default {
                 })
             }
         }else if(paths === '/selectCourse') {
+            console.log(this.$course);
             this.mianlistarry = this.$course.courseList
         }else if(paths === '/newCourse') {
             // 最新课程
@@ -176,16 +177,20 @@ export default {
         }else if(paths === '/recommended') {
             // 推荐课程
             api.getrecommendedC({
-                uid: '0340eb5d283f4fffaba9c9bf9a4d5da2',
-                etid: 'fa315beb4a984093b608439b79baa484'
-                // etid: this.$quiz.quiz.etid
+                uid: window.sessionStorage.getItem("user"),
+                // etid: 'fa315beb4a984093b608439b79baa484'
+                etid: this.$quiz.quiz.etid
             }).then(data => {
                 this.mianlistarry = data.generalvideos
             })
         }else if(paths === '/myCourses') {
             // 我的课程
-            api.myCourseLise({userid: '20f3a3a8292d4a45b62586531a2b1faa'}).then(data => {
-                this.mianlistarry = data.userLearns
+            api.myCourseLise({userid: window.sessionStorage.getItem("user")}).then(data => {
+                if(data.data !== null) {
+                    this.mianlistarry = data.userLearns
+                }else {
+                    this.terms = '暂无购买课程'
+                }
             })
         } else {
             // 0元课程

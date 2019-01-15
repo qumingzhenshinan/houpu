@@ -100,7 +100,7 @@ import noData from '@/components/noDataDisplay'
     },
     created(){
 
-        api.Getmycoupon({uid:'a958d03cc43c44db83b0178b8a752fd6'}).then(data => {
+        api.Getmycoupon({uid: window.sessionStorage.getItem("user")}).then(data => {
             console.log(data);
             if(data.coupons === undefined) {
                 this.couponlist = data.coupons

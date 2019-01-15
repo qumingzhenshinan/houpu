@@ -42,22 +42,18 @@ export default {
   methods: {
     gologins() {
       this.booleans.loginm = false
-      this.booleans.register = false
       this.booleans.logins = true
     },
     goRegister() {
       this.booleans.register = true
-      this.booleans.logins = false
       this.booleans.loginm = false
     },
     gologin() {
       this.booleans.loginm = true
       this.booleans.register = false
-      this.booleans.logins = false
     },
     gologinm() {
       this.booleans.loginm = true
-      this.booleans.register = false
       this.booleans.logins = false
     }
   },

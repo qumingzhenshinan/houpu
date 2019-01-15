@@ -155,7 +155,7 @@ export default {
       })
       api.getAnswer({
         'etid': this.$quiz.quiz.etid,
-        'uid': 'a958d03cc43c44db83b0178b8a752fd6',
+        'uid': window.sessionStorage.getItem("user"),
         'questions': JSON.stringify(this.answers)
       }).then(data => {
         this.GetQuizResult(data)
@@ -203,7 +203,7 @@ export default {
       if(this.answers.length == this.topics.length) {
         api.getAnswer({
           'etid': this.$quiz.quiz.etid,
-          'uid': 'a958d03cc43c44db83b0178b8a752fd6',
+          'uid': window.sessionStorage.getItem("user"),
           'questions': JSON.stringify(this.answers)
         }).then(data => {
           this.GetQuizResult(data)

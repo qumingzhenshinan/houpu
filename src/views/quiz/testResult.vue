@@ -68,33 +68,7 @@ export default {
     return {
       base: '',
       zimus: ["A","B","C","D","E","F","G","H"],
-      course: [
-        {
-          title: '文学常识梳理班——聚力计划语文一',
-          teacher: '田园',
-          intro: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
-          price: '1680.00',
-          rprice: '2000.00'
-        },{
-          title: '文学常识梳理班——聚力计划语文一',
-          teacher: '田园',
-          intro: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
-          price: '1680.00',
-          rprice: '2000.00'
-        },{
-          title: '文学常识梳理班——聚力计划语文一',
-          teacher: '田园',
-          intro: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
-          price: '1680.00',
-          rprice: '2000.00'
-        },{
-          title: '文学常识梳理班——聚力计划语文一',
-          teacher: '田园',
-          intro: '这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍这是课程介绍',
-          price: '1680.00',
-          rprice: '2000.00'
-        },
-      ],
+      course: [],
       errorQ: []
     }
   },
@@ -109,17 +83,16 @@ export default {
   created() {
     this.base = base
     console.log(this.$quiz);
-    api.findPAnswer({uid: 'a958d03cc43c44db83b0178b8a752fd6', etid: '5c271a1f08b4417b90099c9cf8b765e3'}).then(data => {
+    api.findPAnswer({uid: window.sessionStorage.getItem("user"), etid: this.$quiz.quiz.etid}).then(data => {
       this.errorQ = data.errorquestions
       console.log(data);
     })
     // 获取推荐课程
     api.getrecommendedC({
-      uid: '0340eb5d283f4fffaba9c9bf9a4d5da2',
-      etid: 'fa315beb4a984093b608439b79baa484'
-      // etid: this.$quiz.quiz.etid
+      uid: window.sessionStorage.getItem("user"),
+      // etid: 'fa315beb4a984093b608439b79baa484'
+      etid: this.$quiz.quiz.etid
     }).then(data => {
-      console.log(data);
       this.course = data.generalvideos
     })
   }

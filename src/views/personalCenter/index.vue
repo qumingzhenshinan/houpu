@@ -58,8 +58,8 @@
                         <el-col :span="24">
                             <div style="width:100%;height:100%;text-align:center;">
                                 <img src="@/assets/img/Headportrait.png" alt="" style="widh:140px;height:140px;">
-                                <!-- <img :src="'http://www.houpuclass.com:8089' + user.yqCodeUrl" alt=""> -->
-                                <p style="margin-top:20px;"v-if="user.userName == ''">昵称：{{userName}}</p>
+                                <!-- <img :src="'http://www.houpuclass.com:8080' + user.yqCodeUrl" alt=""> -->
+                                <p style="margin-top:20px;"v-if="user.userName == ''">昵称：{{user.userName}}</p>
                                 <p style="margin-top:20px;"v-else>昵称：{{user.userName}}</p>
                                 <el-button type="primary" size="medium" style="width:100px;margin-top:20px;" @click="Setup">设置</el-button>
                             </div>
@@ -88,8 +88,8 @@
                                 <el-form label-width="450px" >
                                     <el-row>
                                         <el-col :span="14">
-                                            <el-form-item label="昵称:" prop="username">
-                                                <el-input v-model="username" size="small" style="width:112%" @blur="getusername(username)"/>
+                                            <el-form-item label="昵称:" prop="user.userName">
+                                                <el-input v-model="user.userName" size="small" style="width:112%" @blur="getusername(user.userName)"/>
                                             </el-form-item>
                                         </el-col>
                                     </el-row>
@@ -137,9 +137,9 @@ export default {
             user:{}
         }
     },
+    inject: ['reload'],
     created(){
-        api.selectUser({uid: '07711212f22b4ed89f66272ff35938f3'}).then(data => {
-            console.log(data)
+        api.selectUser({uid: window.sessionStorage.getItem("user")}).then(data => {
             this.user = data
         })
     },
@@ -168,6 +168,7 @@ export default {
             this.setupstate = false
         },
         getusername(val){
+            console.log(val);
             this.usernameval = val
         },
         cancelbtn() {
@@ -175,32 +176,36 @@ export default {
         },
         Detailusername(){
             var data = {
-                uid: '681f95051bbf4978b455688a285b483a',
-                username: this.usernameval
+                uid: window.sessionStorage.getItem("user"),
+                userName: this.usernameval
             }
             api.DetailUsername(data).then(data => {
-                if(data.status == 200) {
+                if(data === true) {
+                    this.reload()
                     if(this.filename !== '') {
                         this.$refs.changeFile.submit()
-                     }else{
-                         this.uploadSectionFile({})
-                     }
+                    }else{
+                        this.uploadSectionFile({})
+                    }
+                }else {
+                    alert('修改失败')
                 }
+        
             })
         },
         getInfoFile(file, fileList){
             console.log(file, fileList);
             this.filename = file
-            axios.post('http://www.houpuclass.com:8089/user/profiles', {uid: 'a958d03cc43c44db83b0178b8a752fd6', profile: file},{headers:{'Content-Type':'multipart/form-data'}}).then(data => {
+            axios.post('http://www.houpuclass.com:8080/user/profiles', {uid: window.sessionStorage.getItem("user"), profile: file},{headers:{'Content-Type':'multipart/form-data'}}).then(data => {
                 console.log(data)
             })
         },
         uploadSectionFile(param){
             console.log(param);
             var visaObj = {
-                uid: '681f95051bbf4978b455688a285b483a'
+                uid: window.sessionStorage.getItem("user")
             }
-            upload(url.updataimg, param.file, JSON.stringify({uid: '681f95051bbf4978b455688a285b483a'})).then(res => {
+            upload(url.updataimg, param.file, JSON.stringify({uid: window.sessionStorage.getItem("user")})).then(res => {
 
             })
         },

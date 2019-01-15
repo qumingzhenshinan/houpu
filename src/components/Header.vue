@@ -5,7 +5,7 @@
 				<img src="../assets/img/logo.png" alt="">
 			</div>
 			<div class="search">
-				<input type="text" name="" @keydown.enter="select" v-model="selectS" placeholder="请输入课程名称或者教师姓名"><el-button @click="select" type="primary" icon="el-icon-search"></el-button>
+				<input type="text" name="" @keydown.enter="select" v-model="selectS" placeholder="请输入课程名称、科目或者年级"><el-button @click="select" type="primary" icon="el-icon-search"></el-button>
 			</div>
 			<div class="phone">
 				<p>客服电话：<span>400-898-9991</span></p>
@@ -34,7 +34,8 @@
 				<li class="headerHight" @click="newCourse"><p>最新课程 <span></span></p></li>
 				<li class="headerHight"><p><router-link :to="{ path: '/quiz' }">小测验</router-link> <span></span></p></li>
 				<li class="headerHight" @click="myCourse"><p>我的课程 <span></span></p></li>
-				<li class="user" @click="Personal"><img src="../assets/Header/userImg.png" alt=""><span>张三</span></li>
+				<li v-if="user.userName !== undefined" class="user" @click="Personal"><span>{{user.userName}}</span><img v-if="user.headImgUrl == null" src="../assets/Header/userImg.png" alt=""><img v-if="user.headImgUrl !== null" :src="'http://www.houpuclass.com:8080' + user.headImgUrl" alt=""></li>
+				<li class="user" v-if="user.userName === undefined" @click="goStart">登录/注册</li>
 			</ul>
 		</div>
 	</div>
@@ -51,17 +52,25 @@ export default{
 			subjectH: [],
 			classH: [],
 			subjectstate: [],
-			selectS: ''
+			selectS: '',
+			user: ''
 		}
 	},
 	inject: ['reload'],
 	methods: {
 		...mapActions(['GetTerm', 'GetList']),
+		goStart() {
+			this.$router.push('/start')
+		},
 		select() {
 			api.selectHeader({value: this.selectS}).then(data => {
-				this.GetList(data.generalvideos)
-				this.reload()
-				this.$router.push('/selectCourse')
+				if(data.generalvideos !== undefined) {
+					this.GetList(data.generalvideos)
+					this.reload()
+					this.$router.push('/selectCourse')
+				}else {
+					alert('暂无数据')
+				}
 			})
 			
 		},
@@ -95,14 +104,17 @@ export default{
 		}
 	},
 	created() {
-        axios.get('http://www.houpuclass.com:8089/course/selectGclassify').then(data => {
+        axios.get('http://www.houpuclass.com:8080/course/selectGclassify').then(data => {
             this.subjectstate = data.data.data.lists
         })
-        axios.get('http://www.houpuclass.com:8089/course/selectGclass').then(data => {
+        axios.get('http://www.houpuclass.com:8080/course/selectGclass').then(data => {
             this.classH = data.data.data.lists
         })
-        axios.get('http://www.houpuclass.com:8089/course/selectGsbuject').then(data => {
+        axios.get('http://www.houpuclass.com:8080/course/selectGsbuject').then(data => {
             this.subjectH = data.data.data.lists
+        })
+        api.selectUser({uid: window.sessionStorage.getItem("user")}).then(data => {
+            this.user = data
         })
 	}
 }
@@ -246,20 +258,19 @@ export default{
 .crouseType li:hover p{
 	border: 0;
 }
-.user{
-	position: relative;
+.user {
+	float: right !important;
 }
 .user span{
 	margin-left: 10px;
 	float: right;
 }
 .user img{
+	float: right;
 	width: 30px;
 	height: 30px;
 	margin-left: 3px;
-	position: absolute;
-	top: 10px;
-	left: 120px;
+	margin-top: 10px;
 }
 .selectGrade{
     text-align: left;

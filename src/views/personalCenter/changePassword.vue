@@ -248,7 +248,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     var data = {
-                        uid: '107eaf81f1074538a1a40f8d4cbb6269',
+                        uid: window.sessionStorage.getItem("user"),
                         password1: this.step3.mima,
                         password2: this.step3.rmima
                     }
@@ -267,7 +267,7 @@ export default {
             this.passwordstate = false;
             this.passwordsuccess= true
             var data = {
-                uid: '107eaf81f1074538a1a40f8d4cbb6269',
+                uid: window.sessionStorage.getItem("user"),
                 password1: this.step3.mima,
                 password2: this.step3.rmima
             }
@@ -279,7 +279,7 @@ export default {
         getphonenum(){
             if(this.phone.num.length > 0 || phones === true) {
                 axios({
-                    url: 'http://www.houpuclass.com:8089/message/ycode',
+                    url: 'http://www.houpuclass.com:8080/message/ycode',
                     method: 'post',
                     data: qs.stringify({tel: this.phone.name + ""}),
                     headers: {

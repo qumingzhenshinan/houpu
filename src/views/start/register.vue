@@ -159,7 +159,7 @@ export default {
     getphoneCode() {
       if(codes === true) {
         axios({
-          url: 'http://www.houpuclass.com:8089/message/ycode',
+          url: 'http://www.houpuclass.com:8080/message/ycode',
           method: 'post',
           data: qs.stringify({tel: this.login.name + ""}),
           headers: {

@@ -21,7 +21,6 @@
           <span class="scode" @click="createCode">{{verificationCode}}</span>
         </el-form-item>
         <el-form-item>
-          <el-checkbox label="自动登录" name="type"></el-checkbox>
           <el-button @click="submitForm('login')" class="login" type="primary">登录</el-button>
         </el-form-item>
       </el-form>
@@ -103,15 +102,24 @@ export default {
       verificationCode: ''
     }
   },
+  inject: ['reload'],
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           api.getlogin({
-            userName: this.login.name,
+            phoneNo: this.login.name,
             passWord: this.login.pass
           }).then(data => {
-            console.log(data);
+            // 存入session
+            if(data !== null) {
+              this.$router.push('/')
+              window.sessionStorage.setItem("user", data.uid);
+            }else {
+              alert('账号或密码错误，请重新登录')
+              this.reload()
+            }
+            
           })
         } else {
           return false;

@@ -44,35 +44,7 @@ export default {
 	data() {
 		return {
 			quizConent: '',
-			quizs: [
-				{
-					title: '语文类三年级小测试1',
-					subject: '语文',
-					timeLenght: '90分钟',
-					intro: '试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍'
-				},
-				{
-					title: '语文类三年级小测试2',
-					subject: '语文',
-					timeLenght: '90分钟',
-					intro: '试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍'
-				},{
-					title: '语文类三年级小测试3',
-					subject: '语文',
-					timeLenght: '90分钟',
-					intro: '试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍'
-				},{
-					title: '语文类三年级小测试4',
-					subject: '语文',
-					timeLenght: '90分钟',
-					intro: '试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍'
-				},{
-					title: '语文类三年级小测试5',
-					subject: '语文',
-					timeLenght: '90分钟',
-					intro: '试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍试卷介绍'
-				}
-			],
+			quizs: [],
 			Mpage: 5,
 			page: 1
 		}

@@ -17,6 +17,11 @@ export default {
       reload: this.reload
     }
   },
+  created() {
+    if(window.sessionStorage.getItem("user") === null) {
+      this.$router.push('/start')
+    }
+  },
   methods: {
     reload() {
       this.isRouterAlive = false

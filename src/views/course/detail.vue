@@ -206,11 +206,11 @@ export default {
         // 获取课程详情
         var _data = data
         api.Coursedetails(_data).then(data =>{
-            this.playerOptions.poster = 'http://www.houpuclass.com:8089' + data.gvimg
+            this.playerOptions.poster = 'http://www.houpuclass.com:8080' + data.gvimg
             this.coursedetails = data
             if(data.gvideoUrl != ''){
                 for(let key in this.playerOptions.sources){
-                    this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8089' + data.gvideoUrl
+                    this.playerOptions.sources[key].src = 'http://www.houpuclass.com:8080' + data.gvideoUrl
                 }
             }else{
                 // 获取章节
@@ -218,7 +218,7 @@ export default {
                     // console.log(data.videoChild)
                     this.cataloguearr = data.videoChild
                     console.log(this.cataloguearr)
-                    this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8089' + data.videoChild[0].vcideoUrl
+                    this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8080' + data.videoChild[0].vcideoUrl
                 })
             }
         })
@@ -232,7 +232,7 @@ export default {
         
         },
         startMp4(data) {
-            this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8089' + data.vcideoUrl
+            this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8080' + data.vcideoUrl
             var t = document.documentElement||document.body
             t.scrollTop = 100
             this.playerOptions.autoplay = true

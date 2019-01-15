@@ -41,7 +41,7 @@
                     <el-row class="">
                         <el-col :span="5">
                             <div class="mainlist-img">
-                                <img :src="'http://www.houpuclass.com:8089' + item.gvimg" alt="">
+                                <img :src="'http://www.houpuclass.com:8080' + item.gvimg" alt="">
                             </div>
                         </el-col>
                         <el-col :span="18">

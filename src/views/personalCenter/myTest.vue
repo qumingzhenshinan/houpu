@@ -62,6 +62,7 @@
                                             <p class="textcomment">试卷后评语：{{item.content}}</p>
                                             <el-button @click="gorecommended(item)" class="textbtn">查看推荐视频 &nbsp;></el-button>
                                         </div>
+                                        <no-data :inforData='textlist' tips='您还没进行测试'></no-data>
                                     </div>
                                 </el-tab-pane>
                             </el-tabs>
@@ -98,56 +99,21 @@ import api from '@/api'
 import { mapActions, mapGetters} from 'vuex'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import noData from '@/components/noDataDisplay'
+
   export default {
-      components:{Header,Footer},
+      components:{Header,Footer,noData},
       data(){
         return {
            activeName: 'first',
            classstate:'4',
            Mpage: 6,
 		   currentPage: 1,
-           textlist:[
-                {
-                    title:'一年级语文小测验一年级语文小测验一年级语文小测验',
-                    Subject:'语文',
-                    fraction: '100',
-                    comment:'完善度较好完善度较好完善度较好完善度较好完善度较完善度较好完善度较好完善度较好完善度较好完善度较好'
-                },
-                {
-                    title:'一年级语文小测验一年级语文小测验一年级语文小测验',
-                    Subject:'语文',
-                    fraction: '100',
-                    comment:'完善度较好完善度较好完善度较好'
-                },
-                {
-                    title:'一年级语文小测验一年级语文小测验一年级语文小测验',
-                    Subject:'语文',
-                    fraction: '100',
-                    comment:'完善度较好完善度较好完善度较好'
-                },
-                {
-                    title:'一年级语文小测验一年级语文小测验一年级语文小测验',
-                    Subject:'语文',
-                    fraction: '100',
-                    comment:'完善度较好完善度较好完善度较好'
-                },
-                {
-                    title:'一年级语文小测验一年级语文小测验一年级语文小测验',
-                    Subject:'语文',
-                    fraction: '100',
-                    comment:'完善度较好完善度较好完善度较好'
-                },
-                {
-                    title:'一年级语文小测验一年级语文小测验一年级语文小测验',
-                    Subject:'语文',
-                    fraction: '100',
-                    comment:'完善度较好完善度较好完善度较好'
-                },
-           ]
+           textlist:[]
         }
     },
     created(){
-        api.ExamHistoy({uid:'404a256f91b945249c199ad120d8fe9a'}).then(data => {
+        api.ExamHistoy({uid: window.sessionStorage.getItem("user")}).then(data => {
             this.textlist = data.exams
         })
     },
