@@ -88,7 +88,14 @@ export default {
             if (!(/^1[3456789]\d{9}$/.test(value))) {
               callback(new Error('手机号格式不正确'));
             } else {
-              callback();
+            	api.queryPhone({phoneNo: value}).then(data => {
+            		if(data === 1) {
+            			callback();
+            		}else {
+            			callback(new Error('该手机号未注册'));
+            		}
+            	})
+              
             }
           }
         }, 1000);

@@ -12,3 +12,7 @@ export function reMCUser(params) {
 export function getlogin(params) {
 	return fetch.post(URL.getlogin, params)
 }
+
+export function queryPhone(params) {
+	return fetch.post(URL.queryPhone, params)
+}

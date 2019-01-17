@@ -39,6 +39,7 @@ const urls = {
 	getPhoneC: BASE + '/message/ycode', // post根据手机号获取验证码
 	reMCUser: BASE + '/user/regist', // post密码手机号注册验证
 	getlogin: BASE + '/user/login', // post 登录
+	queryPhone: BASE + '/user/queryByPhoneNo', // 验证手机号是否存在
 	// 添加评价
 	addping: BASE + '/comment/insert', // 添加评价
 	myCourseLise: BASE + '/userlearn/select', // 我看过的课程列表（视频列表）

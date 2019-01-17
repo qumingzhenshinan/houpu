@@ -63,7 +63,8 @@ import {
 import {
   getPhoneC,
   reMCUser,
-  getlogin
+  getlogin,
+  queryPhone
 } from "@/api/modules/start"
 
 
@@ -105,5 +106,6 @@ export default {
   selectUser,
   addping,
   selectHeader,
-  myCourseLise
+  myCourseLise,
+  queryPhone
 }
