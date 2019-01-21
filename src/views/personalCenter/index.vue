@@ -196,9 +196,9 @@ export default {
         getInfoFile(file, fileList){
             console.log(file, fileList);
             this.filename = file
-            axios.post('http://www.houpuclass.com:8080/user/profiles', {uid: window.sessionStorage.getItem("user"), profile: file},{headers:{'Content-Type':'multipart/form-data'}}).then(data => {
-                console.log(data)
-            })
+            // axios.post('http://192.168.43.120:8080/user/profiles', JSON.stringify({uid: window.sessionStorage.getItem("user"), profile: file}),{headers:{'Content-Type':'multipart/form-data'}}).then(data => {
+            //     console.log(data)
+            // })
         },
         uploadSectionFile(param){
             console.log(param);

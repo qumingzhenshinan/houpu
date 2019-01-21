@@ -1,5 +1,5 @@
 const BASE = 'http://www.houpuclass.com:8080'   //接口网址
-const BASE1 = 'http://192.168.3.94:8090'   // 测试网址
+const BASE1 = 'http://192.168.43.120:8080'   // 测试网址
 
 const urls = {
 	students: BASE + '/trophy/select',//get获取所有学员
@@ -44,7 +44,8 @@ const urls = {
 	addping: BASE + '/comment/insert', // 添加评价
 	myCourseLise: BASE + '/userlearn/select', // 我看过的课程列表（视频列表）
 	// header头部查询
-	selectHeader: BASE + '/course/selectByValue' // 课程模糊查询
+	selectHeader: BASE + '/course/selectByValue', // 课程模糊查询
+	addVideo: BASE + '/userlearn/insert'  // 添加看过的视频
 
 }
 

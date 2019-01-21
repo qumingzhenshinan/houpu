@@ -34,7 +34,7 @@
 				<li class="headerHight" @click="newCourse"><p>最新课程 <span></span></p></li>
 				<li class="headerHight"><p><router-link :to="{ path: '/quiz' }">小测验</router-link> <span></span></p></li>
 				<li class="headerHight" @click="myCourse"><p>我的课程 <span></span></p></li>
-				<li v-if="user.userName !== undefined" class="user" @click="Personal"><span>{{user.userName}}</span><img v-if="user.headImgUrl == null" src="../assets/Header/userImg.png" alt=""><img v-if="user.headImgUrl !== null" :src="'http://www.houpuclass.com:8080' + user.headImgUrl" alt=""></li>
+				<li v-if="user.userName !== undefined" class="user" @click="Personal"><span style="font-size:13px" @click="removeLogin">退出登录</span><span>{{user.userName}}</span><img v-if="user.headImgUrl == null" src="../assets/Header/userImg.png" alt=""><img v-if="user.headImgUrl !== null" :src="'http://www.houpuclass.com:8080' + user.headImgUrl" alt=""></li>
 				<li class="user" v-if="user.userName === undefined" @click="goStart">登录/注册</li>
 			</ul>
 		</div>
@@ -59,6 +59,12 @@ export default{
 	inject: ['reload'],
 	methods: {
 		...mapActions(['GetTerm', 'GetList']),
+		removeLogin() {
+			event.stopPropagation();
+			window.sessionStorage.removeItem("user")
+			this.$router.push('/')
+			this.reload()
+		},
 		goStart() {
 			this.$router.push('/start')
 		},

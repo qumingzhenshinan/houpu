@@ -18,9 +18,6 @@ export default {
     }
   },
   created() {
-    if(window.sessionStorage.getItem("user") === null) {
-      this.$router.push('/start')
-    }
   },
   methods: {
     reload() {
@@ -158,5 +155,9 @@ a {
 /* 评价星级 */
 .el-rate__icon {
     font-size: 24px;
+}
+
+.el-tabs__active-bar {
+  background-color: #e4e7ed;
 }
 </style>

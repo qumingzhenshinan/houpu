@@ -53,7 +53,7 @@
                 </el-row>
             </div>
             <div class="mian-content">
-                <el-tabs v-model="activeName">
+                <el-tabs v-model="activeName" >
                     <el-tab-pane label="课程目录" name="first" v-if="cataloguearr.length != 0">
                         <div v-for="item in cataloguearr" style="margin-bottom:20px;">
                             <div class="chaptersList">
@@ -134,6 +134,7 @@ export default {
     data(){
         return {
             activeName: 'first',
+            stretch: true,
             value1:2,
             Mpage: 2,
 			currentPage: 1,
@@ -185,7 +186,13 @@ export default {
         }
     },
     created(){
-        
+        var date = new Date()
+        api.addVideo({
+            userid: window.sessionStorage.getItem("user"),
+            learnTime: 0,
+            learnDate: date.getFullYear() +'-'+ date.getMonth()+1 + '-' + date.getDate() + ' ' + date.getHours() +':'+date.getMinutes() +':'+ date.getSeconds(),
+            gid: this.$route.params.gid
+        }).then(data => {})
         // for(let key in this.playerOptions.sources){
              // this.playerOptions.sources[key].src=require('../../assets/Course/test.mp4')
         // }
@@ -195,7 +202,6 @@ export default {
         }
         // 获取评论
         api.Coursecomment(data).then(data =>{
-            console.log(data);
             data.comments.forEach(item => {
                 api.selectUser({uid: item.cuid}).then(data => {
                     this.commentlist.push({...data,content:data.content})
@@ -217,7 +223,7 @@ export default {
                 api.coursecatalogue(_data).then(data => {
                     // console.log(data.videoChild)
                     this.cataloguearr = data.videoChild
-                    console.log(this.cataloguearr)
+                    // console.log(this.cataloguearr)
                     this.playerOptions.sources[0].src = 'http://www.houpuclass.com:8080' + data.videoChild[0].vcideoUrl
                 })
             }

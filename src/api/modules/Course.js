@@ -28,3 +28,7 @@ export function myCourseLise(params) {
 export function selectHeader(params) {
 	return fetch.post(URL.selectHeader, params)
 }
+
+export function addVideo(params) {
+	return fetch.post(URL.addVideo, params)
+}

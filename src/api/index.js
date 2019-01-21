@@ -27,7 +27,8 @@ import {
   findCourse,
   getrecommendedC,
   myCourseLise,
-  selectHeader
+  selectHeader,
+  addVideo
 } from "@/api/modules/Course"
 
 import {
@@ -107,5 +108,6 @@ export default {
   addping,
   selectHeader,
   myCourseLise,
-  queryPhone
+  queryPhone,
+  addVideo
 }
